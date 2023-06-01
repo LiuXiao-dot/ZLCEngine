@@ -1,0 +1,14 @@
+{
+  "name": "com.zlc.zlcengine",
+  "version": "0.0.1",
+  "displayName": "ZLCEngine",
+  "description": "Unity ZLC框架，包括场景，资源，线程，UI，编辑器工具等",
+  "unity": "2022.2",
+  "author": {
+    "name": "AnRanJun"
+  },
+  "dependencies": {
+    "com.unity.addressables.cn":"1.19.16",
+    "com.unity.inputsystem": "1.4.4"
+  }
+}
