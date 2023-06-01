@@ -186,7 +186,7 @@
       "url": "https://packages.unity.cn"
     },
     "com.zlc.zlcengine": {
-      "version": "file:ZLCEngine",
+      "version": "file:com.zlc.zlcengine",
       "depth": 0,
       "source": "embedded",
       "dependencies": {
