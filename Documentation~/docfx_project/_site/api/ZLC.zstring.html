@@ -1,0 +1,2883 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class zstring
+ </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class zstring
+ ">
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      
+      
+      
+      
+  </head>
+
+  <script type="module">
+    import options from './../public/main.js'
+    import { init } from './../public/docfx.min.js'
+    init(options)
+  </script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="ZLC.zstring">
+
+
+
+  <h1 id="ZLC_zstring" data-uid="ZLC.zstring" class="text-break">
+    Class zstring
+  
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="ZLC.html">ZLC</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>ZLC.Core.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"></div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class zstring</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">zstring</span></div>
+    </dd>
+  </dl>
+
+
+
+  <dl class="typelist derived">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+  </dd></dl>
+
+
+
+
+
+
+  <h2 class="section" id="fields">Fields
+</h2>
+
+
+
+  <h3 id="ZLC_zstring_DecimalAccuracy" data-uid="ZLC.zstring.DecimalAccuracy">
+  DecimalAccuracy
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static uint DecimalAccuracy</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="ZLC_zstring_Log" data-uid="ZLC.zstring.Log">
+  Log
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Action&lt;string&gt; Log</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-1">Action</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="ZLC_zstring_g_current_block" data-uid="ZLC.zstring.g_current_block">
+  g_current_block
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static zstring.zstring_block g_current_block</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ZLC.zstring.html">zstring</a>.<a class="xref" href="ZLC.zstring.zstring_block.html">zstring_block</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="ZLC_zstring_Item_" data-uid="ZLC.zstring.Item*"></a>
+
+  <h3 id="ZLC_zstring_Item_System_Int32_" data-uid="ZLC.zstring.Item(System.Int32)">
+  this[int]
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public char this[int i] { get; set; }</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>i</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.char">char</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="ZLC_zstring_Length_" data-uid="ZLC.zstring.Length*"></a>
+
+  <h3 id="ZLC_zstring_Length" data-uid="ZLC.zstring.Length">
+  Length
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int Length { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="ZLC_zstring_Block_" data-uid="ZLC.zstring.Block*"></a>
+
+  <h3 id="ZLC_zstring_Block" data-uid="ZLC.zstring.Block">
+  Block()
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IDisposable Block()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable">IDisposable</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ZLC_zstring_Concat_" data-uid="ZLC.zstring.Concat*"></a>
+
+  <h3 id="ZLC_zstring_Concat_ZLC_zstring_" data-uid="ZLC.zstring.Concat(ZLC.zstring)">
+  Concat(zstring)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public zstring Concat(zstring value)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>value</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ZLC_zstring_Concat_" data-uid="ZLC.zstring.Concat*"></a>
+
+  <h3 id="ZLC_zstring_Concat_ZLC_zstring_ZLC_zstring_" data-uid="ZLC.zstring.Concat(ZLC.zstring,ZLC.zstring)">
+  Concat(zstring, zstring)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static zstring Concat(zstring s0, zstring s1)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>s0</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>s1</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ZLC_zstring_Concat_" data-uid="ZLC.zstring.Concat*"></a>
+
+  <h3 id="ZLC_zstring_Concat_ZLC_zstring_ZLC_zstring_ZLC_zstring_" data-uid="ZLC.zstring.Concat(ZLC.zstring,ZLC.zstring,ZLC.zstring)">
+  Concat(zstring, zstring, zstring)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static zstring Concat(zstring s0, zstring s1, zstring s2)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>s0</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>s1</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>s2</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ZLC_zstring_Concat_" data-uid="ZLC.zstring.Concat*"></a>
+
+  <h3 id="ZLC_zstring_Concat_ZLC_zstring_ZLC_zstring_ZLC_zstring_ZLC_zstring_" data-uid="ZLC.zstring.Concat(ZLC.zstring,ZLC.zstring,ZLC.zstring,ZLC.zstring)">
+  Concat(zstring, zstring, zstring, zstring)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static zstring Concat(zstring s0, zstring s1, zstring s2, zstring s3)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>s0</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>s1</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>s2</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>s3</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ZLC_zstring_Concat_" data-uid="ZLC.zstring.Concat*"></a>
+
+  <h3 id="ZLC_zstring_Concat_ZLC_zstring_ZLC_zstring_ZLC_zstring_ZLC_zstring_ZLC_zstring_" data-uid="ZLC.zstring.Concat(ZLC.zstring,ZLC.zstring,ZLC.zstring,ZLC.zstring,ZLC.zstring)">
+  Concat(zstring, zstring, zstring, zstring, zstring)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static zstring Concat(zstring s0, zstring s1, zstring s2, zstring s3, zstring s4)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>s0</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>s1</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>s2</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>s3</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>s4</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ZLC_zstring_Concat_" data-uid="ZLC.zstring.Concat*"></a>
+
+  <h3 id="ZLC_zstring_Concat_ZLC_zstring_ZLC_zstring_ZLC_zstring_ZLC_zstring_ZLC_zstring_ZLC_zstring_" data-uid="ZLC.zstring.Concat(ZLC.zstring,ZLC.zstring,ZLC.zstring,ZLC.zstring,ZLC.zstring,ZLC.zstring)">
+  Concat(zstring, zstring, zstring, zstring, zstring, zstring)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static zstring Concat(zstring s0, zstring s1, zstring s2, zstring s3, zstring s4, zstring s5)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>s0</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>s1</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>s2</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>s3</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>s4</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>s5</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ZLC_zstring_Concat_" data-uid="ZLC.zstring.Concat*"></a>
+
+  <h3 id="ZLC_zstring_Concat_ZLC_zstring_ZLC_zstring_ZLC_zstring_ZLC_zstring_ZLC_zstring_ZLC_zstring_ZLC_zstring_" data-uid="ZLC.zstring.Concat(ZLC.zstring,ZLC.zstring,ZLC.zstring,ZLC.zstring,ZLC.zstring,ZLC.zstring,ZLC.zstring)">
+  Concat(zstring, zstring, zstring, zstring, zstring, zstring, zstring)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static zstring Concat(zstring s0, zstring s1, zstring s2, zstring s3, zstring s4, zstring s5, zstring s6)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>s0</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>s1</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>s2</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>s3</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>s4</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>s5</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>s6</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ZLC_zstring_Concat_" data-uid="ZLC.zstring.Concat*"></a>
+
+  <h3 id="ZLC_zstring_Concat_ZLC_zstring_ZLC_zstring_ZLC_zstring_ZLC_zstring_ZLC_zstring_ZLC_zstring_ZLC_zstring_ZLC_zstring_" data-uid="ZLC.zstring.Concat(ZLC.zstring,ZLC.zstring,ZLC.zstring,ZLC.zstring,ZLC.zstring,ZLC.zstring,ZLC.zstring,ZLC.zstring)">
+  Concat(zstring, zstring, zstring, zstring, zstring, zstring, zstring, zstring)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static zstring Concat(zstring s0, zstring s1, zstring s2, zstring s3, zstring s4, zstring s5, zstring s6, zstring s7)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>s0</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>s1</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>s2</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>s3</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>s4</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>s5</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>s6</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>s7</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ZLC_zstring_Concat_" data-uid="ZLC.zstring.Concat*"></a>
+
+  <h3 id="ZLC_zstring_Concat_ZLC_zstring_ZLC_zstring_ZLC_zstring_ZLC_zstring_ZLC_zstring_ZLC_zstring_ZLC_zstring_ZLC_zstring_ZLC_zstring_" data-uid="ZLC.zstring.Concat(ZLC.zstring,ZLC.zstring,ZLC.zstring,ZLC.zstring,ZLC.zstring,ZLC.zstring,ZLC.zstring,ZLC.zstring,ZLC.zstring)">
+  Concat(zstring, zstring, zstring, zstring, zstring, zstring, zstring, zstring, zstring)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static zstring Concat(zstring s0, zstring s1, zstring s2, zstring s3, zstring s4, zstring s5, zstring s6, zstring s7, zstring s8)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>s0</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>s1</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>s2</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>s3</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>s4</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>s5</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>s6</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>s7</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>s8</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ZLC_zstring_Concat_" data-uid="ZLC.zstring.Concat*"></a>
+
+  <h3 id="ZLC_zstring_Concat_ZLC_zstring_ZLC_zstring_ZLC_zstring_ZLC_zstring_ZLC_zstring_ZLC_zstring_ZLC_zstring_ZLC_zstring_ZLC_zstring_ZLC_zstring_" data-uid="ZLC.zstring.Concat(ZLC.zstring,ZLC.zstring,ZLC.zstring,ZLC.zstring,ZLC.zstring,ZLC.zstring,ZLC.zstring,ZLC.zstring,ZLC.zstring,ZLC.zstring)">
+  Concat(zstring, zstring, zstring, zstring, zstring, zstring, zstring, zstring, zstring, zstring)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static zstring Concat(zstring s0, zstring s1, zstring s2, zstring s3, zstring s4, zstring s5, zstring s6, zstring s7, zstring s8, zstring s9)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>s0</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>s1</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>s2</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>s3</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>s4</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>s5</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>s6</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>s7</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>s8</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>s9</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ZLC_zstring_Contains_" data-uid="ZLC.zstring.Contains*"></a>
+
+  <h3 id="ZLC_zstring_Contains_System_Char_" data-uid="ZLC.zstring.Contains(System.Char)">
+  Contains(char)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Contains(char value)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>value</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.char">char</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ZLC_zstring_Contains_" data-uid="ZLC.zstring.Contains*"></a>
+
+  <h3 id="ZLC_zstring_Contains_System_String_" data-uid="ZLC.zstring.Contains(System.String)">
+  Contains(string)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Contains(string value)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>value</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ZLC_zstring_EndsWith_" data-uid="ZLC.zstring.EndsWith*"></a>
+
+  <h3 id="ZLC_zstring_EndsWith_System_String_" data-uid="ZLC.zstring.EndsWith(System.String)">
+  EndsWith(string)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool EndsWith(string postfix)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>postfix</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ZLC_zstring_Equals_" data-uid="ZLC.zstring.Equals*"></a>
+
+  <h3 id="ZLC_zstring_Equals_System_Object_" data-uid="ZLC.zstring.Equals(System.Object)">
+  Equals(object)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Determines whether the specified object is equal to the current object.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override bool Equals(object obj)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>obj</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
+    <dd><p>The object to compare with the current object.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p><a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> if the specified object  is equal to the current object; otherwise, <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">false</a>.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ZLC_zstring_FloatToZstring_" data-uid="ZLC.zstring.FloatToZstring*"></a>
+
+  <h3 id="ZLC_zstring_FloatToZstring_System_Single_System_UInt32_" data-uid="ZLC.zstring.FloatToZstring(System.Single,System.UInt32)">
+  FloatToZstring(float, uint)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static zstring FloatToZstring(float value, uint DecimalAccuracy)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>value</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd></dd>
+    <dt><code>DecimalAccuracy</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ZLC_zstring_Format_" data-uid="ZLC.zstring.Format*"></a>
+
+  <h3 id="ZLC_zstring_Format_System_String_ZLC_zstring_" data-uid="ZLC.zstring.Format(System.String,ZLC.zstring)">
+  Format(string, zstring)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static zstring Format(string input, zstring arg0)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>input</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>arg0</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ZLC_zstring_Format_" data-uid="ZLC.zstring.Format*"></a>
+
+  <h3 id="ZLC_zstring_Format_System_String_ZLC_zstring_ZLC_zstring_" data-uid="ZLC.zstring.Format(System.String,ZLC.zstring,ZLC.zstring)">
+  Format(string, zstring, zstring)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static zstring Format(string input, zstring arg0, zstring arg1)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>input</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>arg0</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>arg1</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ZLC_zstring_Format_" data-uid="ZLC.zstring.Format*"></a>
+
+  <h3 id="ZLC_zstring_Format_System_String_ZLC_zstring_ZLC_zstring_ZLC_zstring_" data-uid="ZLC.zstring.Format(System.String,ZLC.zstring,ZLC.zstring,ZLC.zstring)">
+  Format(string, zstring, zstring, zstring)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static zstring Format(string input, zstring arg0, zstring arg1, zstring arg2)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>input</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>arg0</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>arg1</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>arg2</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ZLC_zstring_Format_" data-uid="ZLC.zstring.Format*"></a>
+
+  <h3 id="ZLC_zstring_Format_System_String_ZLC_zstring_ZLC_zstring_ZLC_zstring_ZLC_zstring_" data-uid="ZLC.zstring.Format(System.String,ZLC.zstring,ZLC.zstring,ZLC.zstring,ZLC.zstring)">
+  Format(string, zstring, zstring, zstring, zstring)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static zstring Format(string input, zstring arg0, zstring arg1, zstring arg2, zstring arg3)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>input</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>arg0</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>arg1</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>arg2</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>arg3</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ZLC_zstring_Format_" data-uid="ZLC.zstring.Format*"></a>
+
+  <h3 id="ZLC_zstring_Format_System_String_ZLC_zstring_ZLC_zstring_ZLC_zstring_ZLC_zstring_ZLC_zstring_" data-uid="ZLC.zstring.Format(System.String,ZLC.zstring,ZLC.zstring,ZLC.zstring,ZLC.zstring,ZLC.zstring)">
+  Format(string, zstring, zstring, zstring, zstring, zstring)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static zstring Format(string input, zstring arg0, zstring arg1, zstring arg2, zstring arg3, zstring arg4)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>input</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>arg0</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>arg1</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>arg2</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>arg3</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>arg4</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ZLC_zstring_Format_" data-uid="ZLC.zstring.Format*"></a>
+
+  <h3 id="ZLC_zstring_Format_System_String_ZLC_zstring_ZLC_zstring_ZLC_zstring_ZLC_zstring_ZLC_zstring_ZLC_zstring_" data-uid="ZLC.zstring.Format(System.String,ZLC.zstring,ZLC.zstring,ZLC.zstring,ZLC.zstring,ZLC.zstring,ZLC.zstring)">
+  Format(string, zstring, zstring, zstring, zstring, zstring, zstring)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static zstring Format(string input, zstring arg0, zstring arg1, zstring arg2, zstring arg3, zstring arg4, zstring arg5)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>input</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>arg0</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>arg1</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>arg2</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>arg3</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>arg4</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>arg5</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ZLC_zstring_Format_" data-uid="ZLC.zstring.Format*"></a>
+
+  <h3 id="ZLC_zstring_Format_System_String_ZLC_zstring_ZLC_zstring_ZLC_zstring_ZLC_zstring_ZLC_zstring_ZLC_zstring_ZLC_zstring_" data-uid="ZLC.zstring.Format(System.String,ZLC.zstring,ZLC.zstring,ZLC.zstring,ZLC.zstring,ZLC.zstring,ZLC.zstring,ZLC.zstring)">
+  Format(string, zstring, zstring, zstring, zstring, zstring, zstring, zstring)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static zstring Format(string input, zstring arg0, zstring arg1, zstring arg2, zstring arg3, zstring arg4, zstring arg5, zstring arg6)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>input</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>arg0</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>arg1</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>arg2</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>arg3</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>arg4</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>arg5</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>arg6</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ZLC_zstring_Format_" data-uid="ZLC.zstring.Format*"></a>
+
+  <h3 id="ZLC_zstring_Format_System_String_ZLC_zstring_ZLC_zstring_ZLC_zstring_ZLC_zstring_ZLC_zstring_ZLC_zstring_ZLC_zstring_ZLC_zstring_" data-uid="ZLC.zstring.Format(System.String,ZLC.zstring,ZLC.zstring,ZLC.zstring,ZLC.zstring,ZLC.zstring,ZLC.zstring,ZLC.zstring,ZLC.zstring)">
+  Format(string, zstring, zstring, zstring, zstring, zstring, zstring, zstring, zstring)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static zstring Format(string input, zstring arg0, zstring arg1, zstring arg2, zstring arg3, zstring arg4, zstring arg5, zstring arg6, zstring arg7)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>input</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>arg0</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>arg1</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>arg2</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>arg3</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>arg4</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>arg5</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>arg6</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>arg7</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ZLC_zstring_Format_" data-uid="ZLC.zstring.Format*"></a>
+
+  <h3 id="ZLC_zstring_Format_System_String_ZLC_zstring_ZLC_zstring_ZLC_zstring_ZLC_zstring_ZLC_zstring_ZLC_zstring_ZLC_zstring_ZLC_zstring_ZLC_zstring_" data-uid="ZLC.zstring.Format(System.String,ZLC.zstring,ZLC.zstring,ZLC.zstring,ZLC.zstring,ZLC.zstring,ZLC.zstring,ZLC.zstring,ZLC.zstring,ZLC.zstring)">
+  Format(string, zstring, zstring, zstring, zstring, zstring, zstring, zstring, zstring, zstring)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static zstring Format(string input, zstring arg0, zstring arg1, zstring arg2, zstring arg3, zstring arg4, zstring arg5, zstring arg6, zstring arg7, zstring arg8)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>input</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>arg0</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>arg1</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>arg2</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>arg3</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>arg4</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>arg5</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>arg6</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>arg7</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>arg8</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ZLC_zstring_Format_" data-uid="ZLC.zstring.Format*"></a>
+
+  <h3 id="ZLC_zstring_Format_System_String_ZLC_zstring_ZLC_zstring_ZLC_zstring_ZLC_zstring_ZLC_zstring_ZLC_zstring_ZLC_zstring_ZLC_zstring_ZLC_zstring_ZLC_zstring_" data-uid="ZLC.zstring.Format(System.String,ZLC.zstring,ZLC.zstring,ZLC.zstring,ZLC.zstring,ZLC.zstring,ZLC.zstring,ZLC.zstring,ZLC.zstring,ZLC.zstring,ZLC.zstring)">
+  Format(string, zstring, zstring, zstring, zstring, zstring, zstring, zstring, zstring, zstring, zstring)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static zstring Format(string input, zstring arg0, zstring arg1, zstring arg2, zstring arg3, zstring arg4, zstring arg5, zstring arg6, zstring arg7, zstring arg8, zstring arg9)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>input</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>arg0</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>arg1</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>arg2</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>arg3</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>arg4</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>arg5</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>arg6</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>arg7</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>arg8</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>arg9</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ZLC_zstring_GetCacheCount_" data-uid="ZLC.zstring.GetCacheCount*"></a>
+
+  <h3 id="ZLC_zstring_GetCacheCount_System_Int32_" data-uid="ZLC.zstring.GetCacheCount(System.Int32)">
+  GetCacheCount(int)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static int GetCacheCount(int length)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>length</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ZLC_zstring_GetHashCode_" data-uid="ZLC.zstring.GetHashCode*"></a>
+
+  <h3 id="ZLC_zstring_GetHashCode" data-uid="ZLC.zstring.GetHashCode">
+  GetHashCode()
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Serves as the default hash function.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override int GetHashCode()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd><p>A hash code for the current object.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ZLC_zstring_IndexOf_" data-uid="ZLC.zstring.IndexOf*"></a>
+
+  <h3 id="ZLC_zstring_IndexOf_System_Char_" data-uid="ZLC.zstring.IndexOf(System.Char)">
+  IndexOf(char)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int IndexOf(char value)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>value</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.char">char</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ZLC_zstring_IndexOf_" data-uid="ZLC.zstring.IndexOf*"></a>
+
+  <h3 id="ZLC_zstring_IndexOf_System_Char_System_Int32_" data-uid="ZLC.zstring.IndexOf(System.Char,System.Int32)">
+  IndexOf(char, int)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int IndexOf(char value, int start)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>value</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.char">char</a></dt>
+    <dd></dd>
+    <dt><code>start</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ZLC_zstring_IndexOf_" data-uid="ZLC.zstring.IndexOf*"></a>
+
+  <h3 id="ZLC_zstring_IndexOf_System_Char_System_Int32_System_Int32_" data-uid="ZLC.zstring.IndexOf(System.Char,System.Int32,System.Int32)">
+  IndexOf(char, int, int)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int IndexOf(char value, int start, int count)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>value</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.char">char</a></dt>
+    <dd></dd>
+    <dt><code>start</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+    <dt><code>count</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ZLC_zstring_IndexOf_" data-uid="ZLC.zstring.IndexOf*"></a>
+
+  <h3 id="ZLC_zstring_IndexOf_System_String_" data-uid="ZLC.zstring.IndexOf(System.String)">
+  IndexOf(string)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int IndexOf(string value)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>value</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ZLC_zstring_IndexOf_" data-uid="ZLC.zstring.IndexOf*"></a>
+
+  <h3 id="ZLC_zstring_IndexOf_System_String_System_Int32_" data-uid="ZLC.zstring.IndexOf(System.String,System.Int32)">
+  IndexOf(string, int)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int IndexOf(string value, int start)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>value</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>start</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ZLC_zstring_IndexOf_" data-uid="ZLC.zstring.IndexOf*"></a>
+
+  <h3 id="ZLC_zstring_IndexOf_System_String_System_Int32_System_Int32_" data-uid="ZLC.zstring.IndexOf(System.String,System.Int32,System.Int32)">
+  IndexOf(string, int, int)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int IndexOf(string value, int start, int count)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>value</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>start</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+    <dt><code>count</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ZLC_zstring_Initialize_" data-uid="ZLC.zstring.Initialize*"></a>
+
+  <h3 id="ZLC_zstring_Initialize_System_Int32_System_Int32_System_Int32_System_Int32_System_Int32_System_Int32_" data-uid="ZLC.zstring.Initialize(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+  Initialize(int, int, int, int, int, int)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Initialize(int cache_capacity, int stack_capacity, int block_capacity, int intern_capacity, int open_capacity, int shallowCache_capacity)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>cache_capacity</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+    <dt><code>stack_capacity</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+    <dt><code>block_capacity</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+    <dt><code>intern_capacity</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+    <dt><code>open_capacity</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+    <dt><code>shallowCache_capacity</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ZLC_zstring_Insert_" data-uid="ZLC.zstring.Insert*"></a>
+
+  <h3 id="ZLC_zstring_Insert_System_Char_System_Int32_System_Int32_" data-uid="ZLC.zstring.Insert(System.Char,System.Int32,System.Int32)">
+  Insert(char, int, int)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public zstring Insert(char value, int start, int count)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>value</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.char">char</a></dt>
+    <dd></dd>
+    <dt><code>start</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+    <dt><code>count</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ZLC_zstring_Insert_" data-uid="ZLC.zstring.Insert*"></a>
+
+  <h3 id="ZLC_zstring_Insert_System_String_System_Int32_" data-uid="ZLC.zstring.Insert(System.String,System.Int32)">
+  Insert(string, int)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public zstring Insert(string value, int start)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>value</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>start</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ZLC_zstring_Intern_" data-uid="ZLC.zstring.Intern*"></a>
+
+  <h3 id="ZLC_zstring_Intern" data-uid="ZLC.zstring.Intern">
+  Intern()
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Intern()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ZLC_zstring_Intern_" data-uid="ZLC.zstring.Intern*"></a>
+
+  <h3 id="ZLC_zstring_Intern_System_String_" data-uid="ZLC.zstring.Intern(System.String)">
+  Intern(string)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static string Intern(string value)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>value</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ZLC_zstring_Intern_" data-uid="ZLC.zstring.Intern*"></a>
+
+  <h3 id="ZLC_zstring_Intern_System_String___" data-uid="ZLC.zstring.Intern(System.String[])">
+  Intern(string[])
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Intern(string[] values)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>values</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>[]</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ZLC_zstring_IsNullOrEmpty_" data-uid="ZLC.zstring.IsNullOrEmpty*"></a>
+
+  <h3 id="ZLC_zstring_IsNullOrEmpty_ZLC_zstring_" data-uid="ZLC.zstring.IsNullOrEmpty(ZLC.zstring)">
+  IsNullOrEmpty(zstring)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool IsNullOrEmpty(zstring str)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>str</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ZLC_zstring_IsPrefix_" data-uid="ZLC.zstring.IsPrefix*"></a>
+
+  <h3 id="ZLC_zstring_IsPrefix_ZLC_zstring_System_String_" data-uid="ZLC.zstring.IsPrefix(ZLC.zstring,System.String)">
+  IsPrefix(zstring, string)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool IsPrefix(zstring str, string value)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>str</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>value</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ZLC_zstring_LastIndexOf_" data-uid="ZLC.zstring.LastIndexOf*"></a>
+
+  <h3 id="ZLC_zstring_LastIndexOf_System_Char_" data-uid="ZLC.zstring.LastIndexOf(System.Char)">
+  LastIndexOf(char)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int LastIndexOf(char value)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>value</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.char">char</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ZLC_zstring_LastIndexOf_" data-uid="ZLC.zstring.LastIndexOf*"></a>
+
+  <h3 id="ZLC_zstring_LastIndexOf_System_String_" data-uid="ZLC.zstring.LastIndexOf(System.String)">
+  LastIndexOf(string)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int LastIndexOf(string value)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>value</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ZLC_zstring_Remove_" data-uid="ZLC.zstring.Remove*"></a>
+
+  <h3 id="ZLC_zstring_Remove_System_Int32_" data-uid="ZLC.zstring.Remove(System.Int32)">
+  Remove(int)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public zstring Remove(int start)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>start</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ZLC_zstring_Remove_" data-uid="ZLC.zstring.Remove*"></a>
+
+  <h3 id="ZLC_zstring_Remove_System_Int32_System_Int32_" data-uid="ZLC.zstring.Remove(System.Int32,System.Int32)">
+  Remove(int, int)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public zstring Remove(int start, int count)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>start</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+    <dt><code>count</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ZLC_zstring_Replace_" data-uid="ZLC.zstring.Replace*"></a>
+
+  <h3 id="ZLC_zstring_Replace_System_Char_System_Char_" data-uid="ZLC.zstring.Replace(System.Char,System.Char)">
+  Replace(char, char)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public zstring Replace(char old_value, char new_value)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>old_value</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.char">char</a></dt>
+    <dd></dd>
+    <dt><code>new_value</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.char">char</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ZLC_zstring_Replace_" data-uid="ZLC.zstring.Replace*"></a>
+
+  <h3 id="ZLC_zstring_Replace_System_String_System_String_" data-uid="ZLC.zstring.Replace(System.String,System.String)">
+  Replace(string, string)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public zstring Replace(string old_value, string new_value)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>old_value</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>new_value</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ZLC_zstring_StartsWith_" data-uid="ZLC.zstring.StartsWith*"></a>
+
+  <h3 id="ZLC_zstring_StartsWith_System_String_" data-uid="ZLC.zstring.StartsWith(System.String)">
+  StartsWith(string)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool StartsWith(string prefix)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>prefix</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ZLC_zstring_Substring_" data-uid="ZLC.zstring.Substring*"></a>
+
+  <h3 id="ZLC_zstring_Substring_System_Int32_" data-uid="ZLC.zstring.Substring(System.Int32)">
+  Substring(int)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public zstring Substring(int start)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>start</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ZLC_zstring_Substring_" data-uid="ZLC.zstring.Substring*"></a>
+
+  <h3 id="ZLC_zstring_Substring_System_Int32_System_Int32_" data-uid="ZLC.zstring.Substring(System.Int32,System.Int32)">
+  Substring(int, int)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public zstring Substring(int start, int count)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>start</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+    <dt><code>count</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ZLC_zstring_ToLower_" data-uid="ZLC.zstring.ToLower*"></a>
+
+  <h3 id="ZLC_zstring_ToLower" data-uid="ZLC.zstring.ToLower">
+  ToLower()
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public zstring ToLower()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ZLC_zstring_ToString_" data-uid="ZLC.zstring.ToString*"></a>
+
+  <h3 id="ZLC_zstring_ToString" data-uid="ZLC.zstring.ToString">
+  ToString()
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns a string that represents the current object.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string ToString()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>A string that represents the current object.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ZLC_zstring_ToUpper_" data-uid="ZLC.zstring.ToUpper*"></a>
+
+  <h3 id="ZLC_zstring_ToUpper" data-uid="ZLC.zstring.ToUpper">
+  ToUpper()
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public zstring ToUpper()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ZLC_zstring_isPostfix_" data-uid="ZLC.zstring.isPostfix*"></a>
+
+  <h3 id="ZLC_zstring_isPostfix_ZLC_zstring_System_String_" data-uid="ZLC.zstring.isPostfix(ZLC.zstring,System.String)">
+  isPostfix(zstring, string)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool isPostfix(zstring str, string postfix)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>str</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>postfix</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ZLC_zstring_shallow_" data-uid="ZLC.zstring.shallow*"></a>
+
+  <h3 id="ZLC_zstring_shallow_System_String_" data-uid="ZLC.zstring.shallow(System.String)">
+  shallow(string)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static zstring shallow(string value)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>value</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="operators">Operators
+</h2>
+
+
+  <a id="ZLC_zstring_op_Addition_" data-uid="ZLC.zstring.op_Addition*"></a>
+
+  <h3 id="ZLC_zstring_op_Addition_ZLC_zstring_ZLC_zstring_" data-uid="ZLC.zstring.op_Addition(ZLC.zstring,ZLC.zstring)">
+  operator +(zstring, zstring)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static zstring operator +(zstring left, zstring right)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>left</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>right</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ZLC_zstring_op_Equality_" data-uid="ZLC.zstring.op_Equality*"></a>
+
+  <h3 id="ZLC_zstring_op_Equality_ZLC_zstring_ZLC_zstring_" data-uid="ZLC.zstring.op_Equality(ZLC.zstring,ZLC.zstring)">
+  operator ==(zstring, zstring)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool operator ==(zstring left, zstring right)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>left</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>right</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ZLC_zstring_op_Implicit_" data-uid="ZLC.zstring.op_Implicit*"></a>
+
+  <h3 id="ZLC_zstring_op_Implicit_System_Boolean__ZLC_zstring" data-uid="ZLC.zstring.op_Implicit(System.Boolean)~ZLC.zstring">
+  implicit operator zstring(bool)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static implicit operator zstring(bool value)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>value</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ZLC_zstring_op_Implicit_" data-uid="ZLC.zstring.op_Implicit*"></a>
+
+  <h3 id="ZLC_zstring_op_Implicit_System_Int32__ZLC_zstring" data-uid="ZLC.zstring.op_Implicit(System.Int32)~ZLC.zstring">
+  implicit operator zstring(int)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static implicit operator zstring(int value)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>value</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ZLC_zstring_op_Implicit_" data-uid="ZLC.zstring.op_Implicit*"></a>
+
+  <h3 id="ZLC_zstring_op_Implicit_System_Int64__ZLC_zstring" data-uid="ZLC.zstring.op_Implicit(System.Int64)~ZLC.zstring">
+  implicit operator zstring(long)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static implicit operator zstring(long value)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>value</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">long</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ZLC_zstring_op_Implicit_" data-uid="ZLC.zstring.op_Implicit*"></a>
+
+  <h3 id="ZLC_zstring_op_Implicit_System_Single__ZLC_zstring" data-uid="ZLC.zstring.op_Implicit(System.Single)~ZLC.zstring">
+  implicit operator zstring(float)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static implicit operator zstring(float value)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>value</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ZLC_zstring_op_Implicit_" data-uid="ZLC.zstring.op_Implicit*"></a>
+
+  <h3 id="ZLC_zstring_op_Implicit_System_String__ZLC_zstring" data-uid="ZLC.zstring.op_Implicit(System.String)~ZLC.zstring">
+  implicit operator zstring(string)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static implicit operator zstring(string value)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>value</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ZLC_zstring_op_Implicit_" data-uid="ZLC.zstring.op_Implicit*"></a>
+
+  <h3 id="ZLC_zstring_op_Implicit_ZLC_zstring__System_String" data-uid="ZLC.zstring.op_Implicit(ZLC.zstring)~System.String">
+  implicit operator string(zstring)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static implicit operator string(zstring value)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>value</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ZLC_zstring_op_Inequality_" data-uid="ZLC.zstring.op_Inequality*"></a>
+
+  <h3 id="ZLC_zstring_op_Inequality_ZLC_zstring_ZLC_zstring_" data-uid="ZLC.zstring.op_Inequality(ZLC.zstring,ZLC.zstring)">
+  operator !=(zstring, zstring)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool operator !=(zstring left, zstring right)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>left</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+    <dt><code>right</code> <a class="xref" href="ZLC.zstring.html">zstring</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+        </div>
+
+        
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

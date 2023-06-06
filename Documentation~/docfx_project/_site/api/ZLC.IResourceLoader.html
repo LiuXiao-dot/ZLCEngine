@@ -1,0 +1,820 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Interface IResourceLoader
+ </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Interface IResourceLoader
+ ">
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      
+      
+      
+      
+  </head>
+
+  <script type="module">
+    import options from './../public/main.js'
+    import { init } from './../public/docfx.min.js'
+    init(options)
+  </script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="ZLC.IResourceLoader">
+
+
+
+  <h1 id="ZLC_IResourceLoader" data-uid="ZLC.IResourceLoader" class="text-break">
+    Interface IResourceLoader
+  
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="ZLC.html">ZLC</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>ZLC.Core.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>资源加载器
+需要通过预加载和初始化操作完成初始化功能.
+(预加载实际只是等待异步操作)</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public interface IResourceLoader : IManager, IDisposable, ILoader</code></pre>
+  </div>
+
+
+
+
+
+
+
+  <dl class="typelist derived">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="ZLC.IManager.html#ZLC_IManager_Init">IManager.Init()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable.dispose">IDisposable.Dispose()</a>
+    </div>
+    <div>
+      <a class="xref" href="ZLC.ILoader.html#ZLC_ILoader_Load_System_Action_System_Int32_System_Int32__">ILoader.Load(Action&lt;int, int&gt;)</a>
+    </div>
+  </dd></dl>
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="ZLC_IResourceLoader_AddFinished_" data-uid="ZLC.IResourceLoader.AddFinished*"></a>
+
+  <h3 id="ZLC_IResourceLoader_AddFinished" data-uid="ZLC.IResourceLoader.AddFinished">
+  AddFinished()
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>添加一次record finished</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void AddFinished()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ZLC_IResourceLoader_AddLoadListener_" data-uid="ZLC.IResourceLoader.AddLoadListener*"></a>
+
+  <h3 id="ZLC_IResourceLoader_AddLoadListener_ZLC_ILoadListener_" data-uid="ZLC.IResourceLoader.AddLoadListener(ZLC.ILoadListener)">
+  AddLoadListener(ILoadListener)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>添加加载监听器</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void AddLoadListener(ILoadListener listener)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>listener</code> <a class="xref" href="ZLC.ILoadListener.html">ILoadListener</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ZLC_IResourceLoader_AddTotal_" data-uid="ZLC.IResourceLoader.AddTotal*"></a>
+
+  <h3 id="ZLC_IResourceLoader_AddTotal" data-uid="ZLC.IResourceLoader.AddTotal">
+  AddTotal()
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>添加一次record total</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void AddTotal()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ZLC_IResourceLoader_CheckAsset_" data-uid="ZLC.IResourceLoader.CheckAsset*"></a>
+
+  <h3 id="ZLC_IResourceLoader_CheckAsset__1_System_String___0__" data-uid="ZLC.IResourceLoader.CheckAsset``1(System.String,``0@)">
+  CheckAsset&lt;T&gt;(string, out T)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>检测资源是否已加载</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool CheckAsset&lt;T&gt;(string path, out T result) where T : Object</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>path</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>result</code> <span class="xref">T</span></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>true:已加载 false:未加载</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="ZLC_IResourceLoader_CloseScene_" data-uid="ZLC.IResourceLoader.CloseScene*"></a>
+
+  <h3 id="ZLC_IResourceLoader_CloseScene_System_String_System_Boolean_System_Action_System_Boolean__" data-uid="ZLC.IResourceLoader.CloseScene(System.String,System.Boolean,System.Action{System.Boolean})">
+  CloseScene(string, bool, Action&lt;bool&gt;)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>关闭场景</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void CloseScene(string sceneName, bool releaseEmbeddedRes = false, Action&lt;bool&gt; callback = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>sceneName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>releaseEmbeddedRes</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+    <dt><code>callback</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-1">Action</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ZLC_IResourceLoader_DestroyAsset_" data-uid="ZLC.IResourceLoader.DestroyAsset*"></a>
+
+  <h3 id="ZLC_IResourceLoader_DestroyAsset_System_String_" data-uid="ZLC.IResourceLoader.DestroyAsset(System.String)">
+  DestroyAsset(string)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Asset(如SO)在内存中只有一份，删除采用直接销毁handle的方式,被复制的Asset(如ScriptableObject)需要自行删除</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void DestroyAsset(string path)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>path</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>资源路径</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ZLC_IResourceLoader_DestroyPool_" data-uid="ZLC.IResourceLoader.DestroyPool*"></a>
+
+  <h3 id="ZLC_IResourceLoader_DestroyPool_System_String_" data-uid="ZLC.IResourceLoader.DestroyPool(System.String)">
+  DestroyPool(string)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>销毁池</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void DestroyPool(string path)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>path</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ZLC_IResourceLoader_DestroyPool_" data-uid="ZLC.IResourceLoader.DestroyPool*"></a>
+
+  <h3 id="ZLC_IResourceLoader_DestroyPool_UnityEngine_GameObject_" data-uid="ZLC.IResourceLoader.DestroyPool(UnityEngine.GameObject)">
+  DestroyPool(GameObject)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>销毁包含该gameObject的池</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void DestroyPool(GameObject gameObject)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>gameObject</code> <span class="xref">GameObject</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ZLC_IResourceLoader_DisableRecord_" data-uid="ZLC.IResourceLoader.DisableRecord*"></a>
+
+  <h3 id="ZLC_IResourceLoader_DisableRecord" data-uid="ZLC.IResourceLoader.DisableRecord">
+  DisableRecord()
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>关闭记录功能,在关闭时，如果整个记录过程中全部记载资源数量为0，会直接调用一次listener的OnLoadFinshed</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void DisableRecord()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ZLC_IResourceLoader_EnableRecord_" data-uid="ZLC.IResourceLoader.EnableRecord*"></a>
+
+  <h3 id="ZLC_IResourceLoader_EnableRecord" data-uid="ZLC.IResourceLoader.EnableRecord">
+  EnableRecord()
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>开启记录功能，开启后，才会对资源加载进行记录，并在进行资源加载后调用listener的对应方法</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void EnableRecord()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ZLC_IResourceLoader_InstantiateGameObject_" data-uid="ZLC.IResourceLoader.InstantiateGameObject*"></a>
+
+  <h3 id="ZLC_IResourceLoader_InstantiateGameObject_System_String_UnityEngine_Transform_System_Action_System_Boolean_UnityEngine_GameObject__System_Boolean_" data-uid="ZLC.IResourceLoader.InstantiateGameObject(System.String,UnityEngine.Transform,System.Action{System.Boolean,UnityEngine.GameObject},System.Boolean)">
+  InstantiateGameObject(string, Transform, Action&lt;bool, GameObject&gt;, bool)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>异步实例化GameObject。实例化完成执行callback方法.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void InstantiateGameObject(string path, Transform parent, Action&lt;bool, GameObject&gt; callback = null, bool poolable = false)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>path</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>parent</code> <span class="xref">Transform</span></dt>
+    <dd></dd>
+    <dt><code>callback</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-2">Action</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>, <span class="xref">GameObject</span>&gt;</dt>
+    <dd></dd>
+    <dt><code>poolable</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>将对象池化</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ZLC_IResourceLoader_InstantiateGameObjectSync_" data-uid="ZLC.IResourceLoader.InstantiateGameObjectSync*"></a>
+
+  <h3 id="ZLC_IResourceLoader_InstantiateGameObjectSync_System_String_UnityEngine_Transform_" data-uid="ZLC.IResourceLoader.InstantiateGameObjectSync(System.String,UnityEngine.Transform)">
+  InstantiateGameObjectSync(string, Transform)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>同步加载GameObject.
+(如果有Cache机制，同步实例化时，直接可以获取Cache并实例化)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">GameObject InstantiateGameObjectSync(string path, Transform parent)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>path</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>资源路径</p>
+</dd>
+    <dt><code>parent</code> <span class="xref">Transform</span></dt>
+    <dd><p>作为parent的子对象实例化GameObject</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">GameObject</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ZLC_IResourceLoader_LoadAssetSync_" data-uid="ZLC.IResourceLoader.LoadAssetSync*"></a>
+
+  <h3 id="ZLC_IResourceLoader_LoadAssetSync__1_System_String___0__" data-uid="ZLC.IResourceLoader.LoadAssetSync``1(System.String,``0@)">
+  LoadAssetSync&lt;T&gt;(string, out T)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>同步加载资源。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool LoadAssetSync&lt;T&gt;(string path, out T result) where T : Object</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>path</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>资源路径</p>
+</dd>
+    <dt><code>result</code> <span class="xref">T</span></dt>
+    <dd><p>加载结果</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd><p>资源类型</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="ZLC_IResourceLoader_LoadAsset_" data-uid="ZLC.IResourceLoader.LoadAsset*"></a>
+
+  <h3 id="ZLC_IResourceLoader_LoadAsset__1_System_String_System_Action_System_Boolean___0__" data-uid="ZLC.IResourceLoader.LoadAsset``1(System.String,System.Action{System.Boolean,``0})">
+  LoadAsset&lt;T&gt;(string, Action&lt;bool, T&gt;)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>异步加载资源。</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void LoadAsset&lt;T&gt;(string path, Action&lt;bool, T&gt; callback = null) where T : Object</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>path</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>资源路径</p>
+</dd>
+    <dt><code>callback</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-2">Action</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>, T&gt;</dt>
+    <dd><p>加载完成回调</p>
+</dd>
+  </dl>
+
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="ZLC_IResourceLoader_LoadPoolableGameObject_" data-uid="ZLC.IResourceLoader.LoadPoolableGameObject*"></a>
+
+  <h3 id="ZLC_IResourceLoader_LoadPoolableGameObject_System_String_System_Action_System_Boolean_UnityEngine_GameObject__System_Int32_System_Int32_" data-uid="ZLC.IResourceLoader.LoadPoolableGameObject(System.String,System.Action{System.Boolean,UnityEngine.GameObject},System.Int32,System.Int32)">
+  LoadPoolableGameObject(string, Action&lt;bool, GameObject&gt;, int, int)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>加载GameObject并创建池</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void LoadPoolableGameObject(string path, Action&lt;bool, GameObject&gt; callback = null, int defaultCapacity = 10, int maxSize = -1)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>path</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>callback</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-2">Action</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>, <span class="xref">GameObject</span>&gt;</dt>
+    <dd></dd>
+    <dt><code>defaultCapacity</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+    <dt><code>maxSize</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ZLC_IResourceLoader_LoadPoolableGameObjectSync_" data-uid="ZLC.IResourceLoader.LoadPoolableGameObjectSync*"></a>
+
+  <h3 id="ZLC_IResourceLoader_LoadPoolableGameObjectSync_System_String_System_Int32_System_Int32_" data-uid="ZLC.IResourceLoader.LoadPoolableGameObjectSync(System.String,System.Int32,System.Int32)">
+  LoadPoolableGameObjectSync(string, int, int)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>同步加载GameObject并创建池</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool LoadPoolableGameObjectSync(string path, int defaultCapacity = 10, int maxSize = -1)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>path</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>defaultCapacity</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+    <dt><code>maxSize</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ZLC_IResourceLoader_OpenScene_" data-uid="ZLC.IResourceLoader.OpenScene*"></a>
+
+  <h3 id="ZLC_IResourceLoader_OpenScene_System_String_UnityEngine_SceneManagement_LoadSceneMode_System_Action_System_Boolean_UnityEngine_SceneManagement_Scene__" data-uid="ZLC.IResourceLoader.OpenScene(System.String,UnityEngine.SceneManagement.LoadSceneMode,System.Action{System.Boolean,UnityEngine.SceneManagement.Scene})">
+  OpenScene(string, LoadSceneMode, Action&lt;bool, Scene&gt;)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>打开场景</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void OpenScene(string sceneName, LoadSceneMode loadSceneMode = LoadSceneMode.Additive, Action&lt;bool, Scene&gt; callback = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>sceneName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>loadSceneMode</code> <span class="xref">LoadSceneMode</span></dt>
+    <dd></dd>
+    <dt><code>callback</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-2">Action</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>, <span class="xref">Scene</span>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ZLC_IResourceLoader_ReleaseGameObject_" data-uid="ZLC.IResourceLoader.ReleaseGameObject*"></a>
+
+  <h3 id="ZLC_IResourceLoader_ReleaseGameObject_UnityEngine_GameObject_" data-uid="ZLC.IResourceLoader.ReleaseGameObject(UnityEngine.GameObject)">
+  ReleaseGameObject(GameObject)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>释放对象（不销毁引用）,若要销毁引用，调用DestroyAsset。
+1.非池对象，直接销毁
+2.池对象，释放回池中</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void ReleaseGameObject(GameObject gameObject)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>gameObject</code> <span class="xref">GameObject</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ZLC_IResourceLoader_RemoveLoadListener_" data-uid="ZLC.IResourceLoader.RemoveLoadListener*"></a>
+
+  <h3 id="ZLC_IResourceLoader_RemoveLoadListener_ZLC_ILoadListener_" data-uid="ZLC.IResourceLoader.RemoveLoadListener(ZLC.ILoadListener)">
+  RemoveLoadListener(ILoadListener)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>移除加载监听器</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void RemoveLoadListener(ILoadListener listener)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>listener</code> <a class="xref" href="ZLC.ILoadListener.html">ILoadListener</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+        </div>
+
+        
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
