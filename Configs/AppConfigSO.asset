@@ -9,10 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 3055574, guid: 175c410e4cd262a49aff8ceea1001dcf, type: 3}
-  m_Name: GameConfigSO
+  m_Script: {fileID: 766202971, guid: 175c410e4cd262a49aff8ceea1001dcf, type: 3}
+  m_Name: AppConfigSO
   m_EditorClassIdentifier: 
   uiSceneName: 
   gameSceneName: 
-  enableDefaultHandler: 0
-  enableFileLogHandler: 0
+  logMode: 0
