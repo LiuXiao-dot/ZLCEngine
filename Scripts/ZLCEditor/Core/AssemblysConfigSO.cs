@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Sirenix.OdinInspector;
@@ -14,35 +15,35 @@ namespace ZLCEditor
     public sealed class AssemblysConfigSO : SOSingleton<AssemblysConfigSO>
     {
         [BoxGroup("ZLC框架提供的程序集")]
-        public AssemblyDefinitionAsset[] defaultAssemblies;
+        public List<AssemblyDefinitionAsset> defaultAssemblies;
 
         [BoxGroup("ZLC框架提供的程序集")]
         [AssetList(CustomFilterMethod = "CheckName")]
-        public DefaultAsset[] defaultDlls;
+        public List<DefaultAsset> defaultDlls;
         
         [PropertyTooltip("许多工具都不会扫描官方或第三方程序集，只扫描自定义程序集。")]
         [BoxGroup("自定义程序集(需要手动添加)")]
-        public AssemblyDefinitionAsset[] selfAssemblies;
+        public List<AssemblyDefinitionAsset> selfAssemblies;
 
         [BoxGroup("自定义程序集(需要手动添加)")]
         [AssetList(CustomFilterMethod = "CheckName")]
-        public DefaultAsset[] selfDlls;
+        public List<DefaultAsset> selfDlls;
         
         [BoxGroup("unity官方的程序集")]
-        public AssemblyDefinitionAsset[] unityAssemblies;
+        public List<AssemblyDefinitionAsset> unityAssemblies;
 
         [BoxGroup("unity官方的程序集")]
         [AssetList(CustomFilterMethod = "CheckName")]
-        public DefaultAsset[] unityDlls;
+        public List<DefaultAsset> unityDlls;
 
         [Tooltip("(自动刷新，会添加Assets目录下Plugins目录的程序集)")]
         [BoxGroup("第三方程序集")]
-        public AssemblyDefinitionAsset[] otherAssemblies;
+        public List<AssemblyDefinitionAsset> otherAssemblies;
 
         [Tooltip("(自动刷新，会添加Assets目录下Plugins目录的程序集)")]
         [BoxGroup("第三方程序集")]
         [AssetList(CustomFilterMethod = "CheckName")]
-        public DefaultAsset[] otherDlls;
+        public List<DefaultAsset> otherDlls;
 
         /// <summary>
         /// 检测后缀为dll的文件
@@ -70,11 +71,11 @@ namespace ZLCEditor
             var zlcDllsPromot = "ZLC*.dll"; 
             ZLCEditor.EditorHelper.SearchPackagesAssets<AssemblyDefinitionAsset>(zlcAssembliesPromot, temp =>
             {
-                defaultAssemblies = temp.ToArray();
+                defaultAssemblies = temp.ToList();
             });
             ZLCEditor.EditorHelper.SearchPackagesAssets<DefaultAsset>(zlcDllsPromot, temp =>
             {
-                defaultDlls = temp.ToArray();
+                defaultDlls = temp.ToList();
             });
             
             // 不处理自定义程序集，如果有空值则移除
@@ -87,11 +88,11 @@ namespace ZLCEditor
             var tempDllsPromot = "Unity*.dll or UnityEngine*.dll or UnityEditor*.dll";
             ZLCEditor.EditorHelper.SearchPackagesAssets<AssemblyDefinitionAsset>(tempAssembliesPromot, temp =>
             {
-                unityAssemblies = temp.ToArray();
+                unityAssemblies = temp.ToList();
             });
             ZLCEditor.EditorHelper.SearchPackagesAssets<DefaultAsset>(tempDllsPromot, temp =>
             {
-                unityDlls = temp.ToArray();
+                unityDlls = temp.ToList();
             });
             // 不处理自定义程序集，如果有空值则移除
             IListHelper.RemoveNulls(unityAssemblies);
@@ -105,14 +106,14 @@ namespace ZLCEditor
                 foreach (var defaultAssembly in defaultAssemblies) {
                     temp.Remove(defaultAssembly);
                 }
-                otherAssemblies = temp.ToArray();
+                otherAssemblies = temp.ToList();
             });
             ZLCEditor.EditorHelper.SearchPackagesAssets<DefaultAsset>(pluginDllsPromot, temp =>
             {
                 foreach (var defaultDll in defaultDlls) {
                     temp.Remove(defaultDll);
                 }
-                otherDlls = temp.ToArray();
+                otherDlls = temp.ToList();
             });
             IListHelper.RemoveNulls(otherAssemblies);
             IListHelper.RemoveNulls(otherDlls);

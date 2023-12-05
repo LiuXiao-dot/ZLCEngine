@@ -39,7 +39,7 @@ namespace ZLCEditor.Utils
             GetAllChildType(assemblies, temp, typeof(T));
         }
 
-        public static void GetAllChildType(AssemblyDefinitionAsset[] assemblies, List<Type> temp, Type targetType)
+        public static void GetAllChildType(IList<AssemblyDefinitionAsset> assemblies, List<Type> temp, Type targetType)
         {
             if(assemblies == null) return;
             foreach (var assembly in assemblies) {
@@ -63,7 +63,7 @@ namespace ZLCEditor.Utils
             }
         }
 
-        public static void GetAllChildType(DefaultAsset[] assemblies, List<Type> temp, Type targetType)
+        public static void GetAllChildType(IList<DefaultAsset> assemblies, List<Type> temp, Type targetType)
         {
             if(assemblies == null) return;
             foreach (var assembly in assemblies) {
@@ -73,7 +73,7 @@ namespace ZLCEditor.Utils
             }
         }
 
-        public static void GetAttributedTypes(AssemblyDefinitionAsset[] assemblies, List<Type> temp, Type attributeType)
+        public static void GetAttributedTypes(IList<AssemblyDefinitionAsset> assemblies, List<Type> temp, Type attributeType)
         {
             if(assemblies == null) return;
             foreach (var assembly in assemblies) {
@@ -83,7 +83,7 @@ namespace ZLCEditor.Utils
             }
         }
 
-        public static void GetAttributedTypes(DefaultAsset[] assemblies, List<Type> temp, Type attributeType)
+        public static void GetAttributedTypes(IList<DefaultAsset> assemblies, List<Type> temp, Type attributeType)
         {
             if(assemblies == null) return;
             foreach (var assembly in assemblies) {
