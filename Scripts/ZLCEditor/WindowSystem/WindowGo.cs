@@ -106,6 +106,10 @@ namespace ZLCEditor.WindowSystem
                 view.windowLayer = layer;
                 view.ID = id;
                 modifiedTime = File.GetLastWriteTime(AssetDatabase.GetAssetPath(prefab)).Ticks;
+                
+                // 应用RectTransform
+                var preset = WindowTool.Instance.GetRectTransformPreset(layer);
+                preset.ApplyTo(prefab.GetComponent<RectTransform>());
                 PrefabUtility.SavePrefabAsset(prefab);
             }
 

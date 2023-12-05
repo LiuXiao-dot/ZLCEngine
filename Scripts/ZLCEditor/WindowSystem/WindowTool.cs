@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using Sirenix.OdinInspector;
 using UnityEditor;
+using UnityEditor.Presets;
 using UnityEditorInternal;
 using UnityEngine;
 using ZLCEngine.ConfigSystem;
@@ -21,6 +22,8 @@ namespace ZLCEditor.WindowSystem
         [ReadOnly] public AssemblyDefinitionAsset assembly;
         [ReadOnly]
         [SerializeField] internal WindowLayerTool[] layers;
+
+        [ReadOnly] public Preset[] rectTransformPresets;  
 
         private void Reset()
         {
@@ -122,6 +125,16 @@ namespace ZLCEditor.WindowSystem
             }
             AssetDatabase.SaveAssets();
             layers = null;
+        }
+
+        public Preset GetRectTransformPreset(WindowLayer layer)
+        {
+            foreach (var preset in rectTransformPresets) {
+                if (preset.name == layer.ToString()) {
+                    return preset;
+                }
+            }
+            return default;
         }
     }
 }

@@ -88,6 +88,11 @@ namespace ZLCEditor.Tool
                 }
 
                 _typesPool.Clear();
+            } else {
+                // 如果Instance.toolTypes里包含这个程序集的工具，则剔除
+                if (Instance.toolTypes.ContainsKey(assembly.FullName)) {
+                    Instance.toolTypes.Remove(assembly.FullName);
+                }
             }
             Instance.toolTypes = toolTypes;
             EditorUtility.SetDirty(Instance);

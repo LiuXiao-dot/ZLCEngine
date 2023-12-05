@@ -126,7 +126,7 @@ namespace ZLCEngine.WindowSystem
                 case WindowLayer.SMALL:
                     OnOpenCoreWindow(layer);
                     break;
-                case WindowLayer.POPUE:
+                case WindowLayer.POPUP:
                 case WindowLayer.PANEL:
                     OnOpenExtraWindow();
                     break;
@@ -173,7 +173,7 @@ namespace ZLCEngine.WindowSystem
                     canvas.overrideSorting = true;
                     canvas.sortingOrder = Constant.sortingOrders[view.windowLayer];
                     break;
-                case WindowLayer.POPUE:
+                case WindowLayer.POPUP:
                 case WindowLayer.PANEL:
                     // 需要与核心窗口同层级
                     canvas.overrideSorting = true;
@@ -248,7 +248,7 @@ namespace ZLCEngine.WindowSystem
                 case WindowLayer.SMALL:
                     canClose = CloseCoreWindow(id, layer);
                     break;
-                case WindowLayer.POPUE:
+                case WindowLayer.POPUP:
                 case WindowLayer.PANEL:
                     canClose = CloseExtraWindow(id);
                     break;
@@ -283,7 +283,7 @@ namespace ZLCEngine.WindowSystem
                         if (view.windowLayer <= layer)
                             return view.GetID() == id;
                         return false;
-                    case WindowLayer.POPUE:
+                    case WindowLayer.POPUP:
                     case WindowLayer.PANEL:
                         // 全部关闭
                         ctl.Close();
@@ -334,7 +334,7 @@ namespace ZLCEngine.WindowSystem
                         _coreViewStack.Pop();
                     }
                     break;
-                case WindowLayer.POPUE:
+                case WindowLayer.POPUP:
                 case WindowLayer.PANEL:
                     _extraCtlList.Remove(ctl);
                     _extraViewList.Remove(view);

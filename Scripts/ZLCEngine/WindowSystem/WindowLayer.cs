@@ -11,7 +11,7 @@ namespace ZLCEngine.WindowSystem
         SMALL,
 #endregion
 #region ExtraWindow
-        POPUE,
+        POPUP,
         PANEL,
 #endregion
 #region IgnoreWindow

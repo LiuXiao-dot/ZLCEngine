@@ -1,5 +1,6 @@
 using Unity.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 using ZLCEngine.Interfaces;
 namespace ZLCEngine.WindowSystem
 {
@@ -7,6 +8,7 @@ namespace ZLCEngine.WindowSystem
     /// 窗口视图层
     /// </summary>
     [RequireComponent(typeof(Canvas))]
+    [RequireComponent(typeof(GraphicRaycaster))]
     [DisallowMultipleComponent]
     public abstract class AWindowView : MonoBehaviour, IWindowView
     {
