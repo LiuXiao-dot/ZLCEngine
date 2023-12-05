@@ -1,0 +1,23 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class ApplicationSystem
+class ConfigSystem
+class Core
+class ResSystem
+class EventSystem
+
+Core o-- ConfigSystem
+
+ResSystem o-- ApplicationSystem
+Core o-- ApplicationSystem
+ConfigSystem o-- ApplicationSystem
+
+Core o-- ResSystem
+
+Core o-- EventSystem
+ConfigSystem o-- EventSystem
+
+Core o-- ResSystem
+EventSystem o-- ResSystem
+@enduml

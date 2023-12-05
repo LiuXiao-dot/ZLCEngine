@@ -1,0 +1,17 @@
+{
+    "name": "ZLCEngine.EventSystem",
+    "rootNamespace": "ZLCEngine.EventSystem",
+    "references": [
+        "GUID:af1babb7ce6c43c489573e67c70069be",
+        "GUID:9175e4e93df812a43924d5a239c74714"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

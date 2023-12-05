@@ -1,0 +1,28 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+interface IFormatConverter<F,T>
+{
+    T Convert(F from);
+}
+note top of IFormatConverter : 将<F>数据转换为<T>数据的转换器
+
+class FormatManager{
+   + T Convert(F from);
+}
+note top of FormatManager : 转换器管理器
+note left of FormatManager::Convert
+    将F数据转换为T数据
+end note
+
+class FormaterFactory{
+    # IFormatConverter<F,T> GetConverter();
+}
+note left of FormaterFactory : 转换器工厂
+note left of FormaterFactory::GetConverter
+    获取从F到T的转换器
+end note
+
+IFormatConverter o-- FormaterFactory::GetConverter
+FormaterFactory::GetConverter o-- FormatManager::Convert
+@enduml

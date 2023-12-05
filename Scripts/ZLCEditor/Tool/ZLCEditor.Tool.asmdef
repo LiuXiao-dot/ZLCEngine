@@ -1,0 +1,28 @@
+{
+    "name": "ZLCEditor.Tool",
+    "rootNamespace": "ZLCEditor.Tool",
+    "references": [
+        "GUID:9175e4e93df812a43924d5a239c74714",
+        "GUID:af1babb7ce6c43c489573e67c70069be",
+        "GUID:ccff9b0473c7209449b178e918baaeaa"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": true,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "Microsoft.CodeAnalysis.dll",
+        "Sirenix.OdinInspector.Attributes.dll",
+        "Microsoft.CodeAnalysis.CSharp.dll",
+        "Sirenix.OdinInspector.Editor.dll",
+        "Sirenix.Utilities.dll",
+        "Sirenix.Utilities.Editor.dll",
+        "System.Collections.Immutable.dll"
+    ],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

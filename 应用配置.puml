@@ -1,0 +1,5 @@
+@startuml
+'https://plantuml.com/class-diagram
+'通过配置的方式生成各种代码与配置信息
+'依赖与格式转换代码生成
+@enduml

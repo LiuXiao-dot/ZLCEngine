@@ -1,0 +1,22 @@
+@startuml
+'https://plantuml.com/class-diagram
+'生成代码
+class ZlCCode{
+    string code;
+    SDictionary<string,object> kvs;
+}
+
+class ZLCParser{
+    string Parse(ZLCCode zlcCode);
+}
+
+class ZLC2CSharpConverter
+{
+    CSharpCode Convert(ZLCCode from);
+}
+
+note top of ZlCCode:ZLC格式的文本
+note top of ZLCParser:ZLC格式文件的解析器 
+note top of ZLC2CSharpConverter:ZLC格式文件到C#格式文件的转换器
+
+@enduml

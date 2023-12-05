@@ -1,0 +1,17 @@
+{
+    "name": "ZLCEditor.ZLCCoding",
+    "rootNamespace": "ZLCEditor.ZLCCoding",
+    "references": [
+        "GUID:b45dd64f9df5f784e80c8ba651d4c645",
+        "GUID:af1babb7ce6c43c489573e67c70069be"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
