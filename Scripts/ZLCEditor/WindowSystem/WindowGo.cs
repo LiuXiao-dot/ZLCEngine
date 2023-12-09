@@ -105,12 +105,12 @@ namespace ZLCEditor.WindowSystem.ZLCEditor.WindowSystem
             var view = (AWindowView)prefab.AddComponent(viewClass);
             view.windowLayer = layer;
             view.ID = id;
-            modifiedTime = File.GetLastWriteTime(AssetDatabase.GetAssetPath(prefab)).Ticks;
 
             // 应用RectTransform
             var preset = WindowTool.Instance.GetRectTransformPreset(layer);
             preset.ApplyTo(prefab.GetComponent<RectTransform>());
             PrefabUtility.SavePrefabAsset(prefab);
+            modifiedTime = File.GetLastWriteTime(AssetDatabase.GetAssetPath(prefab)).Ticks;
         }
 
         /// <summary>
@@ -158,6 +158,7 @@ namespace ZLCEditor.WindowSystem.ZLCEditor.WindowSystem
                 }
             }
             PrefabUtility.SavePrefabAsset(prefab);
+            modifiedTime = File.GetLastWriteTime(AssetDatabase.GetAssetPath(prefab)).Ticks;
             return true;
         }
     }
