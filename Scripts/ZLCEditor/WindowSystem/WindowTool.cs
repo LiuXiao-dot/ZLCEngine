@@ -114,6 +114,18 @@ namespace ZLCEditor.WindowSystem.ZLCEditor.WindowSystem
             }
             AssetDatabase.SaveAssets();
             layers = AssetDatabase.LoadAllAssetRepresentationsAtPath(FilePathAttribute.GetPath(typeof(WindowTool))).Select(t => (WindowLayerTool)t).ToArray();
+            
+            
+            // 加载presets
+            var folder = Constant.PresetURL;
+            var assets = AssetDatabase.FindAssets("t:Preset", new string[]{folder});
+            var length = assets.Length;
+            rectTransformPresets = new Preset[length];
+            for (int i = 0; i < length; i++) {
+                var preset = AssetDatabase.LoadAssetAtPath<Preset>(AssetDatabase.GUIDToAssetPath(assets[i]));
+                if(preset == null) continue;
+                rectTransformPresets[i] = preset;
+            }
         }
 
         [Button("清除")]

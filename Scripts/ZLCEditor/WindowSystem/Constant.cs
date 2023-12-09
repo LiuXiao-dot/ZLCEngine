@@ -8,5 +8,6 @@ namespace ZLCEditor.WindowSystem.ZLCEditor.WindowSystem
         public const string PrefabURL = "Assets/Arts/Windows";
         public static string FullCtlCodeURL = Path.Combine(global::ZLCEditor.Constant.ZLCGenerateURL, CtlCodeURL);
         public static string FullViewCodeURL = Path.Combine(global::ZLCEditor.Constant.ZLCGenerateURL, ViewCodeURL);
+        public const string PresetURL = "Packages/com.zlc.zlcengine/Presets/Windows/RectTransforms";
     }
 }
