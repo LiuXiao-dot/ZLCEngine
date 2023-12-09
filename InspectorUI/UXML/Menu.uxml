@@ -1,0 +1,6 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:TwoPaneSplitView name="split-view" style="align-self: stretch;">
+        <ui:VisualElement name="left-view" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);" />
+        <ui:VisualElement name="right-view" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);" />
+    </ui:TwoPaneSplitView>
+</ui:UXML>

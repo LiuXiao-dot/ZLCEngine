@@ -1,12 +1,11 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Sirenix.OdinInspector;
-using Sirenix.Utilities;
 using ZLCEditor.FormatSystem;
 using ZLCEditor.FormatSystem.Common;
 using ZLCEngine.ConfigSystem;
 using ZLCEngine.EventSystem.MessageQueue;
+using ZLCEngine.Inspector;
 using ZLCEngine.Utils;
 namespace ZLCEditor.EventSystem
 {
@@ -14,13 +13,12 @@ namespace ZLCEditor.EventSystem
     /// MQ相关的工具
     /// </summary>
     [Tool("消息队列")]
-    public class MQTool
+    public class MQTool : SOSingleton<MQTool>
     {
-        public MQConfigSO mqConfigSo;
+        public MQConfigSO mqConfigSo => MQConfigSO.Instance;
 
         public MQTool()
         {
-            mqConfigSo = MQConfigSO.Instance;
         }
         
         [Button]
@@ -28,7 +26,10 @@ namespace ZLCEditor.EventSystem
         {
             var mqs = mqConfigSo.internalMQS.Concat(mqConfigSo.MainMQS).Concat(mqConfigSo.ChildMQS).OrderBy(t => t.id);
             GenerateMQEnums(mqs);
-            mqs.Where(t => !t.isInternal).ForEach(GenerateWithMQConfig);
+            var mqConfigs = mqs.Where(t => !t.isInternal);
+            foreach (var mq in mqs) {
+                GenerateWithMQConfig(mq);
+            }
         }
 
         private static void GenerateMQEnums(IEnumerable<MQConfig> mqs)

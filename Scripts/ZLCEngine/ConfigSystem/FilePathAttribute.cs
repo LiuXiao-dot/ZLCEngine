@@ -84,6 +84,7 @@ namespace ZLCEngine.ConfigSystem
         public static string GetPath(Type type)
         {
             var attribute = type.GetCustomAttribute<FilePathAttribute>();
+            if (attribute == null) return String.Empty;
             if (attribute.isInternal) {
                 return GetInternalPath($"{type.Name}.asset", attribute.pathType);
             }

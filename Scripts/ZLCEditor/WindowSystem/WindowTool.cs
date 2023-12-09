@@ -1,16 +1,16 @@
 using System;
 using System.IO;
 using System.Linq;
-using Sirenix.OdinInspector;
 using UnityEditor;
 using UnityEditor.Presets;
 using UnityEditorInternal;
 using UnityEngine;
 using ZLCEngine.ConfigSystem;
+using ZLCEngine.Inspector;
 using ZLCEngine.Utils;
 using ZLCEngine.WindowSystem;
 using FilePathAttribute = ZLCEngine.ConfigSystem.FilePathAttribute;
-namespace ZLCEditor.WindowSystem
+namespace ZLCEditor.WindowSystem.ZLCEditor.WindowSystem
 {
     /// <summary>
     /// 窗口工具

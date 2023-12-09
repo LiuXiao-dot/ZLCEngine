@@ -4,19 +4,22 @@ using System.Linq;
 using System.Reflection;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
-using Sirenix.OdinInspector;
 using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
+using ZLCEngine.ConfigSystem;
+using ZLCEngine.Inspector;
+using FilePathAttribute = ZLCEngine.ConfigSystem.FilePathAttribute;
 namespace ZLCEditor.Tool
 {
-    [ZLCEngine.ConfigSystem.Tool("动态代码运行")]
-    public class DynamicTool
+    [Tool("动态代码运行")]
+    [FilePath(FilePathAttribute.PathType.XWEditor, true)]
+    public class DynamicTool : SOSingleton<DynamicTool>
     {
         public AssemblyDefinitionAsset[] AssemblyDefinitionAssets;
         [AssetList(CustomFilterMethod = "CheckName")]
         public DefaultAsset[] AssemblyReferences;
-        
+
         /// <summary>
         /// 检测后缀为dll的文件
         /// </summary>
@@ -26,15 +29,15 @@ namespace ZLCEditor.Tool
         {
             return Path.GetExtension(AssetDatabase.GetAssetPath(asset)) == ".dll";
         }
-        
-        [LabelText("代码")]
-        [TextArea(minLines:10, maxLines:50)]
+
+        [Header("代码")]
+        [TextArea(minLines: 10, maxLines: 50)]
         public string code;
-        
+
         [Button("运行")]
         public void Run()
         {
-            if(string.IsNullOrEmpty(code)) return;
+            if (string.IsNullOrEmpty(code)) return;
             var completeCode = @$"
 using UnityEngine;
 public class JIT
@@ -54,7 +57,10 @@ public class JIT
 
         public SyntaxTree ParseToSyntaxTree(string code)
         {
-            var parseOptions = new CSharpParseOptions(LanguageVersion.Latest, preprocessorSymbols: new[] { "RELEASE" });
+            var parseOptions = new CSharpParseOptions(LanguageVersion.Latest, preprocessorSymbols: new[]
+            {
+                "RELEASE"
+            });
             // 有许多其他配置项，最简单这些就可以了
             return CSharpSyntaxTree.ParseText(code, parseOptions);
         }
@@ -77,21 +83,20 @@ public class JIT
             references = references.Append(MetadataReference.CreateFromFile(Assembly.Load("netstandard").Location));
             references = references.Append(MetadataReference.CreateFromFile(Assembly.Load("UnityEngine.CoreModule").Location));
             // 获取编译时所需用到的dll， 这里我们直接简单一点 copy 当前执行环境的
-            return CSharpCompilation.Create("JIT.cs", new SyntaxTree[] { syntaxTree }, references, compilationOptions);
+            return CSharpCompilation.Create("JIT.cs", new SyntaxTree[]
+            {
+                syntaxTree
+            }, references, compilationOptions);
         }
 
         public Assembly ComplieToAssembly(CSharpCompilation compilation)
         {
-            using (var stream = new MemoryStream())
-            {
+            using (var stream = new MemoryStream()) {
                 var restult = compilation.Emit(stream);
-                if (restult.Success)
-                {
+                if (restult.Success) {
                     stream.Seek(0, SeekOrigin.Begin);
                     return Assembly.Load(stream.ToArray());
-                }
-                else
-                {
+                } else {
                     throw new Exception(restult.Diagnostics.Select(i => i.ToString()).DefaultIfEmpty().Aggregate((i, j) => i + j));
                 }
             }

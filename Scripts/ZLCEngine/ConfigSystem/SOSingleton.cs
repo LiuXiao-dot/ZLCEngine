@@ -10,6 +10,7 @@ namespace ZLCEngine.ConfigSystem
     /// </summary>
     public abstract class SOSingleton<T> : ScriptableObject where T : SOSingleton<T>
     {
+        private static bool isPlaying;
         /// <summary>
         /// SO单例
         /// </summary>
@@ -17,7 +18,7 @@ namespace ZLCEngine.ConfigSystem
         {
             get {
                 if (_instance != null) return _instance;
-                if (UnityEngine.Application.isPlaying) {
+                if (isPlaying) {
                     // 运行中，使用加载器加载资源
                     IAppLauncher.Get<IResLoader>().LoadAssetSync($"{typeof(T).Name}.asset", out _instance);
                 } else {
@@ -48,6 +49,7 @@ namespace ZLCEngine.ConfigSystem
         /// </summary>
         protected virtual void OnEnable()
         {
+            isPlaying = UnityEngine.Application.isPlaying;
             if (_instance != null) {
                 if (this != _instance) {
                     Debug.LogWarning($"存在多个单例SO的实例{typeof(T).FullName}");
@@ -58,7 +60,7 @@ namespace ZLCEngine.ConfigSystem
 
             _instance = (T)this;
             if (_instance.name != typeof(T).Name) {
-                Debug.LogError($"单例{_instance.name}名称建议是:{typeof(T).Name},可以自动加载，如果是自定义名称,需要手动提前加载才能正常使用.");
+                Debug.LogWarning($"单例{_instance.name}名称建议是:{typeof(T).Name},可以自动加载，如果是自定义名称,需要手动提前加载才能正常使用.");
             }
         }
 
@@ -68,14 +70,23 @@ namespace ZLCEngine.ConfigSystem
         /// </summary>
         private static void CheckAsset()
         {
+            if(_instance != null) return;
             var path = FilePathAttribute.GetPath(typeof(T));
-            var asset = AssetDatabase.LoadAssetAtPath<T>(path);
-            if (asset != null)
-                _instance = asset;
-            else {
+            if (path == String.Empty) {
+                // 不缓存
                 var temp = ScriptableObject.CreateInstance<T>();
-                AssetDatabase.CreateAsset(temp, path);
+                temp.hideFlags = HideFlags.DontSave;
+                temp.name = typeof(T).Name;
                 _instance = temp;
+            } else {
+                var asset = AssetDatabase.LoadAssetAtPath<T>(path);
+                if (asset != null)
+                    _instance = asset;
+                else {
+                    var temp = ScriptableObject.CreateInstance<T>();
+                    AssetDatabase.CreateAsset(temp, path);
+                    _instance = temp;
+                }
             }
         }
         #endif

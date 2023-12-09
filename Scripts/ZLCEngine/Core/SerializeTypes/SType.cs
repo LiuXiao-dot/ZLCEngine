@@ -1,13 +1,13 @@
 using System;
 using System.Reflection;
-using Sirenix.OdinInspector;
 using UnityEngine;
+using ZLCEngine.Inspector;
 namespace ZLCEngine.SerializeTypes
 {
     /// <summary>
     /// 可序列化的Type,编辑器中展示为Type和所有继承自Type的类
     /// </summary>
-    [Serializable]
+    [System.Serializable]
     public class SType : ISerializationCallbackReceiver
     {
         [ShowInInspector]
@@ -75,7 +75,7 @@ namespace ZLCEngine.SerializeTypes
         }
     }
 
-    [Serializable]
+    [System.Serializable]
     public class STypeArray
     {
         public SType[] types;

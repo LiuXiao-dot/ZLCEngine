@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Sirenix.OdinInspector;
 using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
 using ZLCEngine.ConfigSystem;
+using ZLCEngine.Inspector;
 using ZLCEngine.Utils;
 using FilePathAttribute = ZLCEngine.ConfigSystem.FilePathAttribute;
 namespace ZLCEditor
@@ -15,13 +15,14 @@ namespace ZLCEditor
     public sealed class AssemblysConfigSO : SOSingleton<AssemblysConfigSO>
     {
         [BoxGroup("ZLC框架提供的程序集")]
+        [ReadOnly]
         public List<AssemblyDefinitionAsset> defaultAssemblies;
 
         [BoxGroup("ZLC框架提供的程序集")]
         [AssetList(CustomFilterMethod = "CheckName")]
         public List<DefaultAsset> defaultDlls;
         
-        [PropertyTooltip("许多工具都不会扫描官方或第三方程序集，只扫描自定义程序集。")]
+        [Tooltip("许多工具都不会扫描官方或第三方程序集，只扫描自定义程序集。")]
         [BoxGroup("自定义程序集(需要手动添加)")]
         public List<AssemblyDefinitionAsset> selfAssemblies;
 

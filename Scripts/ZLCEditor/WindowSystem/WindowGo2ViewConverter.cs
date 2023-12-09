@@ -7,7 +7,7 @@ using ZLCEditor.FormatSystem.Common;
 using ZLCEditor.ZLCCoding;
 using ZLCEngine.SerializeTypes;
 using ZLCEngine.WindowSystem;
-namespace ZLCEditor.WindowSystem
+namespace ZLCEditor.WindowSystem.ZLCEditor.WindowSystem
 {
     public class WindowViewCode
     {

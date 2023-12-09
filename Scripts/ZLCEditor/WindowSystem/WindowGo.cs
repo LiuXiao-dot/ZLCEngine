@@ -1,19 +1,18 @@
-using System;
 using System.IO;
 using System.Linq;
-using Sirenix.OdinInspector;
 using UnityEditor;
 using UnityEditor.Compilation;
 using UnityEngine;
 using ZLCEditor.FormatSystem;
+using ZLCEngine.Inspector;
 using ZLCEngine.Utils;
 using ZLCEngine.WindowSystem;
-namespace ZLCEditor.WindowSystem
+namespace ZLCEditor.WindowSystem.ZLCEditor.WindowSystem
 {
 /// <summary>
         /// 窗口GameObject的相关数据
         /// </summary>
-        [Serializable]
+        [System.Serializable]
         public class WindowGo
         {
             /// <summary>
@@ -68,7 +67,7 @@ namespace ZLCEditor.WindowSystem
 
                 var windowGo = new WindowGo
                 {
-                    prefab = PrefabUtility.SaveAsPrefabAsset(go, Path.Combine(WindowSystem.Constant.PrefabURL, layer.ToString(),$"{go.name}.prefab")),
+                    prefab = PrefabUtility.SaveAsPrefabAsset(go, Path.Combine(global::ZLCEditor.WindowSystem.ZLCEditor.WindowSystem.Constant.PrefabURL, layer.ToString(),$"{go.name}.prefab")),
                     ctlCode = ctlCode,
                     viewCode = viewCode,
                     layer =  layer,
@@ -83,7 +82,7 @@ namespace ZLCEditor.WindowSystem
             /// <summary>
             /// 删除窗口
             /// </summary>
-            [Button("删除窗口", ButtonSizes.Small, ButtonStyle.Box)]
+            [Button("删除窗口")]
             private void DeleteWindow()
             {
                 // 删除prefab，ctlCode,viewCode 并从列表中移除，并刷新窗口枚举类型
@@ -122,8 +121,8 @@ namespace ZLCEditor.WindowSystem
                 if (tempTime == modifiedTime) return;
                 modifiedTime = tempTime;
                 var viewCode = FormatManager.Convert<GameObject, WindowViewCode>(prefab);
-                var viewPath = Path.Combine(ZLCEditor.Constant.ZLCGenerateURL, Constant.ViewCodeURL, $"{prefab.name}View.cs");
-                var absoluteViewPath = Path.Combine(ZLCEditor.Constant.BasePath, viewPath);
+                var viewPath = Path.Combine(global::ZLCEditor.Constant.ZLCGenerateURL, Constant.ViewCodeURL, $"{prefab.name}View.cs");
+                var absoluteViewPath = Path.Combine(global::ZLCEditor.Constant.BasePath, viewPath);
                 FileHelper.SaveFile(viewCode.code, absoluteViewPath);
                 Debug.Log($"{prefab.name}生成代码完成");
             }

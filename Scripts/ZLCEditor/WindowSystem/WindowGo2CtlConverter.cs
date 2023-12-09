@@ -3,7 +3,7 @@ using ZLCEditor.FormatSystem;
 using ZLCEditor.FormatSystem.Common;
 using ZLCEditor.ZLCCoding;
 using ZLCEngine.SerializeTypes;
-namespace ZLCEditor.WindowSystem
+namespace ZLCEditor.WindowSystem.ZLCEditor.WindowSystem
 {
     public class WindowCtlCode
     {

@@ -2,13 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Sirenix.Utilities;
 using UnityEditor;
 using UnityEditor.Search;
 using UnityEngine;
 using ZLCEditor.Utils;
 using ZLCEngine.Utils;
-using FilePathAttribute = ZLCEngine.ConfigSystem.FilePathAttribute;
 namespace ZLCEditor
 {
     public sealed class EditorHelper

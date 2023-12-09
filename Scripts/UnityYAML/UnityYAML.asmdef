@@ -1,7 +1,7 @@
 {
     "name": "UnityYAML",
     "rootNamespace": "UnityYAML",
-    "references": [],
+    "references": ["GUID:af1babb7ce6c43c489573e67c70069be"],
     "includePlatforms": [
         "Editor"
     ],

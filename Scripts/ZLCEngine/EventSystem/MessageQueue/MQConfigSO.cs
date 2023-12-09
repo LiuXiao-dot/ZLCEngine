@@ -1,6 +1,6 @@
-using Sirenix.OdinInspector;
 using UnityEngine;
 using ZLCEngine.ConfigSystem;
+using ZLCEngine.Inspector;
 using FilePathAttribute = ZLCEngine.ConfigSystem.FilePathAttribute;
 namespace ZLCEngine.EventSystem.MessageQueue
 {

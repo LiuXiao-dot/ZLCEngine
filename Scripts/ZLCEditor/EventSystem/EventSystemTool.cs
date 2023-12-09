@@ -6,7 +6,7 @@ namespace ZLCEditor.EventSystem
     /// 事件系统相关的工具
     /// </summary>
     [Tool("事件")]
-    public class EventSystemTool
+    public class EventSystemTool : SOSingleton<EventSystemTool>
     {
     }
 }

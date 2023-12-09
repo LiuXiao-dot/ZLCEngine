@@ -3,7 +3,8 @@
     "rootNamespace": "ZLCEngine.UGUISystem",
     "references": [
         "GUID:2bafac87e7f4b9b418d9448d219b01ab",
-        "ZLCEngine.ConfigSystem"
+        "ZLCEngine.ConfigSystem",
+        "GUID:af1babb7ce6c43c489573e67c70069be"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

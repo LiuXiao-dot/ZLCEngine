@@ -1,9 +1,9 @@
 using System.Collections.Generic;
-using Sirenix.OdinInspector;
 using UnityEngine;
 using ZLCEngine.ConfigSystem;
+using ZLCEngine.Inspector;
 using ZLCEngine.WindowSystem;
-namespace ZLCEditor.WindowSystem
+namespace ZLCEditor.WindowSystem.ZLCEditor.WindowSystem
 {
     /// <summary>
     /// 窗口按层级分组的工具

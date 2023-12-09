@@ -87,7 +87,7 @@ namespace ZLCEngine.Utils
         /// <returns></returns>
         public static bool IsFileInDirectory(string directory, string file)
         {
-            return file.Contains(directory);
+            return Path.GetDirectoryName(file) == directory.Replace('/', '\\');
         }
 
         /// <summary>

@@ -1,13 +1,13 @@
-using Sirenix.OdinInspector;
 using UnityEngine.Assertions;
 using ZLCEngine.ConfigSystem;
+using ZLCEngine.Inspector;
 namespace ZLCEditor.Tool
 {
     /// <summary>
     /// 示例工具
     /// </summary>
     [Tool("测试")]
-    public class SamplerTool
+    public class SamplerTool : SOSingleton<SamplerTool>
     {
         private interface ISampler
         {

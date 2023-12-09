@@ -2,11 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Sirenix.OdinInspector;
-using Sirenix.Utilities;
 using UnityEditor;
 using UnityEditor.Compilation;
 using ZLCEngine.ConfigSystem;
+using ZLCEngine.Inspector;
 using ZLCEngine.SerializeTypes;
 using ZLCEngine.Utils;
 using Assembly = System.Reflection.Assembly;
@@ -20,14 +19,14 @@ namespace ZLCEditor.Tool
     /// 为此需要知道是否需要重新查找。
     /// </summary>
     [FilePath(FilePathAttribute.PathType.XWEditor, true)]
-    [Serializable]
+    [System.Serializable]
     internal class ToolConfig : SOSingleton<ToolConfig>
     {
         private static List<Type> _typesPool;
 
         [ReadOnly]
         public SDictionary<string, STypeArray> toolTypes;
-        
+
         /// <summary>
         /// 开始监控是否又程序集发生变动，如果有，将这个程序集的相关类型清空并且重新保存。
         /// </summary>
@@ -98,7 +97,7 @@ namespace ZLCEditor.Tool
             EditorUtility.SetDirty(Instance);
             AssetDatabase.SaveAssetIfDirty(Instance);
         }
-        
+
         /// <summary>
         /// 刷新全部程序集内容
         /// </summary>
@@ -106,9 +105,11 @@ namespace ZLCEditor.Tool
         internal void Refresh()
         {
             if (UnityEditor.EditorUtility.DisplayDialog("ToolConfig", "此操作将会重新检查全部程序集中包含的工具内容，可能需要较长时间，是否继续？", "是")) {
-                CompilationPipeline.GetAssemblies().Select(t =>
-                    Assembly.Load(Path.GetFileNameWithoutExtension(t.outputPath)))
-                    .ForEach(RefreshAssembly);
+                var assemblys = CompilationPipeline.GetAssemblies().Select(t =>
+                    Assembly.Load(Path.GetFileNameWithoutExtension(t.outputPath)));
+                foreach (var assembly in assemblys) {
+                    RefreshAssembly(assembly);
+                }
             }
         }
     }
