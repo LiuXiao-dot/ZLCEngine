@@ -84,7 +84,7 @@ namespace ZLCEditor.WindowSystem.ZLCEditor.WindowSystem
         /// <summary>
         /// 初始化窗口层级目录等
         /// </summary>
-        [Button("初始化")]
+        [Button("初始化窗口工具")]
         private void Init()
         {
             // 创建目录
@@ -147,6 +147,20 @@ namespace ZLCEditor.WindowSystem.ZLCEditor.WindowSystem
                 }
             }
             return default;
+        }
+
+        [Button("同步组件到View中")]
+        public void SyncComponents()
+        {
+            if (layers == null) return;
+            foreach (var layer in layers) {
+                var gos = layer.gos;
+                if (gos == null) continue;
+                foreach (var windowGo in gos) {
+                    windowGo.SyncComponent();
+                }
+            }
+            EditorUtility.DisplayDialog("窗口", "同步结束", "确定");
         }
     }
 }

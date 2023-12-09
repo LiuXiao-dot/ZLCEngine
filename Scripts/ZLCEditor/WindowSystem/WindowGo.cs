@@ -1,14 +1,10 @@
-using System;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using UnityEditor;
 using UnityEditor.Compilation;
-using UnityEditor.UIElements;
 using UnityEngine;
-using UnityEngine.UIElements;
 using ZLCEditor.FormatSystem;
-using ZLCEditor.Inspector;
 using ZLCEngine.Inspector;
 using ZLCEngine.Utils;
 using ZLCEngine.WindowSystem;
@@ -120,16 +116,49 @@ namespace ZLCEditor.WindowSystem.ZLCEditor.WindowSystem
         /// <summary>
         /// 刷新代码
         /// </summary>
-        public void RefreshCode()
+        public bool RefreshCode()
         {
             var tempTime = File.GetLastWriteTime(AssetDatabase.GetAssetPath(prefab)).Ticks;
-            if (tempTime == modifiedTime) return;
+            if (tempTime == modifiedTime) return false;
             modifiedTime = tempTime;
             var viewCode = FormatManager.Convert<GameObject, WindowViewCode>(prefab);
             var viewPath = Path.Combine(global::ZLCEditor.Constant.ZLCGenerateURL, Constant.ViewCodeURL, $"{prefab.name}View.cs");
             var absoluteViewPath = Path.Combine(global::ZLCEditor.Constant.BasePath, viewPath);
             FileHelper.SaveFile(viewCode.code, absoluteViewPath);
+            AssetDatabase.Refresh();
+            CompilationPipeline.RequestScriptCompilation(); // 编译view,ctl代码
+
             Debug.Log($"{prefab.name}生成代码完成");
+            return true;
+        }
+
+        /// <summary>
+        /// 同步组件到View的字段中
+        /// </summary>
+        public bool SyncComponent()
+        {
+            if (EditorApplication.isCompiling) {
+                EditorUtility.DisplayDialog("窗口", "编译中，请稍等", "确定");
+                return false;
+            }
+            ;
+            var view = prefab.GetComponent<AWindowView>();
+            if (view == null || RefreshCode()) {
+                AddView2Prefab();
+                EditorUtility.DisplayDialog("窗口", "由于prefab上没有添加AWindowView脚本，进行了代码同步，请等待编译完成后再次点击", "确定");
+                return false;
+            }
+            var components = prefab.GetComponentsInChildren<WindowComponent>();
+            foreach (var component in components) {
+                var temps = component.components;
+                var goName = component.gameObject.name;
+                foreach (var temp in temps) {
+                    var fieldName = $"{goName}_{temp.GetType().Name}";
+                    view.GetType().GetField(fieldName, BindingFlags.Instance | BindingFlags.Public).SetValue(view, temp);
+                }
+            }
+            PrefabUtility.SavePrefabAsset(prefab);
+            return true;
         }
     }
 }

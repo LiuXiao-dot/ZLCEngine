@@ -21,6 +21,7 @@ namespace ZLCEditor.WindowSystem.ZLCEditor.WindowSystem
     {
         private static string defaultCode =
             $@"using ZLCEngine.WindowSystem;
+using ZLCEngine.Inspector;
 #for ${ZLCCoding.Constant.Using}$ #
 ${ZLCCoding.Constant.Using}$
 #end
