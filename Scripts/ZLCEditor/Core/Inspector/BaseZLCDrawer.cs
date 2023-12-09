@@ -3,6 +3,7 @@ using System.Linq;
 using System.Reflection;
 using UnityEditor;
 using UnityEditor.UIElements;
+using UnityEngine;
 using UnityEngine.UIElements;
 using ZLCEngine.Inspector;
 namespace ZLCEditor.Inspector
@@ -12,6 +13,8 @@ namespace ZLCEditor.Inspector
     {
         public override VisualElement CreatePropertyGUI(SerializedProperty property)
         {
+            var root = new VisualElement();
+            root.Add(new PropertyField(property));
             switch (property.propertyType) {
                 case SerializedPropertyType.Generic:
                 case SerializedPropertyType.Integer:
@@ -42,10 +45,8 @@ namespace ZLCEditor.Inspector
                 case SerializedPropertyType.Hash128:
                     break;
                 default:
-                    return null;
+                    return root;
             }
-            var root = new VisualElement();
-            root.Add(new PropertyField(property));
 
             try {
                 // -- 检测各个方法是否有被可序列化的特性，如果有则按对应的特性进行序列化，没有则跳过
@@ -65,6 +66,11 @@ namespace ZLCEditor.Inspector
             }
 
             return root;
+        }
+
+        public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+        {
+            EditorGUI.PropertyField(position, property, true);
         }
     }
 }
