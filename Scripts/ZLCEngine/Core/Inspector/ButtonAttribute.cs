@@ -3,21 +3,21 @@ using UnityEngine;
 namespace ZLCEngine.Inspector
 {
     /// <summary>
-    /// 编辑器按钮
+    ///     编辑器按钮
     /// </summary>
     [AttributeUsage(AttributeTargets.Method)]
     public class ButtonAttribute : AnySerializableAttribute
     {
-        public int width;
         public int height;
-        public string label;
         public Sprite icon;
+        public string label;
+        public int width;
 
-        public ButtonAttribute() : this(100,16,"")
+        public ButtonAttribute() : this(100, 16, "")
         {
-            
+
         }
-        
+
         public ButtonAttribute(string label) : this(100, 16, label)
         {
         }

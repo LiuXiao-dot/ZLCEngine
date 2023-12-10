@@ -8,20 +8,20 @@ using ResLoader = UnityEngine.AddressableAssets.Addressables;
 namespace ZLCEngine.ResSystem
 {
     /// <summary>
-    /// 资源缓存
+    ///     资源缓存
     /// </summary>
     internal class ResCache : IDisposable
     {
         /// <summary>
-        /// 对象池
-        /// </summary>
-        private Dictionary<string, ResourcePool> _pools;
-        /// <summary>
-        /// 一般资源的handle
+        ///     一般资源的handle
         /// </summary>
         private Dictionary<string, AsyncOperationHandle> _handles;
         /// <summary>
-        /// 场景的handle
+        ///     对象池
+        /// </summary>
+        private Dictionary<string, ResourcePool> _pools;
+        /// <summary>
+        ///     场景的handle
         /// </summary>
         private Dictionary<string, AsyncOperationHandle> _scenes;
 
@@ -31,11 +31,30 @@ namespace ZLCEngine.ResSystem
             _handles = new Dictionary<string, AsyncOperationHandle>();
             _scenes = new Dictionary<string, AsyncOperationHandle>();
         }
-        
+
+        public void Dispose()
+        {
+            // 释放全部handle
+            foreach (KeyValuePair<string, ResourcePool> pool in _pools) {
+                pool.Value.Dispose();
+            }
+            _pools.Clear();
+            foreach (KeyValuePair<string, AsyncOperationHandle> handle in _handles) {
+                if (handle.Value.IsValid())
+                    ResLoader.Release(handle.Value);
+            }
+            _handles.Clear();
+            foreach (KeyValuePair<string, AsyncOperationHandle> handle in _scenes) {
+                if (handle.Value.IsValid())
+                    ResLoader.Release(handle.Value);
+            }
+            _scenes.Clear();
+        }
+
         /// <summary>
-        /// 1.替换掉无效的handle
-        /// 2.添加handle
-        /// 3.加载完后添加池判断
+        ///     1.替换掉无效的handle
+        ///     2.添加handle
+        ///     3.加载完后添加池判断
         /// </summary>
         /// <param name="path"></param>
         /// <param name="handle"></param>
@@ -44,7 +63,7 @@ namespace ZLCEngine.ResSystem
         /// <param name="maxSize"></param>
         internal void AddHandle(string path, AsyncOperationHandle handle, bool forcePooable = false, int defaultCapacity = 10, int maxSize = -1)
         {
-            if (_handles.TryGetValue(path, out var oldHandle)) {
+            if (_handles.TryGetValue(path, out AsyncOperationHandle oldHandle)) {
                 if (oldHandle.IsValid()) {
                     // 不添加
                     Contract.Requires(handle.Equals(oldHandle));
@@ -56,24 +75,24 @@ namespace ZLCEngine.ResSystem
                         if (operationHandle.Status == AsyncOperationStatus.Failed)
                             _handles.Remove(path);
                         else {
-                            if (forcePooable || (handle.Result is GameObject result && result.TryGetComponent<PooableComponent>(out var pooableAsset))) {
+                            if (forcePooable || handle.Result is GameObject result && result.TryGetComponent(out PooableComponent pooableAsset)) {
                                 Contract.Requires(handle.Result is GameObject, $"使用了forcePooable，但该选项目前只支持了GameObject.{path}");
-                                AddPool(path, handle,defaultCapacity,maxSize);
+                                AddPool(path, handle, defaultCapacity, maxSize);
                             }
                         }
                     };
                 }
             } else {
-                _handles.Add(path,handle);
+                _handles.Add(path, handle);
                 handle.Completed += operationHandle =>
                 {
                     // 判断是否是GameObject与是否需要池
                     if (operationHandle.Status == AsyncOperationStatus.Failed)
                         _handles.Remove(path);
                     else {
-                        if (forcePooable || (handle.Result is GameObject result && result.TryGetComponent<PooableComponent>(out var pooableAsset))) {
+                        if (forcePooable || handle.Result is GameObject result && result.TryGetComponent(out PooableComponent pooableAsset)) {
                             Contract.Requires(handle.Result is GameObject, $"使用了forcePooable，但该选项目前只支持了GameObject.{path}");
-                            AddPool(path, handle,defaultCapacity,maxSize);
+                            AddPool(path, handle, defaultCapacity, maxSize);
                         }
                     }
                 };
@@ -81,7 +100,7 @@ namespace ZLCEngine.ResSystem
         }
 
         /// <summary>
-        /// 添加池
+        ///     添加池
         /// </summary>
         /// <param name="path"></param>
         /// <param name="handle"></param>
@@ -95,7 +114,6 @@ namespace ZLCEngine.ResSystem
         }
 
         /// <summary>
-        /// 
         /// </summary>
         /// <param name="path"></param>
         /// <param name="handle"></param>
@@ -106,12 +124,12 @@ namespace ZLCEngine.ResSystem
         }
 
         /// <summary>
-        /// 移除cache
+        ///     移除cache
         /// </summary>
         /// <param name="path"></param>
         internal void RemoveHandle(string path)
         {
-            if (_handles.TryGetValue(path, out var handle)) {
+            if (_handles.TryGetValue(path, out AsyncOperationHandle handle)) {
                 _handles.Remove(path);
                 if (handle.IsValid())
                     ResLoader.Release(handle);
@@ -119,7 +137,7 @@ namespace ZLCEngine.ResSystem
         }
 
         /// <summary>
-        /// 优先从池中获取
+        ///     优先从池中获取
         /// </summary>
         /// <param name="path"></param>
         /// <param name="parent"></param>
@@ -127,21 +145,20 @@ namespace ZLCEngine.ResSystem
         internal GameObject InstantiateGameObject(string path, Transform parent)
         {
             Contract.Requires(_handles.ContainsKey(path), "试图实例化未加载的GameObject");
-            if (_pools.TryGetValue(path, out var pool)) {
+            if (_pools.TryGetValue(path, out ResourcePool pool)) {
                 return pool.Get(parent);
-            } else {
-                return GameObject.Instantiate((GameObject)_handles[path].Result, parent);
             }
+            return GameObject.Instantiate((GameObject)_handles[path].Result, parent);
         }
 
         /// <summary>
-        /// 当是池中对象时，PooableGameObject会释放GameObject到池中
+        ///     当是池中对象时，PooableGameObject会释放GameObject到池中
         /// </summary>
         /// <param name="gameObject"></param>
         internal void ReleaseGameObject(GameObject gameObject)
         {
-            if (gameObject.TryGetComponent<PooableComponent>(out var component)) {
-                var pool = component.GetPool();
+            if (gameObject.TryGetComponent(out PooableComponent component)) {
+                ResourcePool pool = component.GetPool();
                 if (pool != null) {
                     pool.Release(gameObject);
                     return;
@@ -162,7 +179,7 @@ namespace ZLCEngine.ResSystem
 
         internal void AddSceneHandle(string sceneName, AsyncOperationHandle handle)
         {
-            if (_scenes.TryGetValue(sceneName, out var oldHandle)) {
+            if (_scenes.TryGetValue(sceneName, out AsyncOperationHandle oldHandle)) {
                 if (oldHandle.IsValid()) {
                     // 不添加
                     Contract.Requires(handle.Equals(oldHandle));
@@ -173,35 +190,16 @@ namespace ZLCEngine.ResSystem
         }
 
         /// <summary>
-        /// 场景的handle要用于卸载场景，由ResManager进行销毁
+        ///     场景的handle要用于卸载场景，由ResManager进行销毁
         /// </summary>
         /// <param name="sceneName"></param>
         /// <param name="handle"></param>
-        internal bool RemoveSceneHandle(string sceneName,out AsyncOperationHandle handle)
+        internal bool RemoveSceneHandle(string sceneName, out AsyncOperationHandle handle)
         {
             if (_scenes.TryGetValue(sceneName, out handle)) {
                 return _scenes.Remove(sceneName);
             }
             return false;
-        }
-        
-        public void Dispose()
-        {
-            // 释放全部handle
-            foreach (var pool in _pools) {
-                pool.Value.Dispose();
-            }
-            _pools.Clear();
-            foreach (var handle in _handles) {
-                if(handle.Value.IsValid())
-                    ResLoader.Release(handle.Value);
-            }
-            _handles.Clear();
-            foreach (var handle in _scenes) {
-                if(handle.Value.IsValid())
-                    ResLoader.Release(handle.Value);
-            }
-            _scenes.Clear();
         }
     }
 }

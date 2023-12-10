@@ -2,16 +2,15 @@ using System;
 namespace ZLCEngine.Utils
 {
     /// <summary>
-    /// 倒计时部分控制
+    ///     倒计时部分控制
     /// </summary>
     public sealed class Timer : IDisposable
     {
-        private readonly Action update;
-        private int remainingTime;
         private readonly Action onFinish;
         private readonly Action onUpdate;
+        private readonly Action update;
+        private int remainingTime;
         /// <summary>
-        /// 
         /// </summary>
         /// <param name="onUpdate"></param>
         /// <param name="onFinish"></param>
@@ -19,10 +18,15 @@ namespace ZLCEngine.Utils
         {
             this.onUpdate = onUpdate;
             this.onFinish = onFinish;
-            this.update = Update;
+            update = Update;
+        }
+        /// <inheritdoc />
+        public void Dispose()
+        {
+            Stop();
         }
         /// <summary>
-        /// 开始计时
+        ///     开始计时
         /// </summary>
         private void Start()
         {
@@ -30,7 +34,7 @@ namespace ZLCEngine.Utils
         }
 
         /// <summary>
-        /// 停止计时
+        ///     停止计时
         /// </summary>
         private void Stop()
         {
@@ -38,22 +42,22 @@ namespace ZLCEngine.Utils
         }
 
         /// <summary>
-        /// 设置剩余倒计时时间
+        ///     设置剩余倒计时时间
         /// </summary>
         /// <param name="time"></param>
         public void SetTime(int time)
         {
-            this.remainingTime = time;
+            remainingTime = time;
         }
 
         /// <summary>
-        /// 每秒触发更新
+        ///     每秒触发更新
         /// </summary>
         private void Update()
         {
-            this.remainingTime--;
+            remainingTime--;
             onUpdate?.Invoke();
-            if (this.remainingTime < 0) {
+            if (remainingTime < 0) {
                 // 倒计时结束
                 Stop();
                 onFinish?.Invoke();
@@ -61,16 +65,10 @@ namespace ZLCEngine.Utils
         }
 
         /// <summary>
-        /// 
         /// </summary>
         ~Timer()
         {
             Dispose();
-        }
-        /// <inheritdoc />
-        public void Dispose()
-        {
-            Stop();
         }
     }
 

@@ -52,88 +52,136 @@ using System.Collections.Generic;
 #pragma warning disable CS1591
 namespace ZLCEngine.Utils
 {
-    struct Byte8192
+    internal struct Byte8192
     {
-        Byte4096 a1; Byte4096 a2;
+        private Byte4096 a1;
+        private Byte4096 a2;
     }
-    struct Byte4096
+    internal struct Byte4096
     {
-        Byte2048 a1; Byte2048 a2;
+        private Byte2048 a1;
+        private Byte2048 a2;
     }
-    struct Byte2048
+    internal struct Byte2048
     {
-        Byte1024 a1; Byte1024 a2;
+        private Byte1024 a1;
+        private Byte1024 a2;
     }
-    struct Byte1024
+    internal struct Byte1024
     {
-        Byte512 a1; Byte512 a2;
+        private Byte512 a1;
+        private Byte512 a2;
     }
-    struct Byte512
+    internal struct Byte512
     {
-        Byte256 a1; Byte256 a2;
+        private Byte256 a1;
+        private Byte256 a2;
     }
-    struct Byte256
+    internal struct Byte256
     {
-        Byte128 a1; Byte128 a2;
+        private Byte128 a1;
+        private Byte128 a2;
     }
-    struct Byte128
+    internal struct Byte128
     {
-        Byte64 a1; Byte64 a2;
+        private Byte64 a1;
+        private Byte64 a2;
     }
-    struct Byte64
+    internal struct Byte64
     {
-        Byte32 a1; Byte32 a2;
+        private Byte32 a1;
+        private Byte32 a2;
     }
-    struct Byte32
+    internal struct Byte32
     {
-        Byte16 a1; Byte16 a2;
+        private Byte16 a1;
+        private Byte16 a2;
     }
-    struct Byte16
+    internal struct Byte16
     {
-        Byte8 a1; Byte8 a2;
+        private Byte8 a1;
+        private Byte8 a2;
     }
-    struct Byte8
+    internal struct Byte8
     {
-        long a1;
+        private long a1;
     }
-    struct Byte4
+    internal struct Byte4
     {
-        int a1;
+        private int a1;
     }
-    struct Byte2
+    internal struct Byte2
     {
-        short a;
+        private short a;
     }
 
-    struct Byte1
+    internal struct Byte1
     {
-        byte a;
+        private byte a;
     }
     public class zstring
     {
-        static Queue<zstring>[] g_cache;//idx特定字符串长度,深拷贝核心缓存
-        static Dictionary<int, Queue<zstring>> g_secCache;//key特定字符串长度value字符串栈，深拷贝次级缓存
-        static Stack<zstring> g_shallowCache;//浅拷贝缓存
 
-        static Stack<zstring_block> g_blocks;//zstring_block缓存栈
-        static Stack<zstring_block> g_open_blocks;//zstring已经打开的缓存栈      
-        static Dictionary<int, string> g_intern_table;//字符串intern表
-        public static zstring_block g_current_block;//zstring所在的block块
-        static List<int> g_finds;//字符串replace功能记录子串位置
-        static zstring[] g_format_args;//存储格式化字符串值
+        private const int INITIAL_BLOCK_CAPACITY = 32; //gblock块数量  
+        private const int INITIAL_CACHE_CAPACITY = 128; //cache缓存字典容量  128*4Byte 500多Byte
+        private const int INITIAL_STACK_CAPACITY = 48; //cache字典每个stack默认nstring容量
+        private const int INITIAL_INTERN_CAPACITY = 256; //Intern容量
+        private const int INITIAL_OPEN_CAPACITY = 5; //默认打开层数为5
+        private const int INITIAL_SHALLOW_CAPACITY = 100; //默认50个浅拷贝用
+        private const char NEW_ALLOC_CHAR = 'X'; //填充char
+        private static Queue<zstring>[] g_cache; //idx特定字符串长度,深拷贝核心缓存
+        private static Dictionary<int, Queue<zstring>> g_secCache; //key特定字符串长度value字符串栈，深拷贝次级缓存
+        private static Stack<zstring> g_shallowCache; //浅拷贝缓存
 
-        const int INITIAL_BLOCK_CAPACITY = 32;//gblock块数量  
-        const int INITIAL_CACHE_CAPACITY = 128;//cache缓存字典容量  128*4Byte 500多Byte
-        const int INITIAL_STACK_CAPACITY = 48;//cache字典每个stack默认nstring容量
-        const int INITIAL_INTERN_CAPACITY = 256;//Intern容量
-        const int INITIAL_OPEN_CAPACITY = 5;//默认打开层数为5
-        const int INITIAL_SHALLOW_CAPACITY = 100;//默认50个浅拷贝用
-        const char NEW_ALLOC_CHAR = 'X';//填充char
-        private bool isShallow = false;//是否浅拷贝
-        [NonSerialized]
-        string _value;//值
-        [NonSerialized]
-        bool _disposed;//销毁标记
+        private static Stack<zstring_block> g_blocks; //zstring_block缓存栈
+        private static Stack<zstring_block> g_open_blocks; //zstring已经打开的缓存栈      
+        private static Dictionary<int, string> g_intern_table; //字符串intern表
+        public static zstring_block g_current_block; //zstring所在的block块
+        private static List<int> g_finds; //字符串replace功能记录子串位置
+        private static zstring[] g_format_args; //存储格式化字符串值
+        //从src，0位置起始拷贝count长度字符串src到dst中
+        //private unsafe static void memcpy(char* dest, char* src, int count)
+        //{
+        //    // Same rules as for memcpy, but with the premise that 
+        //    // chars can only be aligned to even addresses if their
+        //    // enclosing types are correctly aligned
+
+        //    superMemcpy(dest, src, count);
+        //    //if ((((int)(byte*)dest | (int)(byte*)src) & 3) != 0)//转换为byte指针
+        //    //{
+        //    //    if (((int)(byte*)dest & 2) != 0 && ((int)(byte*)src & 2) != 0 && count > 0)
+        //    //    {
+        //    //        ((short*)dest)[0] = ((short*)src)[0];
+        //    //        dest++;
+        //    //        src++;
+        //    //        count--;
+        //    //    }
+        //    //    if ((((int)(byte*)dest | (int)(byte*)src) & 2) != 0)
+        //    //    {
+        //    //        _memcpy2((byte*)dest, (byte*)src, count * 2);//转换为short*指针一次两个字节拷贝
+        //    //        return;
+        //    //    }
+        //    //}
+        //    //_memcpy4((byte*)dest, (byte*)src, count * 2);//转换为int*指针一次四个字节拷贝
+        //}
+        //--------------------------------------手敲memcpy-------------------------------------//
+        private static int m_charLen = sizeof(char);
+        [NonSerialized] private bool _disposed; //销毁标记
+        [NonSerialized] private string _value; //值
+        private bool isShallow; //是否浅拷贝
+        static zstring()
+        {
+            Initialize(INITIAL_CACHE_CAPACITY,
+                INITIAL_STACK_CAPACITY,
+                INITIAL_BLOCK_CAPACITY,
+                INITIAL_INTERN_CAPACITY,
+                INITIAL_OPEN_CAPACITY,
+                INITIAL_SHALLOW_CAPACITY
+            );
+
+            g_finds = new List<int>(10);
+            g_format_args = new zstring[10];
+        }
 
         //不支持构造
         private zstring()
@@ -148,25 +196,11 @@ namespace ZLCEngine.Utils
         //浅拷贝专用构造
         private zstring(string value, bool shallow)
         {
-            if (!shallow)
-            {
+            if (!shallow) {
                 throw new NotSupportedException();
             }
             _value = value;
             isShallow = true;
-        }
-        static zstring()
-        {
-            Initialize(INITIAL_CACHE_CAPACITY,
-                       INITIAL_STACK_CAPACITY,
-                       INITIAL_BLOCK_CAPACITY,
-                       INITIAL_INTERN_CAPACITY,
-                       INITIAL_OPEN_CAPACITY,
-                       INITIAL_SHALLOW_CAPACITY
-                       );
-
-            g_finds = new List<int>(10);
-            g_format_args = new zstring[10];
         }
         //析构
         private void dispose()
@@ -174,19 +208,14 @@ namespace ZLCEngine.Utils
             if (_disposed)
                 throw new ObjectDisposedException(this);
 
-            if (isShallow)//深浅拷贝走不同缓存
+            if (isShallow) //深浅拷贝走不同缓存
             {
                 g_shallowCache?.Push(this);
-            }
-            else
-            {
+            } else {
                 Queue<zstring> stack;
-                if (g_cache.Length > Length)
-                {
-                    stack = g_cache[Length];//取出valuelength长度的栈，将自身push进去
-                }
-                else
-                {
+                if (g_cache.Length > Length) {
+                    stack = g_cache[Length]; //取出valuelength长度的栈，将自身push进去
+                } else {
                     stack = g_secCache[Length];
                 }
                 stack.Enqueue(this);
@@ -204,29 +233,25 @@ namespace ZLCEngine.Utils
             if (log != null)
                 log("Getting: " + value);
 #endif
-            var result = get(value.Length);
-            memcpy(dst: result, src: value);//内存拷贝
+            zstring result = get(value.Length);
+            memcpy(result, value); //内存拷贝
             return result;
         }
         //由string浅拷贝入zstring
         private static zstring getShallow(string value)
         {
-            if (g_current_block == null)
-            {
+            if (g_current_block == null) {
                 throw new InvalidOperationException("nstring 操作必须在一个nstring_block块中。");
             }
             zstring result;
-            if (g_shallowCache.Count == 0)
-            {
+            if (g_shallowCache.Count == 0) {
                 result = new zstring(value, true);
-            }
-            else
-            {
+            } else {
                 result = g_shallowCache.Pop();
                 result._value = value;
             }
             result._disposed = false;
-            g_current_block.push(result);//zstring推入块所在栈
+            g_current_block.push(result); //zstring推入块所在栈
             return result;
         }
         //将string加入intern表中
@@ -234,30 +259,24 @@ namespace ZLCEngine.Utils
         {
 
             int hash = value.GetHashCode();
-            if (g_intern_table.ContainsKey(hash))
-            {
+            if (g_intern_table.ContainsKey(hash)) {
                 return g_intern_table[hash];
             }
-            else
-            {
-                string interned = new string(NEW_ALLOC_CHAR, value.Length);
-                memcpy(interned, value);
-                g_intern_table.Add(hash, interned);
-                return interned;
-            }
+            string interned = new string(NEW_ALLOC_CHAR, value.Length);
+            memcpy(interned, value);
+            g_intern_table.Add(hash, interned);
+            return interned;
         }
         //手动添加方法
         private static void getStackInCache(int index, out Queue<zstring> outStack)
         {
             int length = g_cache.Length;
-            if (length > index)//从核心缓存中取
+            if (length > index) //从核心缓存中取
             {
                 outStack = g_cache[index];
-            }
-            else//从次级缓存中取
+            } else //从次级缓存中取
             {
-                if (!g_secCache.TryGetValue(index, out outStack))
-                {
+                if (!g_secCache.TryGetValue(index, out outStack)) {
                     outStack = new Queue<zstring>(INITIAL_STACK_CAPACITY);
                     g_secCache[index] = outStack;
                 }
@@ -273,16 +292,13 @@ namespace ZLCEngine.Utils
             Queue<zstring> stack;
             getStackInCache(length, out stack);
             //从缓存中取Stack
-            if (stack.Count == 0)
-            {
+            if (stack.Count == 0) {
                 result = new zstring(length);
-            }
-            else
-            {
+            } else {
                 result = stack.Dequeue();
             }
             result._disposed = false;
-            g_current_block.push(result);//zstring推入块所在栈
+            g_current_block.push(result); //zstring推入块所在栈
             return result;
         }
 
@@ -333,11 +349,9 @@ namespace ZLCEngine.Utils
 
             //新字符串长度
             int new_len = input.Length;
-            for (int i = -3; ;)
-            {
+            for (int i = -3;;) {
                 i = internal_index_of(input, '{', i + 3);
-                if (i == -1)
-                {
+                if (i == -1) {
                     break;
                 }
                 new_len -= 3;
@@ -351,11 +365,10 @@ namespace ZLCEngine.Utils
             int next_output_idx = 0;
             int next_input_idx = 0;
             int brace_idx = -3;
-            for (int i = 0, j = 0, x = 0; ; x++) // x < num_args
+            for (int i = 0, j = 0, x = 0;; x++) // x < num_args
             {
                 brace_idx = internal_index_of(input, '{', brace_idx + 3);
-                if (brace_idx == -1)
-                {
+                if (brace_idx == -1) {
                     break;
                 }
                 next_input_idx = brace_idx;
@@ -366,23 +379,16 @@ namespace ZLCEngine.Utils
                 if (brace_idx + 2 >= input.Length || input[brace_idx + 2] != '}')
                     throw new InvalidOperationException("没有发现大括号} for argument " + arg);
 
-                fixed (char* ptr_input = input)
-                {
-                    fixed (char* ptr_result = res_value)
-                    {
-                        for (int k = 0; i < new_len;)
-                        {
-                            if (j < brace_idx)
-                            {
+                fixed (char* ptr_input = input) {
+                    fixed (char* ptr_result = res_value) {
+                        for (int k = 0; i < new_len;) {
+                            if (j < brace_idx) {
                                 ptr_result[i++] = ptr_input[j++];
                                 ++next_output_idx;
-                            }
-                            else
-                            {
+                            } else {
                                 ptr_result[i++] = arg[k++];
                                 ++next_output_idx;
-                                if (k == arg.Length)
-                                {
+                                if (k == arg.Length) {
                                     j += 3;
                                     break;
                                 }
@@ -392,12 +398,9 @@ namespace ZLCEngine.Utils
                 }
             }
             next_input_idx += 3;
-            for (int i = next_output_idx, j = 0; i < new_len; i++, j++)
-            {
-                fixed (char* ptr_input = input)
-                {
-                    fixed (char* ptr_result = res_value)
-                    {
+            for (int i = next_output_idx, j = 0; i < new_len; i++, j++) {
+                fixed (char* ptr_input = input) {
+                    fixed (char* ptr_result = res_value) {
                         ptr_result[i] = ptr_input[next_input_idx + j];
                     }
                 }
@@ -406,7 +409,7 @@ namespace ZLCEngine.Utils
         }
 
         //获取char在字符串中start开始的下标
-        private unsafe static int internal_index_of(string input, char value, int start, int count)
+        private static unsafe int internal_index_of(string input, char value, int start, int count)
         {
             if (start < 0 || start >= input.Length)
                 // throw new ArgumentOutOfRangeException("start");
@@ -416,17 +419,17 @@ namespace ZLCEngine.Utils
                 return -1;
             // throw new ArgumentOutOfRangeException("count=" + count + " start+count=" + start + count);
 
-            fixed (char* ptr_this = input)
-            {
+            fixed (char* ptr_this = input) {
                 int end = start + count;
-                for (int i = start; i < end; i++)
+                for (int i = start; i < end; i++) {
                     if (ptr_this[i] == value)
                         return i;
+                }
                 return -1;
             }
         }
         //获取value在input中自start起始下标
-        private unsafe static int internal_index_of(string input, string value, int start, int count)
+        private static unsafe int internal_index_of(string input, string value, int start, int count)
         {
             int input_len = input.Length;
 
@@ -439,18 +442,13 @@ namespace ZLCEngine.Utils
             if (count == 0)
                 return -1;
 
-            fixed (char* ptr_input = input)
-            {
-                fixed (char* ptr_value = value)
-                {
+            fixed (char* ptr_input = input) {
+                fixed (char* ptr_value = value) {
                     int found = 0;
                     int end = start + count;
-                    for (int i = start; i < end; i++)
-                    {
-                        for (int j = 0; j < value.Length && i + j < input_len; j++)
-                        {
-                            if (ptr_input[i + j] == ptr_value[j])
-                            {
+                    for (int i = start; i < end; i++) {
+                        for (int j = 0; j < value.Length && i + j < input_len; j++) {
+                            if (ptr_input[i + j] == ptr_value[j]) {
                                 found++;
                                 if (found == value.Length)
                                     return i;
@@ -465,7 +463,7 @@ namespace ZLCEngine.Utils
             }
         }
         //移除string中自start起始count长度子串
-        private unsafe static zstring internal_remove(string input, int start, int count)
+        private static zstring internal_remove(string input, int start, int count)
         {
             if (start < 0 || start >= input.Length)
                 throw new ArgumentOutOfRangeException("start=" + start + " Length=" + input.Length);
@@ -481,14 +479,11 @@ namespace ZLCEngine.Utils
             return result;
         }
         //将src中自start起count长度子串复制入dst
-        private unsafe static void internal_remove(string dst, string src, int start, int count)
+        private static unsafe void internal_remove(string dst, string src, int start, int count)
         {
-            fixed (char* src_ptr = src)
-            {
-                fixed (char* dst_ptr = dst)
-                {
-                    for (int i = 0, j = 0; i < dst.Length; i++)
-                    {
+            fixed (char* src_ptr = src) {
+                fixed (char* dst_ptr = dst) {
+                    for (int i = 0, j = 0; i < dst.Length; i++) {
                         if (i >= start && i < start + count) // within removal range
                             continue;
                         dst_ptr[j++] = src_ptr[i];
@@ -497,7 +492,7 @@ namespace ZLCEngine.Utils
             }
         }
         //字符串replace，原字符串，需替换子串，替换的新子串
-        private unsafe static zstring internal_replace(string value, string old_value, string new_value)
+        private static unsafe zstring internal_replace(string value, string old_value, string new_value)
         {
             // "Hello, World. There World" | World->Jon =
             // "000000000000000000000" (len = orig - 2 * (world-jon) = orig - 4
@@ -527,8 +522,7 @@ namespace ZLCEngine.Utils
             g_finds.Add(idx);
 
             // 记录所有需要替换的idx点
-            while (idx + old_value.Length < value.Length)
-            {
+            while (idx + old_value.Length < value.Length) {
                 idx = internal_index_of(value, old_value, idx + old_value.Length);
                 if (idx == -1)
                     break;
@@ -539,23 +533,17 @@ namespace ZLCEngine.Utils
             int new_len;
             int dif = old_value.Length - new_value.Length;
             if (dif > 0)
-                new_len = value.Length - (g_finds.Count * dif);
+                new_len = value.Length - g_finds.Count * dif;
             else
-                new_len = value.Length + (g_finds.Count * -dif);
+                new_len = value.Length + g_finds.Count * -dif;
 
             zstring result = get(new_len);
-            fixed (char* ptr_this = value)
-            {
-                fixed (char* ptr_result = result._value)
-                {
-                    for (int i = 0, x = 0, j = 0; i < new_len;)
-                    {
-                        if (x == g_finds.Count || g_finds[x] != j)
-                        {
+            fixed (char* ptr_this = value) {
+                fixed (char* ptr_result = result._value) {
+                    for (int i = 0, x = 0, j = 0; i < new_len;) {
+                        if (x == g_finds.Count || g_finds[x] != j) {
                             ptr_result[i++] = ptr_this[j++];
-                        }
-                        else
-                        {
+                        } else {
                             for (int n = 0; n < new_value.Length; n++)
                                 ptr_result[i + n] = new_value[n];
 
@@ -569,7 +557,7 @@ namespace ZLCEngine.Utils
             return result;
         }
         //向字符串value中自start位置插入count长度的to_insertChar
-        private unsafe static zstring internal_insert(string value, char to_insert, int start, int count)
+        private static unsafe zstring internal_insert(string value, char to_insert, int start, int count)
         {
             // "HelloWorld" (to_insert=x, start=5, count=3) -> "HelloxxxWorld"
 
@@ -584,12 +572,9 @@ namespace ZLCEngine.Utils
 
             int new_len = value.Length + count;
             zstring result = get(new_len);
-            fixed (char* ptr_value = value)
-            {
-                fixed (char* ptr_result = result._value)
-                {
-                    for (int i = 0, j = 0; i < new_len; i++)
-                    {
+            fixed (char* ptr_value = value) {
+                fixed (char* ptr_result = result._value) {
+                    for (int i = 0, j = 0; i < new_len; i++) {
                         if (i >= start && i < start + count)
                             ptr_result[i] = to_insert;
                         else
@@ -600,7 +585,7 @@ namespace ZLCEngine.Utils
             return result;
         }
         //向input字符串中插入to_insert串，位置为start
-        private unsafe static zstring internal_insert(string input, string to_insert, int start)
+        private static zstring internal_insert(string input, string to_insert, int start)
         {
             if (input == null)
                 throw new ArgumentNullException("input");
@@ -620,34 +605,27 @@ namespace ZLCEngine.Utils
             return result;
         }
         //字符串拼接
-        private unsafe static zstring internal_concat(string s1, string s2)
+        private static unsafe zstring internal_concat(string s1, string s2)
         {
             int total_length = s1.Length + s2.Length;
             zstring result = get(total_length);
-            fixed (char* ptr_result = result._value)
-            {
-                fixed (char* ptr_s1 = s1)
-                {
-                    fixed (char* ptr_s2 = s2)
-                    {
-                        memcpy(dst: ptr_result, src: ptr_s1, length: s1.Length, src_offset: 0);
-                        memcpy(dst: ptr_result, src: ptr_s2, length: s2.Length, src_offset: s1.Length);
+            fixed (char* ptr_result = result._value) {
+                fixed (char* ptr_s1 = s1) {
+                    fixed (char* ptr_s2 = s2) {
+                        memcpy(ptr_result, ptr_s1, s1.Length, 0);
+                        memcpy(ptr_result, ptr_s2, s2.Length, s1.Length);
                     }
                 }
             }
             return result;
         }
         //将to_insert串插入src的start位置，内容写入dst
-        private unsafe static void internal_insert(string dst, string src, string to_insert, int start)
+        private static unsafe void internal_insert(string dst, string src, string to_insert, int start)
         {
-            fixed (char* ptr_src = src)
-            {
-                fixed (char* ptr_dst = dst)
-                {
-                    fixed (char* ptr_to_insert = to_insert)
-                    {
-                        for (int i = 0, j = 0, k = 0; i < dst.Length; i++)
-                        {
+            fixed (char* ptr_src = src) {
+                fixed (char* ptr_dst = dst) {
+                    fixed (char* ptr_to_insert = to_insert) {
+                        for (int i = 0, j = 0, k = 0; i < dst.Length; i++) {
                             if (i >= start && i < start + to_insert.Length)
                                 ptr_dst[i] = ptr_to_insert[k++];
                             else
@@ -659,7 +637,7 @@ namespace ZLCEngine.Utils
         }
 
         //将长度为count的数字插入dst中，起始位置为start，dst的长度需大于start+count
-        private unsafe static void longcpy(char* dst, long value, int start, int count)
+        private static unsafe void longcpy(char* dst, long value, int start, int count)
         {
             int end = start + count;
             for (int i = end - 1; i >= start; i--, value /= 10)
@@ -667,7 +645,7 @@ namespace ZLCEngine.Utils
         }
 
         //将长度为count的数字插入dst中，起始位置为start，dst的长度需大于start+count
-        private unsafe static void intcpy(char* dst, int value, int start, int count)
+        private static unsafe void intcpy(char* dst, int value, int start, int count)
         {
             int end = start + count;
             for (int i = end - 1; i >= start; i--, value /= 10)
@@ -688,8 +666,7 @@ namespace ZLCEngine.Utils
                 src += 32;
                 size -= 32;
             }*/
-            while (size >= 16)
-            {
+            while (size >= 16) {
                 ((int*)dest)[0] = ((int*)src)[0];
                 ((int*)dest)[1] = ((int*)src)[1];
                 ((int*)dest)[2] = ((int*)src)[2];
@@ -698,16 +675,14 @@ namespace ZLCEngine.Utils
                 src += 16;
                 size -= 16;
             }
-            while (size >= 4)
-            {
+            while (size >= 4) {
                 ((int*)dest)[0] = ((int*)src)[0];
                 dest += 4;
                 src += 4;
                 size -= 4;
             }
-            while (size > 0)
-            {
-                ((byte*)dest)[0] = ((byte*)src)[0];
+            while (size > 0) {
+                dest[0] = src[0];
                 dest += 1;
                 src += 1;
                 --size;
@@ -715,8 +690,7 @@ namespace ZLCEngine.Utils
         }
         private static unsafe void _memcpy2(byte* dest, byte* src, int size)
         {
-            while (size >= 8)
-            {
+            while (size >= 8) {
                 ((short*)dest)[0] = ((short*)src)[0];
                 ((short*)dest)[1] = ((short*)src)[1];
                 ((short*)dest)[2] = ((short*)src)[2];
@@ -726,154 +700,111 @@ namespace ZLCEngine.Utils
                 size -= 8;
             }
 
-            while (size >= 2)
-            {
+            while (size >= 2) {
                 ((short*)dest)[0] = ((short*)src)[0];
                 dest += 2;
                 src += 2;
                 size -= 2;
             }
 
-            if (size > 0)
-            {
-                ((byte*)dest)[0] = ((byte*)src)[0];
+            if (size > 0) {
+                dest[0] = src[0];
             }
         }
-        //从src，0位置起始拷贝count长度字符串src到dst中
-        //private unsafe static void memcpy(char* dest, char* src, int count)
-        //{
-        //    // Same rules as for memcpy, but with the premise that 
-        //    // chars can only be aligned to even addresses if their
-        //    // enclosing types are correctly aligned
-
-        //    superMemcpy(dest, src, count);
-        //    //if ((((int)(byte*)dest | (int)(byte*)src) & 3) != 0)//转换为byte指针
-        //    //{
-        //    //    if (((int)(byte*)dest & 2) != 0 && ((int)(byte*)src & 2) != 0 && count > 0)
-        //    //    {
-        //    //        ((short*)dest)[0] = ((short*)src)[0];
-        //    //        dest++;
-        //    //        src++;
-        //    //        count--;
-        //    //    }
-        //    //    if ((((int)(byte*)dest | (int)(byte*)src) & 2) != 0)
-        //    //    {
-        //    //        _memcpy2((byte*)dest, (byte*)src, count * 2);//转换为short*指针一次两个字节拷贝
-        //    //        return;
-        //    //    }
-        //    //}
-        //    //_memcpy4((byte*)dest, (byte*)src, count * 2);//转换为int*指针一次四个字节拷贝
-        //}
-        //--------------------------------------手敲memcpy-------------------------------------//
-        private static int m_charLen = sizeof(char);
-        private unsafe static void memcpy(char* dest, char* src, int count)
+        private static unsafe void memcpy(char* dest, char* src, int count)
         {
             byteCopy((byte*)dest, (byte*)src, count * m_charLen);
         }
-        private unsafe static void byteCopy(byte* dest, byte* src, int byteCount)
+        private static unsafe void byteCopy(byte* dest, byte* src, int byteCount)
         {
-            if (byteCount < 128)
-            {
+            if (byteCount < 128) {
                 goto g64;
             }
-            else if (byteCount < 2048)
-            {
+            if (byteCount < 2048) {
                 goto g1024;
             }
 
-            while (byteCount >= 8192)
-            {
+            while (byteCount >= 8192) {
                 ((Byte8192*)dest)[0] = ((Byte8192*)src)[0];
                 dest += 8192;
                 src += 8192;
                 byteCount -= 8192;
             }
-            if (byteCount >= 4096)
-            {
+            if (byteCount >= 4096) {
                 ((Byte4096*)dest)[0] = ((Byte4096*)src)[0];
                 dest += 4096;
                 src += 4096;
                 byteCount -= 4096;
             }
-            if (byteCount >= 2048)
-            {
+            if (byteCount >= 2048) {
                 ((Byte2048*)dest)[0] = ((Byte2048*)src)[0];
                 dest += 2048;
                 src += 2048;
                 byteCount -= 2048;
             }
-        g1024: if (byteCount >= 1024)
-            {
+            g1024:
+            if (byteCount >= 1024) {
                 ((Byte1024*)dest)[0] = ((Byte1024*)src)[0];
                 dest += 1024;
                 src += 1024;
                 byteCount -= 1024;
             }
-            if (byteCount >= 512)
-            {
+            if (byteCount >= 512) {
                 ((Byte512*)dest)[0] = ((Byte512*)src)[0];
                 dest += 512;
                 src += 512;
                 byteCount -= 512;
             }
-            if (byteCount >= 256)
-            {
+            if (byteCount >= 256) {
                 ((Byte256*)dest)[0] = ((Byte256*)src)[0];
                 dest += 256;
                 src += 256;
                 byteCount -= 256;
             }
-            if (byteCount >= 128)
-            {
+            if (byteCount >= 128) {
                 ((Byte128*)dest)[0] = ((Byte128*)src)[0];
                 dest += 128;
                 src += 128;
                 byteCount -= 128;
             }
-        g64: if (byteCount >= 64)
-            {
+            g64:
+            if (byteCount >= 64) {
                 ((Byte64*)dest)[0] = ((Byte64*)src)[0];
                 dest += 64;
                 src += 64;
                 byteCount -= 64;
             }
-            if (byteCount >= 32)
-            {
+            if (byteCount >= 32) {
                 ((Byte32*)dest)[0] = ((Byte32*)src)[0];
                 dest += 32;
                 src += 32;
                 byteCount -= 32;
             }
-            if (byteCount >= 16)
-            {
+            if (byteCount >= 16) {
                 ((Byte16*)dest)[0] = ((Byte16*)src)[0];
                 dest += 16;
                 src += 16;
                 byteCount -= 16;
             }
-            if (byteCount >= 8)
-            {
+            if (byteCount >= 8) {
                 ((Byte8*)dest)[0] = ((Byte8*)src)[0];
                 dest += 8;
                 src += 8;
                 byteCount -= 8;
             }
-            if (byteCount >= 4)
-            {
+            if (byteCount >= 4) {
                 ((Byte4*)dest)[0] = ((Byte4*)src)[0];
                 dest += 4;
                 src += 4;
                 byteCount -= 4;
             }
-            if (byteCount >= 2)
-            {
+            if (byteCount >= 2) {
                 ((Byte2*)dest)[0] = ((Byte2*)src)[0];
                 dest += 2;
                 src += 2;
                 byteCount -= 2;
             }
-            if (byteCount >= 1)
-            {
+            if (byteCount >= 1) {
                 ((Byte1*)dest)[0] = ((Byte1*)src)[0];
                 dest += 1;
                 src += 1;
@@ -883,46 +814,42 @@ namespace ZLCEngine.Utils
         //-----------------------------------------------------------------------------------------//
 
         //将字符串dst用字符src填充
-        private unsafe static void memcpy(string dst, char src)
+        private static unsafe void memcpy(string dst, char src)
         {
-            fixed (char* ptr_dst = dst)
-            {
+            fixed (char* ptr_dst = dst) {
                 int len = dst.Length;
                 for (int i = 0; i < len; i++)
                     ptr_dst[i] = src;
             }
         }
         //将字符拷贝到dst指定index位置
-        private unsafe static void memcpy(string dst, char src, int index)
+        private static unsafe void memcpy(string dst, char src, int index)
         {
-            fixed (char* ptr = dst)
+            fixed (char* ptr = dst) {
                 ptr[index] = src;
+            }
         }
         //将相同长度的src内容拷入dst
-        private unsafe static void memcpy(string dst, string src)
+        private static unsafe void memcpy(string dst, string src)
         {
             if (dst.Length != src.Length)
                 throw new InvalidOperationException("两个字符串参数长度不一致。");
-            fixed (char* dst_ptr = dst)
-            {
-                fixed (char* src_ptr = src)
-                {
+            fixed (char* dst_ptr = dst) {
+                fixed (char* src_ptr = src) {
                     memcpy(dst_ptr, src_ptr, dst.Length);
                 }
             }
         }
         //将src指定length内容拷入dst，dst下标src_offset偏移
-        private unsafe static void memcpy(char* dst, char* src, int length, int src_offset)
+        private static unsafe void memcpy(char* dst, char* src, int length, int src_offset)
         {
             memcpy(dst + src_offset, src, length);
         }
 
-        private unsafe static void memcpy(string dst, string src, int length, int src_offset)
+        private static unsafe void memcpy(string dst, string src, int length, int src_offset)
         {
-            fixed (char* ptr_dst = dst)
-            {
-                fixed (char* ptr_src = src)
-                {
+            fixed (char* ptr_dst = dst) {
+                fixed (char* ptr_src = src) {
                     memcpy(ptr_dst + src_offset, ptr_src, length);
                 }
             }
@@ -930,11 +857,32 @@ namespace ZLCEngine.Utils
 
         public class zstring_block : IDisposable
         {
-            readonly Stack<zstring> stack;
+            private readonly Stack<zstring> stack;
 
             internal zstring_block(int capacity)
             {
                 stack = new Stack<zstring>(capacity);
+            }
+
+            void IDisposable.Dispose() //析构函数
+            {
+#if DBG
+                if (log != null)
+                    log("Disposing block");
+#endif
+                while (stack.Count > 0) {
+                    zstring str = stack.Pop();
+                    str.dispose(); //循环调用栈中zstring的Dispose方法
+                }
+                g_blocks.Push(this); //将自身push入缓存栈
+
+                //赋值currentBlock
+                g_open_blocks.Pop();
+                if (g_open_blocks.Count > 0) {
+                    g_current_block = g_open_blocks.Peek();
+                } else {
+                    g_current_block = null;
+                }
             }
 
             internal void push(zstring str)
@@ -942,7 +890,7 @@ namespace ZLCEngine.Utils
                 stack.Push(str);
             }
 
-            internal IDisposable begin()//构造函数
+            internal IDisposable begin() //构造函数
             {
 #if DBG
                 if (log != null)
@@ -950,36 +898,10 @@ namespace ZLCEngine.Utils
 #endif
                 return this;
             }
-
-            void IDisposable.Dispose()//析构函数
-            {
-#if DBG
-                if (log != null)
-                    log("Disposing block");
-#endif
-                while (stack.Count > 0)
-                {
-                    var str = stack.Pop();
-                    str.dispose();//循环调用栈中zstring的Dispose方法
-                }
-                zstring.g_blocks.Push(this);//将自身push入缓存栈
-
-                //赋值currentBlock
-                g_open_blocks.Pop();
-                if (g_open_blocks.Count > 0)
-                {
-                    zstring.g_current_block = g_open_blocks.Peek();
-                }
-                else
-                {
-                    zstring.g_current_block = null;
-                }
-            }
         }
 
         // Public API
-        #region 
-
+        #region
         public static Action<string> Log = null;
 
         public static uint DecimalAccuracy = 3; // 小数点后精度位数
@@ -997,21 +919,18 @@ namespace ZLCEngine.Utils
             g_intern_table = new Dictionary<int, string>(intern_capacity);
             g_open_blocks = new Stack<zstring_block>(open_capacity);
             g_shallowCache = new Stack<zstring>(shallowCache_capacity);
-            for (int c = 0; c < cache_capacity; c++)
-            {
-                var stack = new Queue<zstring>(stack_capacity);
+            for (int c = 0; c < cache_capacity; c++) {
+                Queue<zstring> stack = new Queue<zstring>(stack_capacity);
                 for (int j = 0; j < stack_capacity; j++)
                     stack.Enqueue(new zstring(c));
                 g_cache[c] = stack;
             }
 
-            for (int i = 0; i < block_capacity; i++)
-            {
-                var block = new zstring_block(block_capacity * 2);
+            for (int i = 0; i < block_capacity; i++) {
+                zstring_block block = new zstring_block(block_capacity * 2);
                 g_blocks.Push(block);
             }
-            for (int i = 0; i < shallowCache_capacity; i++)
-            {
+            for (int i = 0; i < shallowCache_capacity; i++) {
                 g_shallowCache.Push(new zstring(null, true));
             }
         }
@@ -1024,7 +943,7 @@ namespace ZLCEngine.Utils
             else
                 g_current_block = g_blocks.Pop();
 
-            g_open_blocks.Push(g_current_block);//新加代码，将此玩意压入open栈
+            g_open_blocks.Push(g_current_block); //新加代码，将此玩意压入open栈
             return g_current_block.begin();
         }
         //将zstring value放入intern缓存表中以供外部使用
@@ -1063,13 +982,13 @@ namespace ZLCEngine.Utils
             if (obj == null)
                 return ReferenceEquals(this, null);
 
-            var gstr = obj as zstring;
+            zstring gstr = obj as zstring;
             if (gstr != null)
-                return gstr._value == this._value;
+                return gstr._value == _value;
 
-            var str = obj as string;
+            string str = obj as string;
             if (str != null)
-                return str == this._value;
+                return str == _value;
 
             return false;
         }
@@ -1085,7 +1004,7 @@ namespace ZLCEngine.Utils
         }
 
         // long - >zstring转换
-        public unsafe static implicit operator zstring(long value)
+        public static unsafe implicit operator zstring(long value)
         {
             // e.g. 125
             // first pass: count the number of digits
@@ -1095,26 +1014,23 @@ namespace ZLCEngine.Utils
             value = Math.Abs(value);
             int num_digits = get_digit_count(value);
             zstring result;
-            if (negative)
-            {
+            if (negative) {
                 result = get(num_digits + 1);
-                fixed (char* ptr = result._value)
-                {
+                fixed (char* ptr = result._value) {
                     *ptr = '-';
                     longcpy(ptr, value, 1, num_digits);
                 }
-            }
-            else
-            {
+            } else {
                 result = get(num_digits);
-                fixed (char* ptr = result._value)
+                fixed (char* ptr = result._value) {
                     longcpy(ptr, value, 0, num_digits);
+                }
             }
             return result;
         }
 
         //int->zstring转换
-        public unsafe static implicit operator zstring(int value)
+        public static unsafe implicit operator zstring(int value)
         {
             // e.g. 125
             // first pass: count the number of digits
@@ -1124,26 +1040,23 @@ namespace ZLCEngine.Utils
             value = Math.Abs(value);
             int num_digits = get_digit_count(value);
             zstring result;
-            if (negative)
-            {
+            if (negative) {
                 result = get(num_digits + 1);
-                fixed (char* ptr = result._value)
-                {
+                fixed (char* ptr = result._value) {
                     *ptr = '-';
                     intcpy(ptr, value, 1, num_digits);
                 }
-            }
-            else
-            {
+            } else {
                 result = get(num_digits);
-                fixed (char* ptr = result._value)
+                fixed (char* ptr = result._value) {
                     intcpy(ptr, value, 0, num_digits);
+                }
             }
             return result;
         }
 
         //float->zstring转换
-        public unsafe static implicit operator zstring(float value)
+        public static unsafe implicit operator zstring(float value)
         {
             // e.g. 3.148
             bool negative = value < 0;
@@ -1158,11 +1071,9 @@ namespace ZLCEngine.Utils
             int total = left_digit_count + (int)DecimalAccuracy + 1; // +1 for '.'
 
             zstring result;
-            if (negative)
-            {
+            if (negative) {
                 result = get(total + 1); // +1 for '-'
-                fixed (char* ptr = result._value)
-                {
+                fixed (char* ptr = result._value) {
                     *ptr = '-';
                     intcpy(ptr, left_num, 1, left_digit_count);
                     *(ptr + left_digit_count + 1) = '.';
@@ -1171,12 +1082,9 @@ namespace ZLCEngine.Utils
                         *(ptr + left_digit_count + i + 1) = '0';
                     intcpy(ptr, right_num, left_digit_count + 2 + offest, right_digit_count);
                 }
-            }
-            else
-            {
+            } else {
                 result = get(total);
-                fixed (char* ptr = result._value)
-                {
+                fixed (char* ptr = result._value) {
                     intcpy(ptr, left_num, 0, left_digit_count);
                     *(ptr + left_digit_count) = '.';
                     int offest = (int)DecimalAccuracy - right_digit_count;
@@ -1225,14 +1133,11 @@ namespace ZLCEngine.Utils
         //转换为大写
         public unsafe zstring ToUpper()
         {
-            var result = get(Length);
-            fixed (char* ptr_this = this._value)
-            {
-                fixed (char* ptr_result = result._value)
-                {
-                    for (int i = 0; i < _value.Length; i++)
-                    {
-                        var ch = ptr_this[i];
+            zstring result = get(Length);
+            fixed (char* ptr_this = _value) {
+                fixed (char* ptr_result = result._value) {
+                    for (int i = 0; i < _value.Length; i++) {
+                        char ch = ptr_this[i];
                         if (char.IsLower(ch))
                             ptr_result[i] = char.ToUpper(ch);
                         else
@@ -1245,14 +1150,11 @@ namespace ZLCEngine.Utils
         //转换为小写
         public unsafe zstring ToLower()
         {
-            var result = get(Length);
-            fixed (char* ptr_this = this._value)
-            {
-                fixed (char* ptr_result = result._value)
-                {
-                    for (int i = 0; i < _value.Length; i++)
-                    {
-                        var ch = ptr_this[i];
+            zstring result = get(Length);
+            fixed (char* ptr_this = _value) {
+                fixed (char* ptr_result = result._value) {
+                    for (int i = 0; i < _value.Length; i++) {
+                        char ch = ptr_this[i];
                         if (char.IsUpper(ch))
                             ptr_result[i] = char.ToLower(ch);
                         else
@@ -1270,28 +1172,25 @@ namespace ZLCEngine.Utils
         //移除剪切
         public zstring Remove(int start, int count)
         {
-            return internal_remove(this._value, start, count);
+            return internal_remove(_value, start, count);
         }
         //插入start起count长度字符
         public zstring Insert(char value, int start, int count)
         {
-            return internal_insert(this._value, value, start, count);
+            return internal_insert(_value, value, start, count);
         }
         //插入start起字符串
         public zstring Insert(string value, int start)
         {
-            return internal_insert(this._value, value, start);
+            return internal_insert(_value, value, start);
         }
         //子字符替换
         public unsafe zstring Replace(char old_value, char new_value)
         {
             zstring result = get(Length);
-            fixed (char* ptr_this = this._value)
-            {
-                fixed (char* ptr_result = result._value)
-                {
-                    for (int i = 0; i < Length; i++)
-                    {
+            fixed (char* ptr_this = _value) {
+                fixed (char* ptr_result = result._value) {
+                    for (int i = 0; i < Length; i++) {
                         ptr_result[i] = ptr_this[i] == old_value ? new_value : ptr_this[i];
                     }
                 }
@@ -1301,7 +1200,7 @@ namespace ZLCEngine.Utils
         //子字符串替换
         public zstring Replace(string old_value, string new_value)
         {
-            return internal_replace(this._value, old_value, new_value);
+            return internal_replace(_value, old_value, new_value);
         }
         //剪切start位置起后续子串
         public zstring Substring(int start)
@@ -1318,9 +1217,10 @@ namespace ZLCEngine.Utils
                 throw new ArgumentOutOfRangeException("count");
 
             zstring result = get(count);
-            fixed (char* src = this._value)
-            fixed (char* dst = result._value)
+            fixed (char* src = _value)
+            fixed (char* dst = result._value) {
                 memcpy(dst, src + start, count);
+            }
 
             return result;
         }
@@ -1339,11 +1239,10 @@ namespace ZLCEngine.Utils
         {
             int idx = -1;
             int last_find = -1;
-            while (true)
-            {
-                idx = internal_index_of(this._value, value, idx + value.Length);
+            while (true) {
+                idx = internal_index_of(_value, value, idx + value.Length);
                 last_find = idx;
-                if (idx == -1 || idx + value.Length >= this._value.Length)
+                if (idx == -1 || idx + value.Length >= _value.Length)
                     break;
             }
             return last_find;
@@ -1353,11 +1252,10 @@ namespace ZLCEngine.Utils
         {
             int idx = -1;
             int last_find = -1;
-            while (true)
-            {
-                idx = internal_index_of(this._value, value, idx + 1);
+            while (true) {
+                idx = internal_index_of(_value, value, idx + 1);
                 last_find = idx;
-                if (idx == -1 || idx + 1 >= this._value.Length)
+                if (idx == -1 || idx + 1 >= _value.Length)
                     break;
             }
             return last_find;
@@ -1370,12 +1268,12 @@ namespace ZLCEngine.Utils
         //字符自start起第一次出现位置
         public int IndexOf(char value, int start)
         {
-            return internal_index_of(this._value, value, start);
+            return internal_index_of(_value, value, start);
         }
         //字符自start起count长度内，
         public int IndexOf(char value, int start, int count)
         {
-            return internal_index_of(this._value, value, start, count);
+            return internal_index_of(_value, value, start, count);
         }
         //子串第一次出现位置
         public int IndexOf(string value)
@@ -1390,7 +1288,7 @@ namespace ZLCEngine.Utils
         //子串自start位置起，count长度内第一次出现位置
         public int IndexOf(string value, int start, int count)
         {
-            return internal_index_of(this._value, value, start, count);
+            return internal_index_of(_value, value, start, count);
         }
         //是否以某字符串结束
         public unsafe bool EndsWith(string postfix)
@@ -1398,16 +1296,15 @@ namespace ZLCEngine.Utils
             if (postfix == null)
                 throw new ArgumentNullException("postfix");
 
-            if (this.Length < postfix.Length)
+            if (Length < postfix.Length)
                 return false;
 
-            fixed (char* ptr_this = this._value)
-            {
-                fixed (char* ptr_postfix = postfix)
-                {
-                    for (int i = this._value.Length - 1, j = postfix.Length - 1; j >= 0; i--, j--)
+            fixed (char* ptr_this = _value) {
+                fixed (char* ptr_postfix = postfix) {
+                    for (int i = _value.Length - 1, j = postfix.Length - 1; j >= 0; i--, j--) {
                         if (ptr_this[i] != ptr_postfix[j])
                             return false;
+                    }
                 }
             }
 
@@ -1419,16 +1316,15 @@ namespace ZLCEngine.Utils
             if (prefix == null)
                 throw new ArgumentNullException("prefix");
 
-            if (this.Length < prefix.Length)
+            if (Length < prefix.Length)
                 return false;
 
-            fixed (char* ptr_this = this._value)
-            {
-                fixed (char* ptr_prefix = prefix)
-                {
-                    for (int i = 0; i < prefix.Length; i++)
+            fixed (char* ptr_this = _value) {
+                fixed (char* ptr_prefix = prefix) {
+                    for (int i = 0; i < prefix.Length; i++) {
                         if (ptr_this[i] != ptr_prefix[i])
                             return false;
+                    }
                 }
             }
 
@@ -1642,7 +1538,7 @@ namespace ZLCEngine.Utils
         {
             uint oldValue = zstring.DecimalAccuracy;
             zstring.DecimalAccuracy = DecimalAccuracy;
-            zstring target = (zstring)value;
+            zstring target = value;
             zstring.DecimalAccuracy = oldValue;
             return target;
         }

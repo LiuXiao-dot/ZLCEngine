@@ -1,9 +1,9 @@
 namespace ZLCEngine.UGUISystem
 {
     /// <summary>
-    /// RectTransform的工具方法
+    ///     RectTransform的工具方法
     /// </summary>
     public sealed class RectTransformHelper
     {
     }
-} 
+}

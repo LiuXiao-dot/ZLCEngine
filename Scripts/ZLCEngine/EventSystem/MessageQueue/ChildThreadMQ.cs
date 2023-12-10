@@ -4,7 +4,7 @@ using ThreadPool = ZLCEngine.ThreadSystem.ThreadPool;
 namespace ZLCEngine.EventSystem.MessageQueue
 {
     /// <summary>
-    /// 子线程上运行的消息队列
+    ///     子线程上运行的消息队列
     /// </summary>
     /// <typeparam name="T"></typeparam>
     internal class ChildThreadMQ : AMQ

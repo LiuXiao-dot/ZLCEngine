@@ -4,9 +4,9 @@ namespace ZLCEngine.WindowSystem
 {
     public abstract class AWindowCtl : IWindowCtl
     {
+        private int _id;
         private IWindowModel _model;
         private IWindowView _view;
-        private int _id;
 
         public void SetModel(IWindowModel model)
         {
@@ -32,20 +32,11 @@ namespace ZLCEngine.WindowSystem
             SendEvent(WindowMessage.AfterWindowEnter);
         }
 
-        protected virtual void DoOpen()
-        {
-            
-        }
-        
         public void Pause()
         {
             SendEvent(WindowMessage.BeforeWindowPause);
             DoPause();
             SendEvent(WindowMessage.AfterWindowPause);
-        }
-        
-        protected virtual void DoPause()
-        {
         }
 
         public void Resume()
@@ -55,11 +46,6 @@ namespace ZLCEngine.WindowSystem
             SendEvent(WindowMessage.AfterWindowResume);
         }
 
-        protected virtual void DoResume()
-        {
-            
-        }
-        
         public void Close()
         {
             SendEvent(WindowMessage.BeforeWindowExit);
@@ -69,14 +55,28 @@ namespace ZLCEngine.WindowSystem
             ((WindowManager)IAppLauncher.Get<IWindowManager>()).ClearWindow(this);
         }
 
-        protected virtual void DoClose()
-        {
-            
-        }
-        
         public int GetID()
         {
             return _id;
+        }
+
+        protected virtual void DoOpen()
+        {
+
+        }
+
+        protected virtual void DoPause()
+        {
+        }
+
+        protected virtual void DoResume()
+        {
+
+        }
+
+        protected virtual void DoClose()
+        {
+
         }
 
         private void SendEvent(WindowMessage windowMessage)

@@ -3,7 +3,7 @@ using UnityEditor;
 using UnityEngine;
 using ZLCEditor.FormatSystem;
 using ZLCEngine.Utils;
-namespace ZLCEditor.WindowSystem.ZLCEditor.WindowSystem
+namespace ZLCEditor.WindowSystem
 {
     public class WindowGoConverterManager
     {

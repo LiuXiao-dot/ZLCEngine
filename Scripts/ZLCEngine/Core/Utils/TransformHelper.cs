@@ -3,12 +3,12 @@ using UnityEngine;
 namespace ZLCEngine.Utils
 {
     /// <summary>
-    /// Transform帮助类
+    ///     Transform帮助类
     /// </summary>
     public sealed class TransformHelper
     {
         /// <summary>
-        /// 重置Transform的position,scale,rotation 
+        ///     重置Transform的position,scale,rotation
         /// </summary>
         public static void Reset(Transform transform)
         {
@@ -18,18 +18,18 @@ namespace ZLCEngine.Utils
         }
 
         /// <summary>
-        /// 遍历全部transform
+        ///     遍历全部transform
         /// </summary>
         /// <param name="transform"></param>
         /// <returns></returns>
         public static IEnumerable<Transform> ForEach(Transform transform)
         {
-            var childCount = transform.childCount;
+            int childCount = transform.childCount;
             for (int i = 0; i < childCount; i++) {
-                var child = transform.GetChild(i);
+                Transform child = transform.GetChild(i);
                 yield return child;
-                var temp = ForEach(child);
-                foreach (var childTemp in temp) {
+                IEnumerable<Transform> temp = ForEach(child);
+                foreach (Transform childTemp in temp) {
                     yield return childTemp;
                 }
             }

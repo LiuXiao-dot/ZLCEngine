@@ -3,16 +3,16 @@ namespace ZLCEngine.Interfaces
     public interface IAppLauncher
     {
         /// <summary>
-        /// 程序启动器单例，需要继承IAppLauncher的类主动赋值
+        ///     程序启动器单例，需要继承IAppLauncher的类主动赋值
         /// </summary>
         private static IAppLauncher _instance;
         /// <summary>
-        /// 程序启动器单例，需要继承IAppLauncher的类主动赋值
+        ///     程序启动器单例，需要继承IAppLauncher的类主动赋值
         /// </summary>
         public static IAppLauncher Instance
         {
             get {
-                return IAppLauncher.Instance;
+                return Instance;
             }
             set {
                 #if ZLC_DEBUG
@@ -24,9 +24,9 @@ namespace ZLCEngine.Interfaces
                 _instance = value;
             }
         }
-        
+
         /// <summary>
-        /// 获取管理器
+        ///     获取管理器
         /// </summary>
         public static M Get<M>() where M : IManager
         {
@@ -34,7 +34,7 @@ namespace ZLCEngine.Interfaces
         }
 
         /// <summary>
-        /// 获取管理器
+        ///     获取管理器
         /// </summary>
         /// <typeparam name="M"></typeparam>
         /// <returns></returns>

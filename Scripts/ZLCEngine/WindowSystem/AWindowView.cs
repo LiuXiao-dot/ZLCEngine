@@ -5,7 +5,7 @@ using ZLCEngine.Interfaces;
 namespace ZLCEngine.WindowSystem
 {
     /// <summary>
-    /// 窗口视图层
+    ///     窗口视图层
     /// </summary>
     [RequireComponent(typeof(Canvas))]
     [RequireComponent(typeof(GraphicRaycaster))]
@@ -17,14 +17,14 @@ namespace ZLCEngine.WindowSystem
         internal int ID;
 
         /// <summary>
-        /// 窗口层级
+        ///     窗口层级
         /// </summary>
         public WindowLayer windowLayer;
-        
-        /// <inheritdoc/>
+
+        /// <inheritdoc />
         public virtual void Close()
         {
-            GameObject.Destroy(gameObject);
+            Destroy(gameObject);
         }
 
         public int GetID()

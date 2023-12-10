@@ -2,16 +2,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
-using Pointer = UnityEngine.InputSystem.Pointer;
 namespace ZLCEngine.Utils
 {
     /// <summary>
-    /// Pointer相关方法
+    ///     Pointer相关方法
     /// </summary>
     public sealed class PointerHelper
     {
         /// <summary>
-        /// 获取当前鼠标/touch点坐标
+        ///     获取当前鼠标/touch点坐标
         /// </summary>
         /// <returns></returns>
         public static Pointer GetPointer()
@@ -29,7 +28,7 @@ namespace ZLCEngine.Utils
         }
 
         /// <summary>
-        /// 获取当前的point（鼠标等）坐标
+        ///     获取当前的point（鼠标等）坐标
         /// </summary>
         /// <returns></returns>
         public static Vector2 GetPointerPosition()
@@ -38,7 +37,7 @@ namespace ZLCEngine.Utils
         }
 
         /// <summary>
-        /// 鼠标是否经过某个UI
+        ///     鼠标是否经过某个UI
         /// </summary>
         /// <returns></returns>
         public static bool IsPointerOverUI()
@@ -48,18 +47,18 @@ namespace ZLCEngine.Utils
             // 在Input的Action Callback中使用会有warning，返回的是上一帧的结果
                 return true;
             }*/
-            PointerEventData pe = new PointerEventData(UnityEngine.EventSystems.EventSystem.current)
+            PointerEventData pe = new PointerEventData(EventSystem.current)
             {
                 position = GetPointerPosition()
             };
             List<RaycastResult> hits = new List<RaycastResult>();
-            UnityEngine.EventSystems.EventSystem.current.RaycastAll(pe, hits);
+            EventSystem.current.RaycastAll(pe, hits);
             return hits.Count > 0;
         }
 
 
         /// <summary>
-        /// 获取position的世界坐标
+        ///     获取position的世界坐标
         /// </summary>
         /// <param name="camera"></param>
         /// <param name="position"></param>
@@ -70,13 +69,12 @@ namespace ZLCEngine.Utils
             Ray ray = camera.ScreenPointToRay(position);
             if (Physics.Raycast(ray, out RaycastHit raycastHit, 999f, layer.value)) {
                 return raycastHit.point;
-            } else {
-                return Vector3.zero;
             }
+            return Vector3.zero;
         }
 
         /// <summary>
-        /// 获取position的世界坐标
+        ///     获取position的世界坐标
         /// </summary>
         /// <param name="camera"></param>
         /// <param name="position"></param>
@@ -94,10 +92,9 @@ namespace ZLCEngine.Utils
             if (Physics.Raycast(ray, out RaycastHit raycastHit, 999f, layer.value)) {
                 worldPosition = raycastHit.point;
                 return true;
-            } else {
-                worldPosition = Vector3.zero;
-                return false;
             }
+            worldPosition = Vector3.zero;
+            return false;
         }
     }
 }

@@ -1,5 +1,5 @@
 using System.IO;
-namespace ZLCEditor.WindowSystem.ZLCEditor.WindowSystem
+namespace ZLCEditor.WindowSystem
 {
     public class Constant
     {

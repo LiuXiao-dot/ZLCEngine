@@ -1,12 +1,12 @@
 namespace ZLCEngine.Utils
 {
     /// <summary>
-    /// 字符的帮助类
+    ///     字符的帮助类
     /// </summary>
     public sealed class CharHelper
     {
         /// <summary>
-        /// 变为大写
+        ///     变为大写
         /// </summary>
         /// <param name="c"></param>
         /// <returns></returns>
@@ -14,15 +14,16 @@ namespace ZLCEngine.Utils
         {
             if (c is >= 'a' and <= 'z')
                 c &= '\uFFDF';
-            return c;                                                                                   
+            return c;
         }
-        
+
         /// <summary>
-        /// 变为小写
+        ///     变为小写
         /// </summary>
         /// <param name="c"></param>
         /// <returns></returns>
-        public static char ToLowwer(char c)        {
+        public static char ToLowwer(char c)
+        {
             if (c is >= 'A' and <= 'Z')
                 c |= '\u0020';
             return c;

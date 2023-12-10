@@ -5,36 +5,36 @@ namespace ZLCEngine.ThreadSystem
 {
 
     /// <summary>
-    /// 线程池
+    ///     线程池
     /// </summary>
     public class ThreadPool : MonoBehaviour
     {
         private static ThreadPool _instance;
+
         /// <summary>
-        /// 单例
+        ///     空闲线程
+        /// </summary>
+        private Queue<Thread> freeThreads;
+
+        private Dictionary<Thread, ThreadWrapper> threadCallbacks;
+
+        /// <summary>
+        ///     使用中线程
+        /// </summary>
+        private List<Thread> usedThreads;
+        /// <summary>
+        ///     单例
         /// </summary>
         public static ThreadPool Instance
         {
             get {
                 if (_instance == null) {
-                    var obj = new GameObject("ThreadPool");
+                    GameObject obj = new GameObject("ThreadPool");
                     _instance = obj.AddComponent<ThreadPool>();
                 }
                 return _instance;
             }
         }
-
-        /// <summary>
-        /// 空闲线程
-        /// </summary>
-        private Queue<Thread> freeThreads;
-
-        /// <summary>
-        /// 使用中线程
-        /// </summary>
-        private List<Thread> usedThreads;
-
-        private Dictionary<Thread, ThreadWrapper> threadCallbacks;
 
         private void Awake()
         {
@@ -43,28 +43,38 @@ namespace ZLCEngine.ThreadSystem
             threadCallbacks = new Dictionary<Thread, ThreadWrapper>();
         }
 
+        private void OnDestroy()
+        {
+            Release();
+        }
+
+        private void OnApplicationQuit()
+        {
+            Release();
+        }
+
         /// <summary>
-        /// 获取
+        ///     获取
         /// </summary>
         /// <returns></returns>
         public Thread Obtain()
         {
             if (freeThreads.Count == 0) {
                 ThreadWrapper newStart = new ThreadWrapper();
-                var newThread = new Thread(newStart.Run);
+                Thread newThread = new Thread(newStart.Run);
                 threadCallbacks.Add(newThread, newStart);
                 newThread.Name = "AThread" + (freeThreads.Count + usedThreads.Count);
                 usedThreads.Add(newThread);
                 return newThread;
             }
 
-            var thread = freeThreads.Dequeue();
+            Thread thread = freeThreads.Dequeue();
             usedThreads.Add(thread);
             return thread;
         }
 
         /// <summary>
-        /// 只允许自身释放
+        ///     只允许自身释放
         /// </summary>
         /// <param name="thread"></param>
         public void Free(Thread thread)
@@ -79,36 +89,26 @@ namespace ZLCEngine.ThreadSystem
         }
 
         /// <summary>
-        /// 释放
+        ///     释放
         /// </summary>
         public void Release()
         {
-            foreach (var thread in freeThreads) {
+            foreach (Thread thread in freeThreads) {
                 thread.Abort();
             }
-            foreach (var thread in usedThreads) {
+            foreach (Thread thread in usedThreads) {
                 thread.Abort();
             }
         }
 
         /// <summary>
-        /// 获取封装器
+        ///     获取封装器
         /// </summary>
         /// <param name="thread"></param>
         /// <returns></returns>
         public ThreadWrapper GetWrapper(Thread thread)
         {
             return threadCallbacks[thread];
-        }
-
-        private void OnDestroy()
-        {
-            Release();
-        }
-
-        private void OnApplicationQuit()
-        {
-            Release();
         }
     }
 }

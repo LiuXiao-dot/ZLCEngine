@@ -3,7 +3,7 @@ using UnityEngine;
 using ZLCEngine.ConfigSystem;
 using ZLCEngine.Inspector;
 using ZLCEngine.WindowSystem;
-namespace ZLCEditor.WindowSystem.ZLCEditor.WindowSystem
+namespace ZLCEditor.WindowSystem
 {
     /// <summary>
     /// 窗口按层级分组的工具

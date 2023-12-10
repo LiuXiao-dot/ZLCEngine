@@ -1,18 +1,20 @@
-using System;
-using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 using ZLCEngine.Interfaces;
 namespace ZLCEngine.ConfigSystem
 {
     /// <summary>
-    /// 单例ScriptableObject
+    ///     单例ScriptableObject
     /// </summary>
     public abstract class SOSingleton<T> : ScriptableObject where T : SOSingleton<T>
     {
         private static bool isPlaying;
         /// <summary>
-        /// SO单例
+        ///     SO单例
+        /// </summary>
+        private static T _instance;
+        /// <summary>
+        ///     SO单例
         /// </summary>
         public static T Instance
         {
@@ -31,25 +33,13 @@ namespace ZLCEngine.ConfigSystem
                 return _instance;
             }
         }
-        /// <summary>
-        /// SO单例
-        /// </summary>
-        private static T _instance;
 
         /// <summary>
-        /// 销毁时，如果被销毁的是单例，则将单例置空
-        /// </summary>
-        protected virtual void OnDisable()
-        {
-            if(this == _instance) _instance = null;
-        }
-
-        /// <summary>
-        /// 激活时为<see cref="Instance"/>赋值.
+        ///     激活时为<see cref="Instance" />赋值.
         /// </summary>
         protected virtual void OnEnable()
         {
-            isPlaying = UnityEngine.Application.isPlaying;
+            isPlaying = Application.isPlaying;
             if (_instance != null) {
                 if (this != _instance) {
                     Debug.LogWarning($"存在多个单例SO的实例{typeof(T).FullName}");
@@ -64,26 +54,34 @@ namespace ZLCEngine.ConfigSystem
             }
         }
 
+        /// <summary>
+        ///     销毁时，如果被销毁的是单例，则将单例置空
+        /// </summary>
+        protected virtual void OnDisable()
+        {
+            if (this == _instance) _instance = null;
+        }
+
         #if UNITY_EDITOR
         /// <summary>
-        /// 检测是否存在资源
+        ///     检测是否存在资源
         /// </summary>
         private static void CheckAsset()
         {
-            if(_instance != null) return;
-            var path = FilePathAttribute.GetPath(typeof(T));
-            if (path == String.Empty) {
+            if (_instance != null) return;
+            string path = FilePathAttribute.GetPath(typeof(T));
+            if (path == string.Empty) {
                 // 不缓存
-                var temp = ScriptableObject.CreateInstance<T>();
+                T temp = CreateInstance<T>();
                 temp.hideFlags = HideFlags.DontSave;
                 temp.name = typeof(T).Name;
                 _instance = temp;
             } else {
-                var asset = AssetDatabase.LoadAssetAtPath<T>(path);
+                T asset = AssetDatabase.LoadAssetAtPath<T>(path);
                 if (asset != null)
                     _instance = asset;
                 else {
-                    var temp = ScriptableObject.CreateInstance<T>();
+                    T temp = CreateInstance<T>();
                     AssetDatabase.CreateAsset(temp, path);
                     _instance = temp;
                 }

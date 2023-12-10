@@ -1,6 +1,6 @@
 {
   "name": "com.zlc.zlcengine",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "displayName": "ZLCEngine",
   "description": "Unity ZLC\u6846\u67b6\uff0c\u5305\u62ec\u573a\u666f\uff0c\u8d44\u6e90\uff0c\u7ebf\u7a0b\uff0cUI\uff0c\u7f16\u8f91\u5668\u5de5\u5177\u7b49",
   "unity": "2022.2",

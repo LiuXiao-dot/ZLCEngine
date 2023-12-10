@@ -3,19 +3,19 @@ using ZLCEngine.Utils;
 namespace ZLCEngine.ResSystem
 {
     /// <summary>
-    /// 池化对象
+    ///     池化对象
     /// </summary>
     [DisallowMultipleComponent]
     public class PooableComponent : MonoBehaviour
     {
         /// <summary>
-        /// 资源池
+        ///     资源池
         /// </summary>
         protected ResourcePool _pool;
 
         internal void SetPool(ResourcePool pool)
         {
-            this._pool = pool;
+            _pool = pool;
         }
 
         internal ResourcePool GetPool()
@@ -24,7 +24,7 @@ namespace ZLCEngine.ResSystem
         }
 
         /// <summary>
-        /// 当被释放回池中时调用
+        ///     当被释放回池中时调用
         /// </summary>
         public virtual void OnRealse()
         {
@@ -33,7 +33,7 @@ namespace ZLCEngine.ResSystem
         }
 
         /// <summary>
-        /// 当被从池中取出时调用
+        ///     当被从池中取出时调用
         /// </summary>
         public virtual void OnGet()
         {

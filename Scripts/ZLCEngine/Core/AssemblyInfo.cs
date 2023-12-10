@@ -18,7 +18,7 @@ using System.Runtime.CompilerServices;
 namespace ZLCEngine
 {
     /// <summary>
-    /// 程序集信息
+    ///     程序集信息
     /// </summary>
     public static class AssemblyInfo
     {

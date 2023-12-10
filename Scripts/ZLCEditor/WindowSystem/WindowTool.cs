@@ -10,7 +10,7 @@ using ZLCEngine.Inspector;
 using ZLCEngine.Utils;
 using ZLCEngine.WindowSystem;
 using FilePathAttribute = ZLCEngine.ConfigSystem.FilePathAttribute;
-namespace ZLCEditor.WindowSystem.ZLCEditor.WindowSystem
+namespace ZLCEditor.WindowSystem
 {
     /// <summary>
     /// 窗口工具

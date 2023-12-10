@@ -6,33 +6,33 @@ namespace ZLCEngine.EventSystem.MessageQueue
 {
 
     /// <summary>
-    /// AMessageQueue:消息队列抽象类
+    ///     AMessageQueue:消息队列抽象类
     /// </summary>
     public abstract class AMQ : MonoBehaviour, ISubscribee<int>
     {
         /// <summary>
-        /// 消息池
+        ///     消息池
         /// </summary>
         protected Queue<Event> queue = new Queue<Event>();
         /// <summary>
-        /// 消息订阅者
+        ///     消息订阅者
         /// </summary>
         protected Dictionary<int, List<ISubscriber<int>>> listeners = new Dictionary<int, List<ISubscriber<int>>>();
         /// <summary>
-        /// 消息数量
+        ///     消息数量
         /// </summary>
-        protected int eventCount = 0;
+        protected int eventCount;
         /// <summary>
-        /// 当前消息剩余订阅执行数量
+        ///     当前消息剩余订阅执行数量
         /// </summary>
-        protected int taskCount = 0;
+        protected int taskCount;
         /// <summary>
-        /// 当前执行中的消息
+        ///     当前执行中的消息
         /// </summary>
         private Event currentEvent;
 
         /// <summary>
-        /// 消息队列的唯一ID
+        ///     消息队列的唯一ID
         /// </summary>
         public int id
         {
@@ -40,7 +40,7 @@ namespace ZLCEngine.EventSystem.MessageQueue
             internal set;
         }
 
-        /// <inheritdoc cref="ISubscribee{int}"/>
+        /// <inheritdoc cref="ISubscribee{int}" />
         public void Subscribe(ISubscriber<int> subscriber, int operate)
         {
             if (!listeners.ContainsKey(operate)) {
@@ -55,15 +55,15 @@ namespace ZLCEngine.EventSystem.MessageQueue
             }
         }
 
-        /// <inheritdoc cref="ISubscribee{int}"/>
+        /// <inheritdoc cref="ISubscribee{int}" />
         public void Subscribe(ISubscriber<int> subscriber, IEnumerable<int> operates)
         {
-            foreach (var operate in operates) {
+            foreach (int operate in operates) {
                 Subscribe(subscriber, operate);
             }
         }
 
-        /// <inheritdoc cref="ISubscribee{int}"/>
+        /// <inheritdoc cref="ISubscribee{int}" />
         public void Unsubscribe(ISubscriber<int> subscriber, int operate)
         {
             if (listeners.TryGetValue(operate, out List<ISubscriber<int>> operateListeners) &&
@@ -72,18 +72,18 @@ namespace ZLCEngine.EventSystem.MessageQueue
             }
         }
 
-        /// <inheritdoc cref="ISubscribee{int}"/>
+        /// <inheritdoc cref="ISubscribee{int}" />
         public void Unsubscribe(ISubscriber<int> subscriber, IEnumerable<int> operates)
         {
-            foreach (var operate in operates) {
+            foreach (int operate in operates) {
                 Unsubscribe(subscriber, operate);
             }
         }
-        /// <inheritdoc cref="ISubscribee{int}"/>
+        /// <inheritdoc cref="ISubscribee{int}" />
         public virtual void SendEvent(int operate, object args)
         {
             try {
-                queue.Enqueue(new Event( this, operate, args));
+                queue.Enqueue(new Event(this, operate, args));
                 eventCount++;
             }
             catch (InvalidCastException e) {
@@ -92,14 +92,14 @@ namespace ZLCEngine.EventSystem.MessageQueue
         }
 
         /// <summary>
-        /// 执行
+        ///     执行
         /// </summary>
         protected void Act()
         {
             if (taskCount > 0 || queue.Count == 0 || !queue.TryDequeue(out currentEvent)) return;
             try {
                 if (listeners.TryGetValue(UnsafeUtility.As<int, int>(ref currentEvent.operate), out List<ISubscriber<int>> currentListeners)) {
-                    var length = currentListeners.Count;
+                    int length = currentListeners.Count;
                     taskCount = length;
 
                     for (int i = length - 1; i >= 0; i--) {
@@ -123,7 +123,7 @@ namespace ZLCEngine.EventSystem.MessageQueue
     private string _empty = "无";
 #endif
         /// <summary>
-        /// 消息执行完成后需要调用回调
+        ///     消息执行完成后需要调用回调
         /// </summary>
         /// <param name="message"></param>
         public void Callback(Event message)

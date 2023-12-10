@@ -2,12 +2,12 @@ using UnityEngine;
 namespace ZLCEngine.Utils
 {
     /// <summary>
-    /// RectTransform的工具方法
+    ///     RectTransform的工具方法
     /// </summary>
     public sealed class RectTransformHelper
     {
         /// <summary>
-        /// 设置<paramref name="rectTransform"/>为向上对齐
+        ///     设置<paramref name="rectTransform" />为向上对齐
         /// </summary>
         /// <param name="rectTransform"></param>
         public static void SetTopStretch(RectTransform rectTransform)

@@ -8,7 +8,7 @@ using ZLCEditor.FormatSystem;
 using ZLCEngine.Inspector;
 using ZLCEngine.Utils;
 using ZLCEngine.WindowSystem;
-namespace ZLCEditor.WindowSystem.ZLCEditor.WindowSystem
+namespace ZLCEditor.WindowSystem
 {
     /// <summary>
     /// 窗口GameObject的相关数据
@@ -68,7 +68,7 @@ namespace ZLCEditor.WindowSystem.ZLCEditor.WindowSystem
 
             var windowGo = new WindowGo
             {
-                prefab = PrefabUtility.SaveAsPrefabAsset(go, Path.Combine(global::ZLCEditor.WindowSystem.ZLCEditor.WindowSystem.Constant.PrefabURL, layer.ToString(), $"{go.name}.prefab")),
+                prefab = PrefabUtility.SaveAsPrefabAsset(go, Path.Combine(global::ZLCEditor.WindowSystem.Constant.PrefabURL, layer.ToString(), $"{go.name}.prefab")),
                 ctlCode = ctlCode,
                 viewCode = viewCode,
                 layer = layer,

@@ -1,7 +1,7 @@
 namespace ZLCEngine.Utils
 {
     /// <summary>
-    /// GameObject相关操作
+    ///     GameObject相关操作
     /// </summary>
     public sealed class GameObjectHelper
     {

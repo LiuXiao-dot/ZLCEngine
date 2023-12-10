@@ -5,7 +5,7 @@ using ZLCEngine.Extensions;
 namespace ZLCEngine.SerializeTypes
 {
     /// <summary>
-    /// 可序列化的字典
+    ///     可序列化的字典
     /// </summary>
     /// <typeparam name="K">键</typeparam>
     /// <typeparam name="V">值</typeparam>
@@ -22,8 +22,8 @@ namespace ZLCEngine.SerializeTypes
 
             keysCache = new K[Count];
             valuesCache = new V[Count];
-            var index = 0;
-            foreach (var kv in this) {
+            int index = 0;
+            foreach (KeyValuePair<K, V> kv in this) {
                 keysCache[index] = kv.Key;
                 valuesCache[index] = kv.Value;
                 index++;
@@ -35,7 +35,7 @@ namespace ZLCEngine.SerializeTypes
         {
             Clear();
             if (keysCache.IsEmptyOrNull() || valuesCache.IsEmptyOrNull()) return;
-            var count = keysCache.Length;
+            int count = keysCache.Length;
             for (int i = 0; i < count; i++) {
                 Add(keysCache[i], valuesCache[i]);
             }

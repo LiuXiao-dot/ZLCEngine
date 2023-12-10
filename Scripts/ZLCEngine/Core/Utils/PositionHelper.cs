@@ -2,13 +2,13 @@ using UnityEngine;
 namespace ZLCEngine.Utils
 {
     /// <summary>
-    ///坐标变换相关的方法
+    ///     坐标变换相关的方法
     /// </summary>
     public sealed class PositionHelper
     {
-        
+
         /// <summary>
-        /// 获取z=0的鼠标的世界坐标
+        ///     获取z=0的鼠标的世界坐标
         /// </summary>
         /// <returns></returns>
         public static Vector3 GetMouseWorldPosition()
@@ -23,7 +23,7 @@ namespace ZLCEngine.Utils
         }
 
         /// <summary>
-        /// 获取有z轴的鼠标的世界坐标
+        ///     获取有z轴的鼠标的世界坐标
         /// </summary>
         /// <returns></returns>
         public static Vector3 GetMouseWorldPositionWithZ()
@@ -34,7 +34,7 @@ namespace ZLCEngine.Utils
         }
 
         /// <summary>
-        /// 获取有z轴的鼠标的世界坐标
+        ///     获取有z轴的鼠标的世界坐标
         /// </summary>
         /// <param name="worldCamera"></param>
         /// <returns></returns>
@@ -44,7 +44,7 @@ namespace ZLCEngine.Utils
         }
 
         /// <summary>
-        /// 获取有Z轴的鼠标的世界坐标
+        ///     获取有Z轴的鼠标的世界坐标
         /// </summary>
         /// <param name="screenPosition"></param>
         /// <param name="worldCamera"></param>
@@ -56,7 +56,7 @@ namespace ZLCEngine.Utils
         }
 
         /// <summary>
-        /// 根据角度获取方向向量
+        ///     根据角度获取方向向量
         /// </summary>
         /// <param name="angle"></param>
         /// <returns></returns>
@@ -68,7 +68,7 @@ namespace ZLCEngine.Utils
         }
 
         /// <summary>
-        /// 根据角度获取方向向量
+        ///     根据角度获取方向向量
         /// </summary>
         /// <param name="angle"></param>
         /// <returns></returns>
@@ -80,7 +80,7 @@ namespace ZLCEngine.Utils
         }
 
         /// <summary>
-        /// 根据方向向量或去角度
+        ///     根据方向向量或去角度
         /// </summary>
         /// <param name="dir"></param>
         /// <returns></returns>
@@ -94,7 +94,7 @@ namespace ZLCEngine.Utils
         }
 
         /// <summary>
-        /// 根据方向向量获取角度
+        ///     根据方向向量获取角度
         /// </summary>
         /// <param name="dir"></param>
         /// <returns></returns>
@@ -108,7 +108,7 @@ namespace ZLCEngine.Utils
         }
 
         /// <summary>
-        /// 根据方向向量获取角度
+        ///     根据方向向量获取角度
         /// </summary>
         /// <param name="dir"></param>
         /// <returns></returns>
@@ -123,7 +123,7 @@ namespace ZLCEngine.Utils
         }
 
         /// <summary>
-        /// 根据方向向量获取角度
+        ///     根据方向向量获取角度
         /// </summary>
         /// <param name="dir"></param>
         /// <returns></returns>
@@ -138,7 +138,7 @@ namespace ZLCEngine.Utils
 
 
         /// <summary>
-        /// 将<paramref name="vec"/>旋转<paramref name= "vecRotation"/>
+        ///     将<paramref name="vec" />旋转<paramref name="vecRotation" />
         /// </summary>
         /// <param name="vec"></param>
         /// <param name="vecRotation"></param>
@@ -149,7 +149,7 @@ namespace ZLCEngine.Utils
         }
 
         /// <summary>
-        /// 将<paramref name="vec"/>旋转<paramref name= "angle"/>
+        ///     将<paramref name="vec" />旋转<paramref name="angle" />
         /// </summary>
         /// <param name="vec"></param>
         /// <param name="angle"></param>
@@ -160,7 +160,7 @@ namespace ZLCEngine.Utils
         }
 
         /// <summary>
-        /// 将<paramref name="vec"/>旋转<paramref name= "angle"/>
+        ///     将<paramref name="vec" />旋转<paramref name="angle" />
         /// </summary>
         /// <param name="vec"></param>
         /// <param name="angle"></param>
@@ -171,7 +171,7 @@ namespace ZLCEngine.Utils
         }
 
         /// <summary>
-        /// 将<paramref name="vec"/>的每一位都进行RoundToInt操作
+        ///     将<paramref name="vec" />的每一位都进行RoundToInt操作
         /// </summary>
         /// <param name="vec"></param>
         /// <returns></returns>
@@ -181,7 +181,7 @@ namespace ZLCEngine.Utils
         }
 
         /// <summary>
-        /// 将<paramref name="a"/>与<paramref name="b"/>的每一位分别相乘得到一个新的向量
+        ///     将<paramref name="a" />与<paramref name="b" />的每一位分别相乘得到一个新的向量
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>

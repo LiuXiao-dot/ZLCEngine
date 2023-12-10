@@ -5,26 +5,26 @@ using ZLCEngine.Inspector;
 namespace ZLCEngine.SerializeTypes
 {
     /// <summary>
-    /// 可序列化的Type,编辑器中展示为Type和所有继承自Type的类
+    ///     可序列化的Type,编辑器中展示为Type和所有继承自Type的类
     /// </summary>
-    [System.Serializable]
+    [Serializable]
     public class SType : ISerializationCallbackReceiver
     {
-        [ShowInInspector]
-        public Type realType;
-        
+
         [HideInInspector]
         [SerializeField]
         private string typeName;
         /// <summary>
-        /// 类型的完整名称
+        ///     类型的完整名称
         /// </summary>
         [HideInInspector]
         [SerializeField]
         private string assemblyName;
+        [ShowInInspector]
+        public Type realType;
 
         /// <summary>
-        /// 无参构造
+        ///     无参构造
         /// </summary>
         public SType()
         {
@@ -32,16 +32,30 @@ namespace ZLCEngine.SerializeTypes
         }
 
         /// <summary>
-        /// 构造函数
+        ///     构造函数
         /// </summary>
         /// <param name="type">实际类型</param>
         public SType(Type type)
         {
-            this.realType = type;
+            realType = type;
+        }
+
+        public void OnBeforeSerialize()
+        {
+            if (realType == null) return;
+            typeName = realType.FullName;
+            assemblyName = realType.Assembly.FullName;
+        }
+        public void OnAfterDeserialize()
+        {
+            if (assemblyName == string.Empty || typeName == string.Empty) return;
+            realType = Assembly.Load(assemblyName).GetType(typeName);
+            assemblyName = string.Empty;
+            typeName = string.Empty;
         }
 
         /// <summary>
-        /// 将Type转换为SType
+        ///     将Type转换为SType
         /// </summary>
         /// <param name="type"></param>
         /// <returns></returns>
@@ -51,7 +65,7 @@ namespace ZLCEngine.SerializeTypes
         }
 
         /// <summary>
-        /// 将SType转换为Type
+        ///     将SType转换为Type
         /// </summary>
         /// <param name="type"></param>
         /// <returns></returns>
@@ -59,23 +73,9 @@ namespace ZLCEngine.SerializeTypes
         {
             return type.realType;
         }
-        
-        public void OnBeforeSerialize()
-        {
-            if (realType == null) return;
-            typeName = realType.FullName;
-            assemblyName = realType.Assembly.FullName;
-        }
-        public void OnAfterDeserialize()
-        {
-            if(assemblyName == string.Empty || typeName == string.Empty) return;
-            realType = Assembly.Load(assemblyName).GetType(typeName);
-            assemblyName = string.Empty;
-            typeName = string.Empty;
-        }
     }
 
-    [System.Serializable]
+    [Serializable]
     public class STypeArray
     {
         public SType[] types;

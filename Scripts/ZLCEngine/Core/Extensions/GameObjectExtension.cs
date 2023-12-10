@@ -2,12 +2,12 @@ using UnityEngine;
 namespace ZLCEngine.Extensions
 {
     /// <summary>
-    /// GameObject扩展
+    ///     GameObject扩展
     /// </summary>
     public static class GameObjectExtension
     {
         /// <summary>
-        /// 获取或添加Component
+        ///     获取或添加Component
         /// </summary>
         /// <typeparam name="T">组件</typeparam>
         /// <returns>添加的组件</returns>
