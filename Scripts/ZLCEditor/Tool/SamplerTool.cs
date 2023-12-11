@@ -1,4 +1,4 @@
-using UnityEngine.Assertions;
+/*using UnityEngine.Assertions;
 using ZLCEngine.ConfigSystem;
 using ZLCEngine.Inspector;
 namespace ZLCEditor.Tool
@@ -34,4 +34,4 @@ namespace ZLCEditor.Tool
             Assert.IsNotNull(i2);
         }
     }
-}
+}*/

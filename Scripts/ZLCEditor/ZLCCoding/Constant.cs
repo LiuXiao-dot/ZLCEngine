@@ -18,5 +18,9 @@ namespace ZLCEditor.ZLCCoding
         /// using
         /// </summary>
         public const string Using = "USING";
+        /// <summary>
+        /// Enum的定义
+        /// </summary>
+        public const string EnumDEF = "ENUMDEF";
     }
 }

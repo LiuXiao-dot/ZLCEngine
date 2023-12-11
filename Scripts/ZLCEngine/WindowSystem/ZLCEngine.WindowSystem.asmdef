@@ -1,14 +1,19 @@
 {
-    "name": "ZLCEngine.WindowSystem",
-    "rootNamespace": "ZLCEngine.WindowSystem",
-    "references": ["GUID:af1babb7ce6c43c489573e67c70069be","GUID:7577bb57da55d0b42b9d63c69f10a83b","GUID:52c27609627f028479c677cabcb5c9cf","GUID:9175e4e93df812a43924d5a239c74714"],
-    "includePlatforms": [],
-    "excludePlatforms": [],
-    "allowUnsafeCode": false,
-    "overrideReferences": false,
-    "precompiledReferences": [],
-    "autoReferenced": true,
-    "defineConstraints": [],
-    "versionDefines": [],
-    "noEngineReferences": false
+  "name": "ZLCEngine.WindowSystem",
+  "rootNamespace": "ZLCEngine.WindowSystem",
+  "references": [
+    "GUID:af1babb7ce6c43c489573e67c70069be",
+    "GUID:7577bb57da55d0b42b9d63c69f10a83b",
+    "GUID:52c27609627f028479c677cabcb5c9cf",
+    "GUID:9175e4e93df812a43924d5a239c74714"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
 }

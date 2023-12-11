@@ -1,3 +1,4 @@
+using System;
 using System.Reflection;
 using UnityEngine.UIElements;
 namespace ZLCEditor.Inspector
@@ -7,6 +8,6 @@ namespace ZLCEditor.Inspector
     /// </summary>
     public interface IAnySerializableAttributeEditor
     {
-        VisualElement CreateGUI(MemberInfo memberInfo, object instance);
+        VisualElement CreateGUI(Attribute attribute, MemberInfo memberInfo, object instance);
     }
 }

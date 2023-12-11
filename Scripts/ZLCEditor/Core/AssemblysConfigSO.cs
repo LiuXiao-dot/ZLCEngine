@@ -102,7 +102,7 @@ namespace ZLCEditor
             // 刷新第三方程序集
             var pluginAssembliesPromot = "dir=Plugins ext:asmdef";
             var pluginDllsPromot = "dir=Plugins ext:dll";
-            ZLCEditor.EditorHelper.SearchPackagesAssets<AssemblyDefinitionAsset>(pluginAssembliesPromot, temp =>
+            EditorHelper.SearchPackagesAssets<AssemblyDefinitionAsset>(pluginAssembliesPromot, temp =>
             {
                 foreach (var defaultAssembly in defaultAssemblies) {
                     temp.Remove(defaultAssembly);

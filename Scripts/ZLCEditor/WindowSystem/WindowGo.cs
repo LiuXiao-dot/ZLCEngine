@@ -68,7 +68,7 @@ namespace ZLCEditor.WindowSystem
 
             var windowGo = new WindowGo
             {
-                prefab = PrefabUtility.SaveAsPrefabAsset(go, Path.Combine(global::ZLCEditor.WindowSystem.Constant.PrefabURL, layer.ToString(), $"{go.name}.prefab")),
+                prefab = PrefabUtility.SaveAsPrefabAsset(go, Path.Combine(Constant.PrefabURL, layer.ToString(), $"{go.name}.prefab")),
                 ctlCode = ctlCode,
                 viewCode = viewCode,
                 layer = layer,
@@ -84,7 +84,7 @@ namespace ZLCEditor.WindowSystem
         /// 删除窗口
         /// </summary>
         [Button("删除窗口")]
-        private void DeleteWindow()
+        internal void DeleteWindow()
         {
             // 删除prefab，ctlCode,viewCode 并从列表中移除，并刷新窗口枚举类型
             if (prefab != null) AssetDatabase.DeleteAsset(AssetDatabase.GetAssetPath(prefab));
@@ -118,6 +118,7 @@ namespace ZLCEditor.WindowSystem
         /// </summary>
         public bool RefreshCode()
         {
+            if (prefab == null) return false;
             var tempTime = File.GetLastWriteTime(AssetDatabase.GetAssetPath(prefab)).Ticks;
             if (tempTime == modifiedTime) return false;
             modifiedTime = tempTime;

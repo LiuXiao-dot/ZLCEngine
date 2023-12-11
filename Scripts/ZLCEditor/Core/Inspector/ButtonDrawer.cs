@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Reflection;
 using UnityEditor;
@@ -8,11 +9,14 @@ namespace ZLCEditor.Inspector
     [CustomPropertyDrawer(typeof(ButtonAttribute))]
     public class ButtonDrawer : PropertyDrawer, IAnySerializableAttributeEditor
     {
-        public VisualElement CreateGUI(MemberInfo memberInfo, object instance)
+        public VisualElement CreateGUI(Attribute attribute, MemberInfo memberInfo, object instance)
         {
             if (memberInfo is MethodInfo methodInfo) {
                 var root = new VisualElement();
+                var btnAttribute = (ButtonAttribute)attribute;
                 var parameters = methodInfo.GetParameters();
+                var buttonText = string.IsNullOrEmpty(btnAttribute.label) ? memberInfo.Name:btnAttribute.label;
+                
                 if (parameters.Length > 0) {
                     // 有参数，添加折叠栏用于设置参数
                     //var foldout = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(Path.Combine(Constant.UXMLPath, "Foldout.uxml"));
@@ -26,8 +30,9 @@ namespace ZLCEditor.Inspector
                     var btn = new Button(() => methodInfo?.Invoke(instance, 
                         parameterUis.Select(t=>PropertyFieldWrap.GetFieldValue(t)).ToArray()))
                     {
-                        text = methodInfo.Name
+                        text = buttonText,
                     };
+                    
                     root.Add(foldoutUI);
                     root.Add(btn);
                     return root;
@@ -35,7 +40,7 @@ namespace ZLCEditor.Inspector
                 
                 root.Add(new Button(()=>methodInfo?.Invoke(instance, null))
                 {
-                    text = methodInfo.Name
+                    text = buttonText,
                 });
                 return root;
             }

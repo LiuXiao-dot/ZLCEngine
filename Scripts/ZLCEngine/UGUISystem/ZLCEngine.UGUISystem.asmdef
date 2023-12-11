@@ -1,18 +1,18 @@
 {
-    "name": "ZLCEngine.UGUISystem",
-    "rootNamespace": "ZLCEngine.UGUISystem",
-    "references": [
-        "GUID:2bafac87e7f4b9b418d9448d219b01ab",
-        "ZLCEngine.ConfigSystem",
-        "GUID:af1babb7ce6c43c489573e67c70069be"
-    ],
-    "includePlatforms": [],
-    "excludePlatforms": [],
-    "allowUnsafeCode": false,
-    "overrideReferences": false,
-    "precompiledReferences": [],
-    "autoReferenced": true,
-    "defineConstraints": [],
-    "versionDefines": [],
-    "noEngineReferences": false
+  "name": "ZLCEngine.UGUISystem",
+  "rootNamespace": "ZLCEngine.UGUISystem",
+  "references": [
+    "GUID:2bafac87e7f4b9b418d9448d219b01ab",
+    "ZLCEngine.ConfigSystem",
+    "GUID:af1babb7ce6c43c489573e67c70069be"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
 }
