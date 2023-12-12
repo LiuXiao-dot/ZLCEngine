@@ -3,4 +3,5 @@
         <ui:Label tabindex="-1" text="Label" display-tooltip-when-elided="true" />
         <ui:Button text="Button" display-tooltip-when-elided="true" />
     </ui:GroupBox>
+    <ui:DropdownField label="dad" index="-1" choices="System.Collections.Generic.List`1[System.String]" />
 </ui:UXML>

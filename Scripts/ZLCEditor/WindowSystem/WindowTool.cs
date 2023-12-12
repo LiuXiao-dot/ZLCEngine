@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using UnityEditor;
@@ -175,13 +176,16 @@ namespace ZLCEditor.WindowSystem
         {
             var folder = Constant.PrefabURL;
             var layerNames = Enum.GetNames(typeof(WindowLayer));
+            var folderArray = new string[1];
             var length = layerNames.Length;
             for (int i = 0; i < length; i++) {
                 var index = i;
                 var layer = layerNames[index];
-                var promot = $"dir={folder}/{layer} ext:prefab";
+                folderArray[0] = $"{folder}/{layer}";
                 var layerList = this.layers.ToList();
-                EditorHelper.SearchPackagesAssets<GameObject>(promot, temp =>
+                var temp = AssetDatabase.FindAssets($"t:prefab", folderArray).Select(AssetDatabase.GUIDToAssetPath).Select(AssetDatabase.LoadAssetAtPath<GameObject>);
+                SyncWindow(temp);
+                void SyncWindow(IEnumerable<GameObject> temp)
                 {
                     var gos = layerList.Find(t=>t.layer == (WindowLayer)index).gos;
                     if(gos == null) return;
@@ -210,7 +214,7 @@ namespace ZLCEditor.WindowSystem
                             }
                         }
                     }
-                });
+                }
             }
         }
 

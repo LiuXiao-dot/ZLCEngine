@@ -45,7 +45,11 @@ namespace ZLCEditor.Utils
             foreach (var assembly in assemblies) {
                 if (assembly == null) continue;
                 if (temp == null) temp = new List<Type>();
-                AssemblyHelper.GetAllChildType(Assembly.Load(assembly.name), temp, targetType);
+                try {
+                    AssemblyHelper.GetAllChildType(Assembly.Load(assembly.name), temp, targetType);
+                }
+                catch {
+                }
             }
         }
         
@@ -69,7 +73,12 @@ namespace ZLCEditor.Utils
             foreach (var assembly in assemblies) {
                 if (assembly == null) continue;
                 if (temp == null) temp = new List<Type>();
-                AssemblyHelper.GetAllChildType(Assembly.Load(assembly.name), temp, targetType);
+                try {
+                    AssemblyHelper.GetAllChildType(Assembly.Load(assembly.name), temp, targetType);
+                }
+                catch {
+                    
+                }
             }
         }
 

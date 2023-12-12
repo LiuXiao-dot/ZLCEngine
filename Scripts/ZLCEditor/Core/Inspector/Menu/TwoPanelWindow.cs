@@ -15,7 +15,7 @@ namespace ZLCEditor.Inspector.Menu
         private void CreateGUI()
         {
             // 添加样式表
-            var splitterViewStyleSheet = EditorGUIUtility.Load(Path.Combine(Constant.USSPath, "SplitterView.uss")) as StyleSheet;
+            var splitterViewStyleSheet = EditorGUIUtility.Load(Constant.ZLC_EDITOR_USS) as StyleSheet;
             rootVisualElement.styleSheets.Add(splitterViewStyleSheet);
 
             // 创建窗口

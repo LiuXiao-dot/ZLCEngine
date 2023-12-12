@@ -12,7 +12,6 @@ namespace ZLCEditor.Inspector.VisualElements
 
         private VisualElement _dragLine;
 
-        [SerializeField]
         private float _leftPaneWidth;
 
         public SplitterView()
@@ -107,7 +106,6 @@ namespace ZLCEditor.Inspector.VisualElements
                 e.StopPropagation();
                 
                 _splitter._leftPaneWidth = _splitter.leftPane.resolvedStyle.width;
-                //_splitter.SaveViewData();
             }
         }
     }

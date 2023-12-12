@@ -68,8 +68,8 @@ namespace ZLCEditor
         public void RefreshAssemblies()
         {
             // 刷新ZLC提供的程序集
-            var zlcAssembliesPromot = "ZLC*.asmdef"; 
-            var zlcDllsPromot = "ZLC*.dll"; 
+            var zlcAssembliesPromot = "Scripts*ZLC*.asmdef"; 
+            var zlcDllsPromot = "Scripts*ZLC*.dll"; 
             ZLCEditor.EditorHelper.SearchPackagesAssets<AssemblyDefinitionAsset>(zlcAssembliesPromot, temp =>
             {
                 defaultAssemblies = temp.ToList();

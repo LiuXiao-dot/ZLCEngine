@@ -12,8 +12,8 @@ namespace ZLCEngine.Interfaces
         public static IAppLauncher Instance
         {
             get {
-                return Instance;
-            }
+                return _instance;
+            }   
             set {
                 #if ZLC_DEBUG
             if (_instance != null) {

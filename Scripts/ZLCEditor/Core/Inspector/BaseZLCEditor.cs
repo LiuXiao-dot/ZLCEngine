@@ -18,7 +18,7 @@ namespace ZLCEditor.Inspector
         public override VisualElement CreateInspectorGUI()
         {
             VisualElement customInspector = new VisualElement();
-            customInspector.styleSheets.Add(AssetDatabase.LoadAssetAtPath<StyleSheet>(Path.Combine(Constant.USSPath, "Common.uss")));
+            customInspector.styleSheets.Add(AssetDatabase.LoadAssetAtPath<StyleSheet>(Constant.ZLC_EDITOR_USS));
             // -- header begin --
             /*var headerLabel = new Label("ZLC编辑器");
             headerLabel.styleSheets.Add(AssetDatabase.LoadAssetAtPath<StyleSheet>(Path.Combine(Constant.USSPath, "ZLCEditor.uss")));
@@ -30,8 +30,9 @@ namespace ZLCEditor.Inspector
             var iterator = serializedObject.GetIterator();
             for (bool enterChildren = true; iterator.NextVisible(enterChildren); enterChildren = false)
             {
-                using (new EditorGUI.DisabledScope("m_Script" == iterator.propertyPath))
+                using (new EditorGUI.DisabledScope("m_Script" == iterator.propertyPath)) {
                     customInspector.Add(new PropertyField(iterator));
+                }
             }
 
             // -- 检测各个方法是否有被可序列化的特性，如果有则按对应的特性进行序列化，没有则跳过

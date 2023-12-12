@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "com.unity.addressables.cn": "1.19.16",
-    "com.unity.inputsystem": "1.4.4"
+    "com.unity.inputsystem": "1.4.4",
+    "com.unity.render-pipelines.universal": "14.0.7"
   }
 }

@@ -10,7 +10,6 @@ namespace ZLCEngine.SerializeTypes
     [Serializable]
     public class SType : ISerializationCallbackReceiver
     {
-
         [HideInInspector]
         [SerializeField]
         private string typeName;

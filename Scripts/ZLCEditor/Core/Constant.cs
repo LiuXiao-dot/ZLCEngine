@@ -22,6 +22,7 @@ namespace ZLCEditor
         public const string USSPath = "Packages/com.zlc.zlcengine/InspectorUI/USS";
         public const string UXMLPath = "Packages/com.zlc.zlcengine/InspectorUI/UXML";
 #region StyleSheets
+        public const string ZLC_EDITOR_USS = "Packages/com.zlc.zlcengine/InspectorUI/USS/ZLCEditor.uss";
         public const string ZLC_TREE_VIEW = "zlc-tree-view";
 #endregion
     }

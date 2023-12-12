@@ -1,3 +1,5 @@
+using System;
+using System.Reflection;
 using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine.UIElements;
@@ -8,12 +10,12 @@ namespace ZLCEditor.Inspector
     /// UI元素组
     /// </summary>
     [CustomPropertyDrawer(typeof(BoxGroupAttribute))]
-    public class BoxGroupDrawer : PropertyDrawer
+    public class BoxGroupDrawer : PropertyDrawer, IAnySerializableAttributeEditor
     {
         private VisualElement _root;
         private string _groupName;
         private string _path;
-        private bool inited;
+        //private bool inited;
 
         public override VisualElement CreatePropertyGUI(SerializedProperty property)
         {
@@ -23,15 +25,13 @@ namespace ZLCEditor.Inspector
             _path = property.propertyPath;
             _root.RegisterCallback<AttachToPanelEvent>(OnAttachedToPanel);
             _root.Add(new PropertyField(property));
-            inited = false;
             return _root;
         }
         
         private void OnAttachedToPanel(AttachToPanelEvent evt)
         {
-            if(inited)
-                return;
-            inited = true;
+            _root.SetEnabled(false); // 防止结构变化导致再次触发事件
+            
             VisualElement propertyField = _root.parent;
             while (propertyField != null && (propertyField is not PropertyField || propertyField.parent.parent is not InspectorElement)) {
                 propertyField = propertyField.parent;
@@ -53,7 +53,13 @@ namespace ZLCEditor.Inspector
             groupBox.Add(propertyField);
             groupBox.text = _groupName;
             groupBox.Q<Label>().name = "title";
+            _root.SetEnabled(true);
+            _root.UnregisterCallback<AttachToPanelEvent>(OnAttachedToPanel);
         }
 
+        public VisualElement CreateGUI(Attribute attribute, MemberInfo memberInfo, object instance)
+        {
+            return new VisualElement();
+        }
     }
 }
