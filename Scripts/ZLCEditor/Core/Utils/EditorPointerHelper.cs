@@ -1,22 +1,23 @@
+using UnityEditor;
 using UnityEngine;
 namespace ZLCEditor.Utils
 {
     /// <summary>
-    /// Pointer相关方法
+    ///     Pointer相关方法
     /// </summary>
     public sealed class EditorPointerHelper
     {
         /// <summary>
-        /// 获取Scene窗口下的鼠标坐标
+        ///     获取Scene窗口下的鼠标坐标
         /// </summary>
         /// <returns></returns>
         public static Vector3 GetMousePosToScene()
         {
-            UnityEditor.SceneView sceneView = UnityEditor.SceneView.currentDrawingSceneView;
+            SceneView sceneView = SceneView.currentDrawingSceneView;
             //当前屏幕坐标,左上角(0,0)右下角(camera.pixelWidth,camera.pixelHeight)
             Vector2 mousePos = Event.current.mousePosition;
             //retina 屏幕需要拉伸值
-            float mult = UnityEditor.EditorGUIUtility.pixelsPerPoint;
+            float mult = EditorGUIUtility.pixelsPerPoint;
             //转换成摄像机可接受的屏幕坐标,左下角是(0,0,0);右上角是(camera.pixelWidth,camera.pixelHeight,0)
             mousePos.y = sceneView.camera.pixelHeight - mousePos.y * mult;
             mousePos.x *= mult;

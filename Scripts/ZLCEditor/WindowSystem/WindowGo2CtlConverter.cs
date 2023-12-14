@@ -9,7 +9,7 @@ namespace ZLCEditor.WindowSystem
     {
         public string code;
     }
-    public class WindowGo2CtlConverter : IFormatConverter<GameObject,WindowCtlCode>
+    public class WindowGo2CtlConverter : IFormatConverter<GameObject, WindowCtlCode>
     {
         private static string defaultCode =
             $@"using ZLCEngine.WindowSystem;
@@ -35,20 +35,22 @@ public class ${ZLCCoding.Constant.ClassName}$ : AWindowCtl
 
     }}
 }}";
-        
+
         public WindowCtlCode Convert(GameObject from)
         {
-            var zlcCode = new ZLCCode()
+            ZLCCode zlcCode = new ZLCCode
             {
                 code = defaultCode,
-                kvs = new SDictionary<string, object>()
+                kvs = new SDictionary<string, object>
                 {
-                    {ZLCCoding.Constant.ClassName,$"{from.name}Ctl"}
+                    {
+                        ZLCCoding.Constant.ClassName, $"{from.name}Ctl"
+                    }
                 }
             };
-            var cSharpCode = FormatManager.Convert<ZLCCode, CSharpCode>(zlcCode);
+            CSharpCode cSharpCode = FormatManager.Convert<ZLCCode, CSharpCode>(zlcCode);
 
-            return new WindowCtlCode()
+            return new WindowCtlCode
             {
                 code = cSharpCode.code
             };

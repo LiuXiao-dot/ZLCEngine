@@ -1,10 +1,11 @@
 ﻿using System;
+using UnityEditor;
 using UnityEngine;
 namespace ZLC.LitJson.LitJson
 {
 
 #if UNITY_EDITOR
-    [UnityEditor.InitializeOnLoad]
+    [InitializeOnLoad]
 #endif
     /// <summary>
     /// Unity内建类型拓展
@@ -12,7 +13,7 @@ namespace ZLC.LitJson.LitJson
     public static class UnityTypeBindings
     {
 
-        static bool registerd;
+        private static bool registerd;
 
         static UnityTypeBindings()
         {
@@ -32,7 +33,7 @@ namespace ZLC.LitJson.LitJson
                 w.Write(v.FullName);
             });
 
-            JsonMapper.RegisterImporter<string, Type>((s) =>
+            JsonMapper.RegisterImporter<string, Type>(s =>
             {
                 return Type.GetType(s);
             });
@@ -147,6 +148,5 @@ namespace ZLC.LitJson.LitJson
             });
 
         }
-
     }
 }

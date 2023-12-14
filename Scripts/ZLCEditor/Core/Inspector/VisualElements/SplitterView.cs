@@ -3,12 +3,10 @@ using UnityEngine.UIElements;
 namespace ZLCEditor.Inspector.VisualElements
 {
     /// <summary>
-    /// 左右两栏的窗口
+    ///     左右两栏的窗口
     /// </summary>
     public class SplitterView : VisualElement
     {
-        public VisualElement leftPane { get; private set; }
-        public VisualElement rightPane { get; private set; }
 
         private VisualElement _dragLine;
 
@@ -23,7 +21,7 @@ namespace ZLCEditor.Inspector.VisualElements
             leftPane.name = "zlc-splitter-left-pane";
             Add(leftPane);
 
-            var dragLineAnchor = new VisualElement();
+            VisualElement dragLineAnchor = new VisualElement();
             dragLineAnchor.name = "zlc-splitter-dragline-anchor";
             Add(dragLineAnchor);
 
@@ -39,17 +37,22 @@ namespace ZLCEditor.Inspector.VisualElements
             _leftPaneWidth = 400;
             leftPane.style.width = _leftPaneWidth;
         }
+        public VisualElement leftPane { get; }
+        public VisualElement rightPane { get; }
 
-        class SquareResizer : MouseManipulator
+        private class SquareResizer : MouseManipulator
         {
-            private Vector2 _start;
             protected bool _active;
             private SplitterView _splitter;
+            private Vector2 _start;
 
             public SquareResizer(SplitterView splitter)
             {
                 _splitter = splitter;
-                activators.Add(new ManipulatorActivationFilter(){button = MouseButton.LeftMouse});
+                activators.Add(new ManipulatorActivationFilter
+                {
+                    button = MouseButton.LeftMouse
+                });
                 _active = false;
             }
 
@@ -68,14 +71,12 @@ namespace ZLCEditor.Inspector.VisualElements
 
             protected void OnMouseDown(MouseDownEvent e)
             {
-                if (_active)
-                {
+                if (_active) {
                     e.StopImmediatePropagation();
                     return;
                 }
 
-                if (CanStartManipulation(e))
-                {
+                if (CanStartManipulation(e)) {
                     _start = e.localMousePosition;
 
                     _active = true;
@@ -83,7 +84,7 @@ namespace ZLCEditor.Inspector.VisualElements
                     e.StopPropagation();
                 }
             }
-            
+
             protected void OnMouseMove(MouseMoveEvent e)
             {
                 if (!_active || !target.HasMouseCapture())
@@ -104,7 +105,7 @@ namespace ZLCEditor.Inspector.VisualElements
                 _active = false;
                 target.ReleaseMouse();
                 e.StopPropagation();
-                
+
                 _splitter._leftPaneWidth = _splitter.leftPane.resolvedStyle.width;
             }
         }

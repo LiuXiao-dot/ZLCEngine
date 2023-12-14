@@ -5,32 +5,15 @@ namespace ZLCEditor
 {
     public class InputDialog : EditorWindow
     {
-        class Styles
-        {
-            // public GUIStyle input = "Input";
-            public GUIStyle label = "Label";
-            //public GUIStyle button = "Large Button";
-            public GUIContent create = EditorGUIUtility.TrTextContent("创建");
 
-            public Styles()
-            {
-                /*input = new GUIStyle(GUI.skin.textField);
-                input.fixedHeight = 64;*/
-                label = new GUIStyle(GUI.skin.label);
-            }
-        }
-
-        private static Styles _styles = null;
-        private string value;
-        private Action<string> onInput;
+        private static Styles _styles;
         private Action onCancel;
+        private Action<string> onInput;
+        private string value;
 
-        public static void ShowWindow(Action<string> onInput, Action onCancel = null)
+        private void OnDisable()
         {
-            var window = EditorWindow.CreateWindow<InputDialog>();
-            window.onInput = onInput;
-            window.onCancel = onCancel;
-            window.Show();
+            onCancel?.Invoke();
         }
 
         private void OnGUI()
@@ -46,9 +29,26 @@ namespace ZLCEditor
             }
         }
 
-        private void OnDisable()
+        public static void ShowWindow(Action<string> onInput, Action onCancel = null)
         {
-            onCancel?.Invoke();
+            InputDialog window = CreateWindow<InputDialog>();
+            window.onInput = onInput;
+            window.onCancel = onCancel;
+            window.Show();
+        }
+        private class Styles
+        {
+            //public GUIStyle button = "Large Button";
+            public GUIContent create = EditorGUIUtility.TrTextContent("创建");
+            // public GUIStyle input = "Input";
+            public GUIStyle label = "Label";
+
+            public Styles()
+            {
+                /*input = new GUIStyle(GUI.skin.textField);
+                input.fixedHeight = 64;*/
+                label = new GUIStyle(GUI.skin.label);
+            }
         }
     }
 }

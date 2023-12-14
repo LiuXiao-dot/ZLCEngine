@@ -8,7 +8,7 @@ namespace ZLCEditor.Inspector
         private static MethodInfo _findCustomEditorType;
         static CustomEditorAttributesWrap()
         {
-            var realType = typeof(CustomPropertyDrawer).Assembly.GetType("UnityEditor.CustomEditorAttributes");
+            Type realType = typeof(CustomPropertyDrawer).Assembly.GetType("UnityEditor.CustomEditorAttributes");
             _findCustomEditorType = realType.GetMethod("FindCustomEditorTypeByType", BindingFlags.NonPublic | BindingFlags.Static);
         }
 

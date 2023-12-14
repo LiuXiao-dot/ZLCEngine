@@ -283,7 +283,7 @@ namespace ZLCEngine.ResSystem
         /// <returns></returns>
         public GameObject InstantiateGameObjectSync(string path, Transform parent)
         {
-            if (LoadAssetSync<GameObject>(path, out GameObject result)) {
+            if (LoadAssetSync(path, out GameObject result)) {
                 return _cache.InstantiateGameObject(path, parent);
             }
             return result;

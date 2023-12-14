@@ -32,7 +32,7 @@ namespace ZLCEngine.EventSystem.MessageQueue
         /// <summary>
         ///     为true时，不会生成对应的events枚举类型
         /// </summary>
-        [HideInInspector]public bool isInternal;
+        [HideInInspector] public bool isInternal;
         #endif
     }
 }

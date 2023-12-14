@@ -14,17 +14,17 @@ using FilePathAttribute = ZLCEngine.ConfigSystem.FilePathAttribute;
 namespace ZLCEditor.WindowSystem
 {
     /// <summary>
-    /// 窗口工具
+    ///     窗口工具
     /// </summary>
     [Tool("窗口", true)]
-    [FilePath(FilePathAttribute.PathType.XWEditor, true)]
+    [ZLCEngine.ConfigSystem.FilePath(FilePathAttribute.PathType.XWEditor, true)]
     public class WindowTool : SOSingleton<WindowTool>
     {
         [ReadOnly] public AssemblyDefinitionAsset assembly;
         [ReadOnly]
         [SerializeField] internal WindowLayerTool[] layers;
 
-        [ReadOnly] public Preset[] rectTransformPresets;  
+        [ReadOnly] public Preset[] rectTransformPresets;
 
         private void Reset()
         {
@@ -36,7 +36,7 @@ namespace ZLCEditor.WindowSystem
         {
             base.OnEnable();
             layers = AssetDatabase.LoadAllAssetRepresentationsAtPath(FilePathAttribute.GetPath(typeof(WindowTool))).Select(t => (WindowLayerTool)t).ToArray();
-           
+
             CheckViews(true);
             RefreshCode(true);
         }
@@ -48,18 +48,18 @@ namespace ZLCEditor.WindowSystem
         }*/
 
         /// <summary>
-        /// 刷新代码
+        ///     刷新代码
         /// </summary>
         /// <param name="isAuto"></param>
         /// <returns>false:未更新代码 true:已更新代码</returns>
         private bool RefreshCode(bool isAuto)
         {
             if (layers == null) return false;
-            var refreshed = false;
-            foreach (var layer in layers) {
-                var gos = layer.gos;
+            bool refreshed = false;
+            foreach (WindowLayerTool layer in layers) {
+                List<WindowGo> gos = layer.gos;
                 if (gos == null) continue;
-                foreach (var windowGo in gos) {
+                foreach (WindowGo windowGo in gos) {
                     refreshed |= windowGo.RefreshCode();
                 }
             }
@@ -78,10 +78,10 @@ namespace ZLCEditor.WindowSystem
         private void CheckViews(bool isAuto)
         {
             if (layers == null) return;
-            foreach (var layer in layers) {
-                var gos = layer.gos;
+            foreach (WindowLayerTool layer in layers) {
+                List<WindowGo> gos = layer.gos;
                 if (gos == null) continue;
-                foreach (var windowGo in gos) {
+                foreach (WindowGo windowGo in gos) {
                     windowGo.AddView2Prefab();
                 }
             }
@@ -90,7 +90,7 @@ namespace ZLCEditor.WindowSystem
         }
 
         /// <summary>
-        /// 初始化窗口层级目录等
+        ///     初始化窗口层级目录等
         /// </summary>
         [Button("初始化窗口工具")]
         private void Init()
@@ -99,39 +99,42 @@ namespace ZLCEditor.WindowSystem
             //- 代码目录
             FileHelper.CheckDirectory(Constant.FullCtlCodeURL);
             FileHelper.CheckDirectory(Constant.FullViewCodeURL);
-            
+
             //- prefab目录
             FileHelper.CheckDirectory(Constant.PrefabURL);
-            var windowLayers = Enum.GetNames(typeof(WindowLayer));
-            foreach (var windowLayer in windowLayers) {
-                FileHelper.CheckDirectory(Path.Combine(Constant.PrefabURL,windowLayer));
+            string[] windowLayers = Enum.GetNames(typeof(WindowLayer));
+            foreach (string windowLayer in windowLayers) {
+                FileHelper.CheckDirectory(Path.Combine(Constant.PrefabURL, windowLayer));
             }
 
             Clear();
             // 创建各个层级对应的窗口WindowLayerTool
             layers = AssetDatabase.LoadAllAssetRepresentationsAtPath(FilePathAttribute.GetPath(typeof(WindowTool))).Select(t => (WindowLayerTool)t).ToArray();
-            foreach (var windowLayer in windowLayers) {
-                var tool = ScriptableObject.CreateInstance<WindowLayerTool>();
+            foreach (string windowLayer in windowLayers) {
+                WindowLayerTool tool = CreateInstance<WindowLayerTool>();
                 tool.layer = Enum.Parse<WindowLayer>(windowLayer);
                 tool.name = windowLayer;
                 if (layers.Any(temp => temp.name == windowLayer)) {
                     continue;
                 }
                 tool.hideFlags = HideFlags.None;
-                AssetDatabase.AddObjectToAsset(tool,this);
+                AssetDatabase.AddObjectToAsset(tool, this);
             }
             AssetDatabase.SaveAssets();
             layers = AssetDatabase.LoadAllAssetRepresentationsAtPath(FilePathAttribute.GetPath(typeof(WindowTool))).Select(t => (WindowLayerTool)t).ToArray();
-            
-            
+
+
             // 加载presets
-            var folder = Constant.PresetURL;
-            var assets = AssetDatabase.FindAssets("t:Preset", new string[]{folder});
-            var length = assets.Length;
+            string folder = Constant.PresetURL;
+            string[] assets = AssetDatabase.FindAssets("t:Preset", new[]
+            {
+                folder
+            });
+            int length = assets.Length;
             rectTransformPresets = new Preset[length];
             for (int i = 0; i < length; i++) {
-                var preset = AssetDatabase.LoadAssetAtPath<Preset>(AssetDatabase.GUIDToAssetPath(assets[i]));
-                if(preset == null) continue;
+                Preset preset = AssetDatabase.LoadAssetAtPath<Preset>(AssetDatabase.GUIDToAssetPath(assets[i]));
+                if (preset == null) continue;
                 rectTransformPresets[i] = preset;
             }
         }
@@ -139,7 +142,7 @@ namespace ZLCEditor.WindowSystem
         private void Clear()
         {
             layers = AssetDatabase.LoadAllAssetRepresentationsAtPath(FilePathAttribute.GetPath(typeof(WindowTool))).Select(t => (WindowLayerTool)t).ToArray();
-            foreach (var layer in layers) {
+            foreach (WindowLayerTool layer in layers) {
                 AssetDatabase.RemoveObjectFromAsset(layer);
             }
             AssetDatabase.SaveAssets();
@@ -148,65 +151,65 @@ namespace ZLCEditor.WindowSystem
 
         public Preset GetRectTransformPreset(WindowLayer layer)
         {
-            foreach (var preset in rectTransformPresets) {
+            foreach (Preset preset in rectTransformPresets) {
                 if (preset.name == layer.ToString()) {
                     return preset;
                 }
             }
-            return default;
+            return default(Preset);
         }
 
         //[Button("同步组件到View中")]
         private void SyncComponents()
         {
             if (layers == null) return;
-            var synced = false;
-            foreach (var layer in layers) {
-                var gos = layer.gos;
+            bool synced = false;
+            foreach (WindowLayerTool layer in layers) {
+                List<WindowGo> gos = layer.gos;
                 if (gos == null) continue;
-                foreach (var windowGo in gos) {
+                foreach (WindowGo windowGo in gos) {
                     synced |= windowGo.SyncComponent();
                 }
             }
-            if(synced)
+            if (synced)
                 EditorUtility.DisplayDialog("窗口同步", "同步组件到View中结束", "确定");
         }
 
         private void SyncWindows()
         {
-            var folder = Constant.PrefabURL;
-            var layerNames = Enum.GetNames(typeof(WindowLayer));
-            var folderArray = new string[1];
-            var length = layerNames.Length;
+            string folder = Constant.PrefabURL;
+            string[] layerNames = Enum.GetNames(typeof(WindowLayer));
+            string[] folderArray = new string[1];
+            int length = layerNames.Length;
             for (int i = 0; i < length; i++) {
-                var index = i;
-                var layer = layerNames[index];
+                int index = i;
+                string layer = layerNames[index];
                 folderArray[0] = $"{folder}/{layer}";
-                var layerList = this.layers.ToList();
-                var temp = AssetDatabase.FindAssets($"t:prefab", folderArray).Select(AssetDatabase.GUIDToAssetPath).Select(AssetDatabase.LoadAssetAtPath<GameObject>);
+                List<WindowLayerTool> layerList = layers.ToList();
+                IEnumerable<GameObject> temp = AssetDatabase.FindAssets("t:prefab", folderArray).Select(AssetDatabase.GUIDToAssetPath).Select(AssetDatabase.LoadAssetAtPath<GameObject>);
                 SyncWindow(temp);
                 void SyncWindow(IEnumerable<GameObject> temp)
                 {
-                    var gos = layerList.Find(t=>t.layer == (WindowLayer)index).gos;
-                    if(gos == null) return;
-                    
+                    List<WindowGo> gos = layerList.Find(t => t.layer == (WindowLayer)index).gos;
+                    if (gos == null) return;
+
                     // 有prefab，没有数据的，添加到gos中
-                    var unbinds = temp.Where(t => gos.FindIndex(t2 => t2.prefab == t) == -1).ToList();
-                    foreach (var unbind in unbinds) {
-                        var bindGo = WindowGo.Create(unbind.name, (WindowLayer)index, gos.Count);
+                    List<GameObject> unbinds = temp.Where(t => gos.FindIndex(t2 => t2.prefab == t) == -1).ToList();
+                    foreach (GameObject unbind in unbinds) {
+                        WindowGo bindGo = WindowGo.Create(unbind.name, (WindowLayer)index, gos.Count);
                         bindGo.prefab = unbind;
                         gos.Add(bindGo);
                     }
                     if (unbinds.Any()) {
                         EditorUtility.DisplayDialog("窗口同步", "绑定窗口完成", "确定");
                     }
-                    
+
                     // 仅有数据，没有prefab的，直接删除
-                    var allDelete = false;
-                    var olds = gos.FindAll(t => !temp.Contains(t.prefab));
-                    if(olds.Count == 0) return;
-                    allDelete = EditorUtility.DisplayDialog("窗口同步", "是否删除全部旧窗口及代码？", "确定","取消");
-                    foreach (var old in olds) {
+                    bool allDelete = false;
+                    List<WindowGo> olds = gos.FindAll(t => !temp.Contains(t.prefab));
+                    if (olds.Count == 0) return;
+                    allDelete = EditorUtility.DisplayDialog("窗口同步", "是否删除全部旧窗口及代码？", "确定", "取消");
+                    foreach (WindowGo old in olds) {
                         // 检测是否存在代码，存在代码也删除，但会先弹出提示
                         if (allDelete) {
                             if (EditorUtility.DisplayDialog("窗口同步", $"是否删除{old.id}窗口及代码？", "确定", "跳过")) {
@@ -219,7 +222,7 @@ namespace ZLCEditor.WindowSystem
         }
 
         /// <summary>
-        /// 一键更新
+        ///     一键更新
         /// </summary>
         [Button("一键刷新")]
         private void Update()
@@ -230,12 +233,12 @@ namespace ZLCEditor.WindowSystem
             }
             // 检测数据与实际的prefab是否相匹配，将不在数据中的prefab添加到数据中
             SyncWindows();
-            
+
             // 检测数据中的窗口是否都有对应的代码，如果没有则生成，有则检测是否要更新代码
             if (RefreshCode(false)) {
                 return;
             }
-            
+
             // 检测prefab上是否有挂载View组件，如果没有则挂载
             CheckViews(false);
 

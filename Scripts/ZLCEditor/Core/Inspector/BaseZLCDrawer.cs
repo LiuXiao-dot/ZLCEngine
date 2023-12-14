@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using UnityEditor;
@@ -13,7 +14,7 @@ namespace ZLCEditor.Inspector
     {
         public override VisualElement CreatePropertyGUI(SerializedProperty property)
         {
-            var root = new VisualElement();
+            VisualElement root = new VisualElement();
             root.Add(new PropertyField(property));
             switch (property.propertyType) {
                 case SerializedPropertyType.Generic:
@@ -50,13 +51,13 @@ namespace ZLCEditor.Inspector
 
             try {
                 // -- 检测各个方法是否有被可序列化的特性，如果有则按对应的特性进行序列化，没有则跳过
-                var methods = property.boxedValue.GetType().GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic).Where(t => Attribute.IsDefined(t, typeof(AnySerializableAttribute), true));
-                foreach (var method in methods) {
-                    var attribute = method.GetCustomAttribute<AnySerializableAttribute>(true);
-                    var drawerType = ScriptAttributeUtilityWrapper.GetDrawerTypeForType(attribute.GetType());
+                IEnumerable<MethodInfo> methods = property.boxedValue.GetType().GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic).Where(t => Attribute.IsDefined(t, typeof(AnySerializableAttribute), true));
+                foreach (MethodInfo method in methods) {
+                    AnySerializableAttribute attribute = method.GetCustomAttribute<AnySerializableAttribute>(true);
+                    Type drawerType = ScriptAttributeUtilityWrapper.GetDrawerTypeForType(attribute.GetType());
                     if (drawerType != null) {
-                        var drawer = (IAnySerializableAttributeEditor)Activator.CreateInstance(drawerType);
-                        var methodGUI = drawer.CreateGUI(attribute, method, property.boxedValue);
+                        IAnySerializableAttributeEditor drawer = (IAnySerializableAttributeEditor)Activator.CreateInstance(drawerType);
+                        VisualElement methodGUI = drawer.CreateGUI(attribute, method, property.boxedValue);
                         if (methodGUI != null)
                             root.Add(methodGUI);
                     }

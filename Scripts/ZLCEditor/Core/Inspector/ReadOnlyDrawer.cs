@@ -9,7 +9,7 @@ namespace ZLCEditor.Inspector
     {
         public override VisualElement CreatePropertyGUI(SerializedProperty property)
         {
-            var root = new VisualElement();
+            VisualElement root = new VisualElement();
             root.SetEnabled(false);
             root.name = "readonly";
             root.Add(new PropertyField(property));

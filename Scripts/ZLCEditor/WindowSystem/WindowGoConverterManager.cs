@@ -9,16 +9,16 @@ namespace ZLCEditor.WindowSystem
     {
         public static void GenerateCode(GameObject go, out MonoScript ctlCode, out MonoScript viewCode)
         {
-            var ctl = FormatManager.Convert<GameObject, WindowCtlCode>(go);
-            var ctlPath = Path.Combine(Constant.FullCtlCodeURL, $"{go.name}Ctl.cs");
-            var absoluteCtlPath = Path.Combine(global::ZLCEditor.Constant.BasePath, ctlPath);
+            WindowCtlCode ctl = FormatManager.Convert<GameObject, WindowCtlCode>(go);
+            string ctlPath = Path.Combine(Constant.FullCtlCodeURL, $"{go.name}Ctl.cs");
+            string absoluteCtlPath = Path.Combine(ZLCEditor.Constant.BasePath, ctlPath);
             FileHelper.SaveFile(ctl.code, absoluteCtlPath);
-            var view = FormatManager.Convert<GameObject, WindowViewCode>(go);
-            var viewPath = Path.Combine(Constant.FullViewCodeURL, $"{go.name}View.cs");
-            var absoluteViewPath = Path.Combine(global::ZLCEditor.Constant.BasePath, viewPath);
+            WindowViewCode view = FormatManager.Convert<GameObject, WindowViewCode>(go);
+            string viewPath = Path.Combine(Constant.FullViewCodeURL, $"{go.name}View.cs");
+            string absoluteViewPath = Path.Combine(ZLCEditor.Constant.BasePath, viewPath);
             FileHelper.SaveFile(view.code, absoluteViewPath);
             AssetDatabase.Refresh();
-            
+
             ctlCode = AssetDatabase.LoadAssetAtPath<MonoScript>(ctlPath);
             viewCode = AssetDatabase.LoadAssetAtPath<MonoScript>(viewPath);
         }

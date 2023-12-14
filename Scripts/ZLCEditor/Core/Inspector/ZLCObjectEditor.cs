@@ -7,15 +7,15 @@ namespace ZLCEditor.Inspector
     public class ZLCObjectEditor : Editor
     {
         private SerializedProperty _value;
-        
+
         private void OnEnable()
         {
-            _value =serializedObject.FindProperty("t");
+            _value = serializedObject.FindProperty("t");
         }
 
         public override VisualElement CreateInspectorGUI()
         {
-            var root = new VisualElement();
+            VisualElement root = new VisualElement();
             root.name = "zlc-object";
             root.Add(new PropertyField(_value));
             return root;

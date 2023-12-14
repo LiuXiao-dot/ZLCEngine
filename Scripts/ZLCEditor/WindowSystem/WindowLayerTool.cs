@@ -6,7 +6,7 @@ using ZLCEngine.WindowSystem;
 namespace ZLCEditor.WindowSystem
 {
     /// <summary>
-    /// 窗口按层级分组的工具
+    ///     窗口按层级分组的工具
     /// </summary>
     [CreateAssetMenu]
     [Tool("窗口")]

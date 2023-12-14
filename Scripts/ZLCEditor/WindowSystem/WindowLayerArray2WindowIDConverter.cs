@@ -9,11 +9,11 @@ namespace ZLCEditor.WindowSystem
     {
         public string code;
     }
-    
+
     /// <summary>
-    /// 根据窗口view生成窗口ID的枚举代码
+    ///     根据窗口view生成窗口ID的枚举代码
     /// </summary>
-    public class WindowLayerArray2WindowIDConverter : IFormatConverter<WindowLayerTool[],WindowIDCode>
+    public class WindowLayerArray2WindowIDConverter : IFormatConverter<WindowLayerTool[], WindowIDCode>
     {
         private static string defaultCode =
             $@"namespace ZLCGenerate.Window
@@ -28,26 +28,28 @@ namespace ZLCEditor.WindowSystem
         public WindowIDCode Convert(WindowLayerTool[] from)
         {
             List<string> enumDefs = new List<string>();
-            foreach (var layerTool in from) {
-                if(layerTool == null) continue;
-                var gos = layerTool.gos;
-                if(gos == null) continue;
-                foreach (var go in gos) {
+            foreach (WindowLayerTool layerTool in from) {
+                if (layerTool == null) continue;
+                List<WindowGo> gos = layerTool.gos;
+                if (gos == null) continue;
+                foreach (WindowGo go in gos) {
                     enumDefs.Add($"{go.prefab.name} = {go.id},");
                 }
             }
-            var zlcCode = new ZLCCode()
+            ZLCCode zlcCode = new ZLCCode
             {
                 code = defaultCode,
-                kvs = new SDictionary<string, object>()
+                kvs = new SDictionary<string, object>
                 {
-                    {ZLCCoding.Constant.EnumDEF, enumDefs}
+                    {
+                        ZLCCoding.Constant.EnumDEF, enumDefs
+                    }
                 }
             };
-            
-            var cSharpCode = FormatManager.Convert<ZLCCode, CSharpCode>(zlcCode);
 
-            return new WindowIDCode()
+            CSharpCode cSharpCode = FormatManager.Convert<ZLCCode, CSharpCode>(zlcCode);
+
+            return new WindowIDCode
             {
                 code = cSharpCode.code
             };

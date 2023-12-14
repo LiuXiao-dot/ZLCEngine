@@ -1,12 +1,12 @@
 namespace ZLCEditor.FormatSystem
 {
     /// <summary>
-    /// 转换器管理器
+    ///     转换器管理器
     /// </summary>
     public class FormatManager
     {
         /// <summary>
-        /// 将F数据转换为T数据
+        ///     将F数据转换为T数据
         /// </summary>
         /// <param name="from">源数据</param>
         /// <typeparam name="F">源数据类型</typeparam>
@@ -14,8 +14,8 @@ namespace ZLCEditor.FormatSystem
         /// <returns>目标数据</returns>
         public static T Convert<F, T>(F from)
         {
-            using (var factory = new FormaterFactory()) {
-                var converter = factory.GetConverter<F, T>();
+            using (FormaterFactory factory = new FormaterFactory()) {
+                IFormatConverter<F, T> converter = factory.GetConverter<F, T>();
                 return converter.Convert(from);
             }
         }

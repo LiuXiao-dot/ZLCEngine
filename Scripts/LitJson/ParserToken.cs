@@ -14,7 +14,7 @@ namespace ZLC.LitJson.LitJson
     internal enum ParserToken
     {
         // Lexer tokens (see section A.1.1. of the manual)
-        None = System.Char.MaxValue + 1,
+        None = char.MaxValue + 1,
         Number,
         True,
         False,

@@ -1,16 +1,18 @@
 {
-    "name": "UnityYAML",
-    "rootNamespace": "UnityYAML",
-    "references": ["GUID:af1babb7ce6c43c489573e67c70069be"],
-    "includePlatforms": [
-        "Editor"
-    ],
-    "excludePlatforms": [],
-    "allowUnsafeCode": false,
-    "overrideReferences": false,
-    "precompiledReferences": [],
-    "autoReferenced": true,
-    "defineConstraints": [],
-    "versionDefines": [],
-    "noEngineReferences": false
+  "name": "UnityYAML",
+  "rootNamespace": "UnityYAML",
+  "references": [
+    "GUID:af1babb7ce6c43c489573e67c70069be"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
 }

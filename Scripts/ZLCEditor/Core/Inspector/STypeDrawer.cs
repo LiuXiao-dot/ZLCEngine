@@ -10,28 +10,13 @@ namespace ZLCEditor.Inspector
     [CustomPropertyDrawer(typeof(SType))]
     public class STypeDrawer : PropertyDrawer
     {
-        [Serializable]
-        private struct TempType
-        {
-            public string className;
-            public Type type;
-            
-            public static implicit operator TempType(Type type)
-            {
-                return new TempType()
-                {
-                    type = type,
-                    className = type.FullName
-                };
-            }
-        }
 
         private static List<string> types;
         private int selected;
 
         public override VisualElement CreatePropertyGUI(SerializedProperty property)
         {
-            var dropdownField = new DropdownField();
+            DropdownField dropdownField = new DropdownField();
             dropdownField.choices = GetTypes();
             return dropdownField;
         }
@@ -39,7 +24,7 @@ namespace ZLCEditor.Inspector
         private List<string> GetTypes()
         {
             if (types != null) return types;
-            var ts = new List<Type>();
+            List<Type> ts = new List<Type>();
             EditorApplication.LockReloadAssemblies();
             try {
                 /*var assemblies = CompilationPipeline.GetAssemblies();
@@ -60,6 +45,21 @@ namespace ZLCEditor.Inspector
                 EditorApplication.UnlockReloadAssemblies();
             }
             return types;
+        }
+        [Serializable]
+        private struct TempType
+        {
+            public string className;
+            public Type type;
+
+            public static implicit operator TempType(Type type)
+            {
+                return new TempType
+                {
+                    type = type,
+                    className = type.FullName
+                };
+            }
         }
     }
 }

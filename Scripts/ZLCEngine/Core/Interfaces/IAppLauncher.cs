@@ -13,7 +13,7 @@ namespace ZLCEngine.Interfaces
         {
             get {
                 return _instance;
-            }   
+            }
             set {
                 #if ZLC_DEBUG
             if (_instance != null) {

@@ -6,7 +6,7 @@ namespace ZLCEditor.Utils
     {
         public static IEnumerable<Type> GetBaseTypes(this Type type)
         {
-            var parent = type.BaseType;
+            Type parent = type.BaseType;
             while (parent != null) {
                 yield return parent;
                 parent = parent.BaseType;

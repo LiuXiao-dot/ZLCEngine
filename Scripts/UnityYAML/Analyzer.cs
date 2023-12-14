@@ -8,7 +8,7 @@ using ZLCEngine.Inspector;
 namespace UnityYAML
 {
     /// <summary>
-    /// Unity中的YAML格式解析器
+    ///     Unity中的YAML格式解析器
     /// </summary>
     public class Analyzer
     {
@@ -18,8 +18,8 @@ namespace UnityYAML
         private void YAMLAnalysisTest()
         {
             if (testGo == null) return;
-            var input = new StreamReader(AssetDatabase.GetAssetPath(testGo), Encoding.UTF8);
-            var yaml = new YamlStream();
+            StreamReader input = new StreamReader(AssetDatabase.GetAssetPath(testGo), Encoding.UTF8);
+            YamlStream yaml = new YamlStream();
             yaml.Load(input);
             for (int i = 0; i < yaml.Documents.Count; i++) {
                 string str = "";
@@ -34,12 +34,12 @@ namespace UnityYAML
         [Button("测试YAML反序列化")]
         private void YAMLDeserializeTest()
         {
-            var testValue = @"";
-            var input = new StringReader(testValue);
-            var deserializer = new DeserializerBuilder()
+            string testValue = @"";
+            StringReader input = new StringReader(testValue);
+            Deserializer deserializer = new DeserializerBuilder()
                 .Build();
 
-            var order = deserializer.Deserialize<GameObject>(input);
+            GameObject order = deserializer.Deserialize<GameObject>(input);
 
             if (order != null)
                 Debug.Log("反序列化成功");
@@ -49,8 +49,8 @@ namespace UnityYAML
         private void YAMLSerializeTest()
         {
             if (testGo == null) return;
-            var serializer = new SerializerBuilder().Build();
-            var yaml = serializer.Serialize(testGo);
+            Serializer serializer = new SerializerBuilder().Build();
+            string yaml = serializer.Serialize(testGo);
             Debug.Log(yaml);
         }
   #endregion

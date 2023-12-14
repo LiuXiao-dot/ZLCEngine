@@ -1,12 +1,27 @@
-using System;
-using System.Reflection;
 using UnityEditor;
-using UnityEditor.UIElements;
 using UnityEngine.UIElements;
 using ZLCEngine.Inspector;
 namespace ZLCEditor.Inspector
 {
-    /// <summary>
+    [CustomPropertyDrawer(typeof(BoxGroupAttribute))]
+    public class BoxGroupDrawer : DecoratorDrawer
+    {
+        private GroupBox _groupBox;
+
+        public override VisualElement CreatePropertyGUI()
+        {
+            BoxGroupAttribute boxGroupAttribute = (BoxGroupAttribute)attribute;
+            //parent = _groupBox;
+            // parent.Q<GroupBox>
+            _groupBox = new GroupBox();
+            _groupBox.name = boxGroupAttribute.groupName;
+            _groupBox.text = boxGroupAttribute.groupName;
+
+            return _groupBox;
+        }
+    }
+
+    /*/// <summary>
     /// UI元素组
     /// </summary>
     [CustomPropertyDrawer(typeof(BoxGroupAttribute))]
@@ -61,5 +76,5 @@ namespace ZLCEditor.Inspector
         {
             return new VisualElement();
         }
-    }
+    }*/
 }

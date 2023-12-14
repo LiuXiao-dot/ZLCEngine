@@ -3,7 +3,7 @@ using UnityEngine;
 namespace ZLCEditor.FormatSystem.Common
 {
     /// <summary>
-    /// C#格式的文本
+    ///     C#格式的文本
     /// </summary>
     [Serializable]
     public struct CSharpCode

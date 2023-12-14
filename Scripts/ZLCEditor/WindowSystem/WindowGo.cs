@@ -1,8 +1,10 @@
+using System;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using UnityEditor;
 using UnityEditor.Compilation;
+using UnityEditor.Presets;
 using UnityEngine;
 using ZLCEditor.FormatSystem;
 using ZLCEngine.Inspector;
@@ -11,43 +13,43 @@ using ZLCEngine.WindowSystem;
 namespace ZLCEditor.WindowSystem
 {
     /// <summary>
-    /// 窗口GameObject的相关数据
+    ///     窗口GameObject的相关数据
     /// </summary>
-    [System.Serializable]
+    [Serializable]
     public class WindowGo
     {
         /// <summary>
-        /// 用于判断GameObject是否发生了改变
+        ///     用于判断GameObject是否发生了改变
         /// </summary>
         [HideInInspector]
         public long modifiedTime;
 
         /// <summary>
-        /// 窗口的Prefab
+        ///     窗口的Prefab
         /// </summary>
         [ReadOnly]
         public GameObject prefab;
 
         /// <summary>
-        /// Crl类型的代码
+        ///     Crl类型的代码
         /// </summary>
         [ReadOnly]
         public MonoScript ctlCode;
 
         /// <summary>
-        /// View类型的代码
+        ///     View类型的代码
         /// </summary>
         [ReadOnly]
         public MonoScript viewCode;
 
         /// <summary>
-        /// 窗口层级
+        ///     窗口层级
         /// </summary>
         [ReadOnly]
         public WindowLayer layer;
 
         /// <summary>
-        /// 窗口ID
+        ///     窗口ID
         /// </summary>
         [ReadOnly]
         public int id;
@@ -60,13 +62,13 @@ namespace ZLCEditor.WindowSystem
 
         public static WindowGo Create(string name, WindowLayer layer, int baseId)
         {
-            var go = new GameObject(name);
+            GameObject go = new GameObject(name);
             go.AddComponent<RectTransform>();
-            var canvas = go.AddComponent<Canvas>();
+            Canvas canvas = go.AddComponent<Canvas>();
             canvas.overrideSorting = true;
-            WindowGoConverterManager.GenerateCode(go, out var ctlCode, out var viewCode);
+            WindowGoConverterManager.GenerateCode(go, out MonoScript ctlCode, out MonoScript viewCode);
 
-            var windowGo = new WindowGo
+            WindowGo windowGo = new WindowGo
             {
                 prefab = PrefabUtility.SaveAsPrefabAsset(go, Path.Combine(Constant.PrefabURL, layer.ToString(), $"{go.name}.prefab")),
                 ctlCode = ctlCode,
@@ -81,7 +83,7 @@ namespace ZLCEditor.WindowSystem
         }
 
         /// <summary>
-        /// 删除窗口
+        ///     删除窗口
         /// </summary>
         [Button("删除窗口")]
         internal void DeleteWindow()
@@ -91,40 +93,40 @@ namespace ZLCEditor.WindowSystem
             if (ctlCode != null) AssetDatabase.DeleteAsset(AssetDatabase.GetAssetPath(ctlCode));
             if (viewCode != null) AssetDatabase.DeleteAsset(AssetDatabase.GetAssetPath(viewCode));
             // 从WindowLayerTool中删除自己
-            var windowLayer = WindowTool.Instance.layers.Where(t => t.layer == layer).ToArray()[0];
+            WindowLayerTool windowLayer = WindowTool.Instance.layers.Where(t => t.layer == layer).ToArray()[0];
             windowLayer.gos.Remove(this);
         }
 
         /// <summary>
-        /// 将View组件添加到Prefab上
+        ///     将View组件添加到Prefab上
         /// </summary>
         public void AddView2Prefab()
         {
             if (prefab.GetComponent<AWindowView>() != null) return;
-            var viewClass = viewCode.GetClass();
-            var view = (AWindowView)prefab.AddComponent(viewClass);
+            Type viewClass = viewCode.GetClass();
+            AWindowView view = (AWindowView)prefab.AddComponent(viewClass);
             view.windowLayer = layer;
             view.ID = id;
 
             // 应用RectTransform
-            var preset = WindowTool.Instance.GetRectTransformPreset(layer);
+            Preset preset = WindowTool.Instance.GetRectTransformPreset(layer);
             preset.ApplyTo(prefab.GetComponent<RectTransform>());
             PrefabUtility.SavePrefabAsset(prefab);
             modifiedTime = File.GetLastWriteTime(AssetDatabase.GetAssetPath(prefab)).Ticks;
         }
 
         /// <summary>
-        /// 刷新代码
+        ///     刷新代码
         /// </summary>
         public bool RefreshCode()
         {
             if (prefab == null) return false;
-            var tempTime = File.GetLastWriteTime(AssetDatabase.GetAssetPath(prefab)).Ticks;
+            long tempTime = File.GetLastWriteTime(AssetDatabase.GetAssetPath(prefab)).Ticks;
             if (tempTime == modifiedTime) return false;
             modifiedTime = tempTime;
-            var viewCode = FormatManager.Convert<GameObject, WindowViewCode>(prefab);
-            var viewPath = Path.Combine(global::ZLCEditor.Constant.ZLCGenerateURL, Constant.ViewCodeURL, $"{prefab.name}View.cs");
-            var absoluteViewPath = Path.Combine(global::ZLCEditor.Constant.BasePath, viewPath);
+            WindowViewCode viewCode = FormatManager.Convert<GameObject, WindowViewCode>(prefab);
+            string viewPath = Path.Combine(ZLCEditor.Constant.ZLCGenerateURL, Constant.ViewCodeURL, $"{prefab.name}View.cs");
+            string absoluteViewPath = Path.Combine(ZLCEditor.Constant.BasePath, viewPath);
             FileHelper.SaveFile(viewCode.code, absoluteViewPath);
             AssetDatabase.Refresh();
             CompilationPipeline.RequestScriptCompilation(); // 编译view,ctl代码
@@ -134,7 +136,7 @@ namespace ZLCEditor.WindowSystem
         }
 
         /// <summary>
-        /// 同步组件到View的字段中
+        ///     同步组件到View的字段中
         /// </summary>
         public bool SyncComponent()
         {
@@ -143,18 +145,18 @@ namespace ZLCEditor.WindowSystem
                 return false;
             }
             ;
-            var view = prefab.GetComponent<AWindowView>();
+            AWindowView view = prefab.GetComponent<AWindowView>();
             if (view == null || RefreshCode()) {
                 AddView2Prefab();
                 EditorUtility.DisplayDialog("窗口", "由于prefab上没有添加AWindowView脚本，进行了代码同步，请等待编译完成后再次点击", "确定");
                 return false;
             }
-            var components = prefab.GetComponentsInChildren<WindowComponent>();
-            foreach (var component in components) {
-                var temps = component.components;
-                var goName = component.gameObject.name;
-                foreach (var temp in temps) {
-                    var fieldName = $"{goName}_{temp.GetType().Name}";
+            WindowComponent[] components = prefab.GetComponentsInChildren<WindowComponent>();
+            foreach (WindowComponent component in components) {
+                MonoBehaviour[] temps = component.components;
+                string goName = component.gameObject.name;
+                foreach (MonoBehaviour temp in temps) {
+                    string fieldName = $"{goName}_{temp.GetType().Name}";
                     view.GetType().GetField(fieldName, BindingFlags.Instance | BindingFlags.Public).SetValue(view, temp);
                 }
             }

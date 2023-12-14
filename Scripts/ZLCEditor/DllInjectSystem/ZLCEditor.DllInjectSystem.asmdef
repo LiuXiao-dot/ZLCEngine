@@ -1,0 +1,25 @@
+{
+  "name": "ZLCEditor.DllInjectSystem",
+  "rootNamespace": "ZLCEditor.DllInjectSystem",
+  "references": [
+    "GUID:9175e4e93df812a43924d5a239c74714",
+    "GUID:af1babb7ce6c43c489573e67c70069be"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": true,
+  "overrideReferences": true,
+  "precompiledReferences": [
+    "Unity.Burst.Cecil.dll",
+    "Unity.Burst.Cecil.Mdb.dll",
+    "Unity.Burst.Cecil.Pdb.dll",
+    "Unity.Burst.Cecil.Rocks.dll",
+    "Unity.Burst.Unsafe.dll",
+    "Microsoft.CodeAnalysis.CSharp.dll",
+    "Microsoft.CodeAnalysis.dll"
+  ],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

@@ -1,62 +1,62 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
-using UnityEngine;
 using UnityEngine.UIElements;
 namespace ZLCEditor.Inspector.Menu
 {
     /// <summary>
-    /// 菜单树
+    ///     菜单树
     /// </summary>
     public class MenuTreeView : VisualElement
     {
-        public bool hierarchyHasChanged { get; set; }
 
         private TreeView _treeView;
         private DefaultTreeViewControllerWrap<VisualElement> _treeViewController;
+        public bool hierarchyHasChanged { get; set; }
 
-        public IList<TreeViewItemData<VisualElement>> treeRootItems => _treeRootItems;
-        private IList<TreeViewItemData<VisualElement>> _treeRootItems = new List<TreeViewItemData<VisualElement>>();
+        public IList<TreeViewItemData<VisualElement>> treeRootItems { get; } = new List<TreeViewItemData<VisualElement>>();
         public IEnumerable<TreeViewItemData<VisualElement>> treeItems
         {
             get {
-                foreach (var itemId in _treeView.viewController.GetAllItemIds()) {
+                foreach (int itemId in _treeView.viewController.GetAllItemIds()) {
                     yield return _treeViewController.GetTreeViewItemDataForId(itemId);
                 }
             }
         }
-
     }
 
     public class DefaultTreeViewControllerWrap<T>
     {
-        private object _defaultTreeViewController;
-        private PropertyInfo _itemSourceWrap;
-        private MethodInfo _setRootItems;
         private MethodInfo _addItem;
-        private MethodInfo _tryRemoveItem;
-        private MethodInfo _getTreeViewItemDataForId;
-        private MethodInfo _getTreeViewItemDataForIndex;
+        private object _defaultTreeViewController;
+        private MethodInfo _getAllItemIds;
+        private MethodInfo _getChildrenIds;
         private MethodInfo _getDataForId;
         private MethodInfo _getDataForIndex;
         private MethodInfo _getItemForIndex;
         private MethodInfo _getParentId;
+        private MethodInfo _getTreeViewItemDataForId;
+        private MethodInfo _getTreeViewItemDataForIndex;
         private MethodInfo _hasChildren;
-        private MethodInfo _getChildrenIds;
-        private MethodInfo _move;
         private MethodInfo _isChildOf;
-        private MethodInfo _getAllItemIds;
+        private PropertyInfo _itemSourceWrap;
+        private MethodInfo _move;
+        private MethodInfo _setRootItems;
+        private MethodInfo _tryRemoveItem;
 
         public DefaultTreeViewControllerWrap(object defaultTreeViewController)
         {
-            this._defaultTreeViewController = defaultTreeViewController;
-            var type = typeof(TreeViewController).Assembly.GetType("DefaultTreeViewController");
+            _defaultTreeViewController = defaultTreeViewController;
+            Type type = typeof(TreeViewController).Assembly.GetType("DefaultTreeViewController");
             _itemSourceWrap = type.GetProperty("itemsSource");
         }
 
         public IList itemsSource
         {
-            get => (IList)_itemSourceWrap.GetValue(this);
+            get {
+                return (IList)_itemSourceWrap.GetValue(this);
+            }
             set {
                 _itemSourceWrap.SetValue(this, value);
             }
@@ -158,7 +158,7 @@ namespace ZLCEditor.Inspector.Menu
             });
         }
 
-        bool IsChildOf(int childId, int id)
+        private bool IsChildOf(int childId, int id)
         {
             return (bool)_setRootItems?.Invoke(_defaultTreeViewController, new object[]
             {

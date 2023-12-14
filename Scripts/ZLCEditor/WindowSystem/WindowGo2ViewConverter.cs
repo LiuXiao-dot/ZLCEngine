@@ -15,7 +15,7 @@ namespace ZLCEditor.WindowSystem
     }
 
     /// <summary>
-    /// 生成的代码，不会查找每个组件，需要直接将各个组件关联到变量上
+    ///     生成的代码，不会查找每个组件，需要直接将各个组件关联到变量上
     /// </summary>
     public class WindowGo2ViewConverter : IFormatConverter<GameObject, WindowViewCode>
     {
@@ -43,12 +43,12 @@ namespace ZLCGenerate.Window
 
         public WindowViewCode Convert(GameObject from)
         {
-            CheckComponents(from, out var fieldDefs, out var fieldSets,out var usings);
+            CheckComponents(from, out string[] fieldDefs, out string[] fieldSets, out string[] usings);
 
-            var zlcCode = new ZLCCode()
+            ZLCCode zlcCode = new ZLCCode
             {
                 code = defaultCode,
-                kvs = new SDictionary<string, object>()
+                kvs = new SDictionary<string, object>
                 {
                     {
                         ZLCCoding.Constant.ClassName, $"{from.name}View"
@@ -64,32 +64,34 @@ namespace ZLCGenerate.Window
                     }
                 }
             };
-            var cSharpCode = FormatManager.Convert<ZLCCode, CSharpCode>(zlcCode);
+            CSharpCode cSharpCode = FormatManager.Convert<ZLCCode, CSharpCode>(zlcCode);
 
-            return new WindowViewCode()
+            return new WindowViewCode
             {
                 code = cSharpCode.code
             };
         }
 
         /// <summary>
-        /// 检测全部要生成代码的组件
+        ///     检测全部要生成代码的组件
         /// </summary>
         private void CheckComponents(GameObject from, out string[] fieldDefs, out string[] fieldSets, out string[] usings)
         {
-            var fields = new List<string>();
-            var usingHash = new HashSet<Type>();
-            var components = from.GetComponentsInChildren<WindowComponent>();
-            foreach (var component in components) {
-                var temps = component.components;
-                var goName = component.gameObject.name;
-                foreach (var temp in temps) {
+            List<string> fields = new List<string>();
+            HashSet<Type> usingHash = new HashSet<Type>();
+            WindowComponent[] components = from.GetComponentsInChildren<WindowComponent>();
+            foreach (WindowComponent component in components) {
+                MonoBehaviour[] temps = component.components;
+                string goName = component.gameObject.name;
+                foreach (MonoBehaviour temp in temps) {
                     fields.Add($"public {temp.GetType().Name} {goName}_{temp.GetType().Name};");
                     usingHash.Add(temp.GetType());
                 }
             }
             fieldDefs = fields.ToArray();
-            fieldSets = new string[]{};
+            fieldSets = new string[]
+            {
+            };
             usings = usingHash.Select(temp => $"using {temp.Namespace};").ToArray();
         }
     }

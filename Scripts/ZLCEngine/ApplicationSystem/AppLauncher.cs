@@ -28,7 +28,7 @@ namespace ZLCEngine.ApplicationSystem
         /// <summary>
         ///     包含所有启动时注册的管理器，可以通过该游戏启动器获取管理器，也可以自行为管理器设置单例模式
         /// </summary>
-        [SerializeField]private SDictionary<SType, SType> _componentTypes;
+        [SerializeField] private SDictionary<SType, SType> _componentTypes;
         private Dictionary<Type, IManager> _components;
 
         private void Awake()

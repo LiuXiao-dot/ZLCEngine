@@ -7,116 +7,13 @@ using UnityEditor.Search;
 using UnityEngine;
 using ZLCEditor.Utils;
 using ZLCEngine.Utils;
+using Object = UnityEngine.Object;
+using SearchUtils = UnityEditor.Search.SearchUtils;
 namespace ZLCEditor
 {
     public sealed class EditorHelper
     {
-        /// <summary>
-        /// 检测->创建目标路径的目录
-        /// </summary>
-        /// <param name="filePath"></param>
-        public static void CreateDir(string filePath)
-        {
-            var dir = GetDir(filePath);
-            if (!Directory.Exists(dir)) {
-                Directory.CreateDirectory(dir);
-            }
-        }
 
-        /// <summary>
-        /// 获取文件的文件夹路径
-        /// </summary>
-        /// <param name="filePath"></param>
-        /// <returns></returns>
-        public static string GetDir(string filePath)
-        {
-            return filePath.Replace(Path.GetFileName(filePath), "");
-        }
-
-        /// <summary>
-        /// 检测并创建文件夹，并在目标路径生成T的实例   
-        /// </summary>
-        /// <param name="t"></param>
-        /// <param name="path"></param>
-        /// <typeparam name="T"></typeparam>
-        public static void CreateAsset<T>(T t, string path) where T : UnityEngine.Object
-        {
-            CreateDir(path);
-            AssetDatabase.CreateAsset(t, path);
-        }
-
-        /// <summary>
-        /// 检测并创建文件夹，如果目标文件不存在，则创建一个，如果存在，不会覆盖
-        /// </summary>
-        /// <param name="t"></param>
-        /// <param name="path"></param>
-        /// <typeparam name="T"></typeparam>
-        /// <returns>true:创建成功 false:已有文件</returns>
-        public static bool CreateAssetIfNotExit<T>(T t, string path) where T : UnityEngine.Object
-        {
-            CreateDir(path);
-            var result = AssetDatabase.FindAssets(path);
-            if (result == null || result.Length == 0) {
-                // 新建
-                AssetDatabase.CreateAsset(t,path);
-                return true;
-            }
-            return false;
-        }
-
-    /// <summary>
-        /// 查找所有资产
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <returns></returns>
-        public static List<T> FindAssets<T>() where T : UnityEngine.Object
-        {
-            return FindAssets<T>(null);
-        }
-        
-        /// <summary>
-        /// 查找searchFolders下的所有资产
-        /// </summary>
-        /// <param name="searchFolders"></param>
-        /// <typeparam name="T"></typeparam>
-        /// <returns></returns>
-        public static List<T> FindAssets<T>(string[] searchFolders) where T : UnityEngine.Object
-        {
-            return FindAssets<T>(typeof(T).Name,searchFolders);
-        }
-
-        /// <summary>
-        /// 查找所有资产
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <returns></returns>
-        public static List<T> FindAssets<T>(string typeName, string[] serachFolders = null) where T : UnityEngine.Object
-        {
-            var ts = AssetDatabase.FindAssets($"t:{typeName}",serachFolders);
-            return ts.Select(temp => AssetDatabase.LoadAssetAtPath<T>(AssetDatabase.GUIDToAssetPath(temp))).ToList();
-        }
-
-        /// <summary>
-        /// 使用SearchService查找资产
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <returns></returns>
-        public static void SearchPackagesAssets<T>(string searchText, Action<IList<T>> callback) where T : UnityEngine.Object
-        {
-            Action<SearchContext, IList<SearchItem>> OnSearchCompleted = (SearchContext context, IList<SearchItem> items) =>
-            {
-                var assets = new List<T>();
-                foreach (var item in items) {
-                    var path = SearchUtils.GetAssetPath(item);
-                    var asset = AssetDatabase.LoadAssetAtPath<T>(path);
-                    assets.Add(asset);
-                }
-                callback(assets);
-            };
-            // 刷新ZLC提供的程序集
-            SearchService.Request(searchText,OnSearchCompleted,SearchFlags.Default | SearchFlags.Packages | SearchFlags.WantsMore);
-        }
-        
         /*public static void CombineWindows()
         {
             Type sceneViewType = typeof(SceneView);
@@ -161,30 +58,135 @@ namespace ZLCEditor
             ContainerWindowWrap.Show(containerInstance, 0, true, false, true);
             ContainerWindowWrap.OnResize(containerInstance);
         }*/
-        
+
         [Flags]
         public enum AssemblyFilterType
         {
             /// <summary>
-            /// 自定义的程序集
+            ///     自定义的程序集
             /// </summary>
             Custom = 1,
             /// <summary>
-            /// Unity的程序集
+            ///     Unity的程序集
             /// </summary>
             Unity = 2,
             /// <summary>
-            /// 第三方程序集
+            ///     第三方程序集
             /// </summary>
             Other = 4,
             /// <summary>
-            /// ZLC内置dll
+            ///     ZLC内置dll
             /// </summary>
             Internal = 8,
             /// <summary>
-            /// 全部
+            ///     全部
             /// </summary>
             All = Custom | Unity | Other | Internal
+        }
+        /// <summary>
+        ///     检测->创建目标路径的目录
+        /// </summary>
+        /// <param name="filePath"></param>
+        public static void CreateDir(string filePath)
+        {
+            var dir = GetDir(filePath);
+            if (!Directory.Exists(dir)) {
+                Directory.CreateDirectory(dir);
+            }
+        }
+
+        /// <summary>
+        ///     获取文件的文件夹路径
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <returns></returns>
+        public static string GetDir(string filePath)
+        {
+            return filePath.Replace(Path.GetFileName(filePath), "");
+        }
+
+        /// <summary>
+        ///     检测并创建文件夹，并在目标路径生成T的实例
+        /// </summary>
+        /// <param name="t"></param>
+        /// <param name="path"></param>
+        /// <typeparam name="T"></typeparam>
+        public static void CreateAsset<T>(T t, string path) where T : Object
+        {
+            CreateDir(path);
+            AssetDatabase.CreateAsset(t, path);
+        }
+
+        /// <summary>
+        ///     检测并创建文件夹，如果目标文件不存在，则创建一个，如果存在，不会覆盖
+        /// </summary>
+        /// <param name="t"></param>
+        /// <param name="path"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns>true:创建成功 false:已有文件</returns>
+        public static bool CreateAssetIfNotExit<T>(T t, string path) where T : Object
+        {
+            CreateDir(path);
+            var result = AssetDatabase.FindAssets(path);
+            if (result == null || result.Length == 0) {
+                // 新建
+                AssetDatabase.CreateAsset(t, path);
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        ///     查找所有资产
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public static List<T> FindAssets<T>() where T : Object
+        {
+            return FindAssets<T>(null);
+        }
+
+        /// <summary>
+        ///     查找searchFolders下的所有资产
+        /// </summary>
+        /// <param name="searchFolders"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public static List<T> FindAssets<T>(string[] searchFolders) where T : Object
+        {
+            return FindAssets<T>(typeof(T).Name, searchFolders);
+        }
+
+        /// <summary>
+        ///     查找所有资产
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public static List<T> FindAssets<T>(string typeName, string[] serachFolders = null) where T : Object
+        {
+            var ts = AssetDatabase.FindAssets($"t:{typeName}", serachFolders);
+            return ts.Select(temp => AssetDatabase.LoadAssetAtPath<T>(AssetDatabase.GUIDToAssetPath(temp))).ToList();
+        }
+
+        /// <summary>
+        ///     使用SearchService查找资产
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public static void SearchPackagesAssets<T>(string searchText, Action<IList<T>> callback) where T : Object
+        {
+            Action<SearchContext, IList<SearchItem>> OnSearchCompleted = (SearchContext context, IList<SearchItem> items) =>
+            {
+                var assets = new List<T>();
+                foreach (var item in items) {
+                    var path = SearchUtils.GetAssetPath(item);
+                    var asset = AssetDatabase.LoadAssetAtPath<T>(path);
+                    assets.Add(asset);
+                }
+                callback(assets);
+            };
+            // 刷新ZLC提供的程序集
+            SearchService.Request(searchText, OnSearchCompleted, SearchFlags.Default | SearchFlags.Packages | SearchFlags.WantsMore);
         }
 
         public static void GetAllChildType(List<Type> temp, AssemblyFilterType filterType, Type targetType)
@@ -214,7 +216,7 @@ namespace ZLCEditor
                         break;
                 }
             };
-            
+
             EnumHelper.ForEachFlag(filterType, getAllChildType);
         }
 
@@ -225,7 +227,7 @@ namespace ZLCEditor
 
         public static void GetAllMarkedType<T>(List<Type> temp, AssemblyFilterType filterType) where T : Attribute
         {
-            GetAllMarkedType(temp,filterType,typeof(T));
+            GetAllMarkedType(temp, filterType, typeof(T));
         }
 
         public static void GetAllMarkedType(List<Type> temp, AssemblyFilterType filterType, Type targetType)

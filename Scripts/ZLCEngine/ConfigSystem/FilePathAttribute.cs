@@ -49,7 +49,7 @@ namespace ZLCEngine.ConfigSystem
         /// </summary>
         public PathType pathType;
 
-        public FilePathAttribute(PathType pathType = PathType.Absolute, bool isInternal = false)
+        public FilePathAttribute(PathType pathType = PathType.XWEditor, bool isInternal = false)
         {
             this.pathType = pathType;
             this.isInternal = isInternal;
