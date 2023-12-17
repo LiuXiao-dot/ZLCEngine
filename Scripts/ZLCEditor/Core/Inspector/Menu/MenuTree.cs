@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEngine.UIElements;
 using ZLCEngine.Utils;
 namespace ZLCEditor.Inspector.Menu
@@ -52,7 +53,21 @@ namespace ZLCEditor.Inspector.Menu
         }
         public TreeViewItemData<ZLCMenuItem> Add(string path, object obj)
         {
-            if (-1 != allItems.FindIndex(t => t.data.path == path)) return default(TreeViewItemData<ZLCMenuItem>);
+            var oldIndex = allItems.FindIndex(t => t.data.path == path);
+            if (-1 != oldIndex) {
+                if (allItems[oldIndex].data.target == null) {
+                    var oldItem = allItems[oldIndex];
+                    var coverItem = new TreeViewItemData<ZLCMenuItem>(id++,
+                        new ZLCMenuItem(path, obj), (List<TreeViewItemData<ZLCMenuItem>>)oldItem.children);
+                    allItems[oldIndex] = coverItem;
+                    
+                    var oldRootIndex = rootItems.FindIndex(t => t.data.path == path);
+                    if (oldRootIndex != -1) {
+                        rootItems[oldRootIndex] = coverItem;
+                    }
+                }
+                return allItems[oldIndex];
+            }
             bool isRoot = !(path.Contains('\\') || path.Contains('/'));
             TreeViewItemData<ZLCMenuItem> newItem = new TreeViewItemData<ZLCMenuItem>(id++,
                 new ZLCMenuItem(path, obj), new List<TreeViewItemData<ZLCMenuItem>>());

@@ -14,7 +14,7 @@ namespace ZLCEngine.EventSystem.MessageQueue
         public const int SceneMessageID = 1;
         public const int WindowMessageID = 2;
 
-        [Header("内置消息队列")]
+        [BoxGroup("内置消息队列")]
         [ReadOnly]
         public MQConfig[] internalMQS =
         {
@@ -59,16 +59,16 @@ namespace ZLCEngine.EventSystem.MessageQueue
             }
         };
 
-        [Header("主线程消息队列列表")]
+        [BoxGroup("主线程消息队列列表")]
         [SerializeField]
         public MQConfig[] MainMQS;
 
-        [Header("子线程消息队列列表")]
+        [BoxGroup("子线程消息队列列表")]
         [SerializeField]
         public MQConfig[] ChildMQS;
 
         #if UNITY_EDITOR
-        [Button]
+        [Button("重置默认消息队列")]
         private void ResetInternal()
         {
             internalMQS = new[]

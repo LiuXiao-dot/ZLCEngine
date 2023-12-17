@@ -22,5 +22,9 @@ namespace ZLCEditor.ZLCCoding
         ///     Enum的定义
         /// </summary>
         public const string EnumDEF = "ENUMDEF";
+        /// <summary>
+        ///     For循环的默认参数
+        /// </summary>
+        public const string ForDEF = "FORDEF";
     }
 }

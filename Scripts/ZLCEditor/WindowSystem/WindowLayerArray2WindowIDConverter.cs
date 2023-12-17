@@ -20,8 +20,8 @@ namespace ZLCEditor.WindowSystem
 {{
     public enum WindowID
     {{
-#for ${ZLCCoding.Constant.EnumDEF} #
-        ${ZLCCoding.Constant.EnumDEF}
+#for ${ZLCCoding.Constant.EnumDEF}$ #
+        ${ZLCCoding.Constant.EnumDEF}$
 #end
     }}
 }}";

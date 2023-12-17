@@ -1,5 +1,6 @@
 using UnityEngine;
 using ZLCEngine.ConfigSystem;
+using ZLCEngine.Inspector;
 namespace ZLCEngine.ApplicationSystem
 {
     /// <summary>
@@ -12,15 +13,18 @@ namespace ZLCEngine.ApplicationSystem
         /// <summary>
         ///     UI场景的名字
         /// </summary>
-        [Header("场景")]
+        [BoxGroup("场景")]
         public string uiSceneName;
         /// <summary>
         ///     游戏场景的名字
         /// </summary>
+        [BoxGroup("场景")]
         public string gameSceneName;
 
+        [BoxGroup("窗口")]
         public int firstMainWindowID;
 
+        [BoxGroup("窗口")]
         public int firstLoadingWindowID;
 
         /// <summary>

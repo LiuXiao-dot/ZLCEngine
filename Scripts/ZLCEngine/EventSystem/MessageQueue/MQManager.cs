@@ -26,6 +26,7 @@ namespace ZLCEngine.EventSystem.MessageQueue
                 if (instance == null) {
                     instance = new MQManager();
                     instance._mqs = new Dictionary<int, AMQ>();
+                    instance.Init();
                 }
                 return instance;
             }
@@ -36,7 +37,7 @@ namespace ZLCEngine.EventSystem.MessageQueue
         }
 
         /// <summary>
-        ///     初始化全部消息队列
+        /// 初始化全部消息队列
         /// </summary>
         public void Init()
         {

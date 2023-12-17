@@ -30,5 +30,14 @@ namespace ZLCEngine.WindowSystem
                 WindowLayer.TIP, 90
             }
         };
+        
+        /// <summary>
+        /// 同一个windowID的窗口同时存在的数量上限
+        /// </summary>
+        public const int WindowNum = 100;
+        /// <summary>
+        /// 不同层级间窗口的ID倍率
+        /// </summary>
+        public const int LayerRatio = 100000;
     }
 }

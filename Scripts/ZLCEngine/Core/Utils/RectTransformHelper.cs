@@ -18,5 +18,14 @@ namespace ZLCEngine.Utils
             rectTransform.offsetMin = Vector2.zero;
             rectTransform.offsetMax = Vector2.zero;
         }
+        
+        public static void SetStretchStretch(RectTransform rectTransform)
+        {
+            rectTransform.pivot = new Vector2(0.5f, 0.5f);
+            rectTransform.anchorMin = Vector2.zero;
+            rectTransform.anchorMax = Vector2.one;
+            rectTransform.offsetMin = Vector2.zero;
+            rectTransform.offsetMax = Vector2.zero;
+        }
     }
 }

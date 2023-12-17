@@ -69,8 +69,8 @@ namespace ZLCEditor.ZLCCoding
                 string forParameterCode = match.Groups[1].Value;
                 string contentCode = match.Groups[2].Value;
                 object parameter = GetRealParameter(forParameterCode);
-                if (parameter is string[] values) {
-                    if (values.Length > 0) {
+                if (parameter is IList<string> values) {
+                    if (values.Count > 0) {
                         foreach (string value in values) {
                             string tempCode = ParseParameterDirectly(contentCode, forParameterCode, value);
                             tempResultCode += ParseParameter(tempCode);

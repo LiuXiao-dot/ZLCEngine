@@ -63,6 +63,7 @@ namespace ZLCEditor.WindowSystem
         public static WindowGo Create(string name, WindowLayer layer, int baseId)
         {
             GameObject go = new GameObject(name);
+            go.layer = LayerMask.NameToLayer("UI");
             go.AddComponent<RectTransform>();
             Canvas canvas = go.AddComponent<Canvas>();
             canvas.overrideSorting = true;
@@ -74,7 +75,7 @@ namespace ZLCEditor.WindowSystem
                 ctlCode = ctlCode,
                 viewCode = viewCode,
                 layer = layer,
-                id = baseId + (int)layer * 100000
+                id = baseId*ZLCEngine.WindowSystem.Constant.WindowNum + (int)layer * ZLCEngine.WindowSystem.Constant.LayerRatio
             };
 
             CompilationPipeline.RequestScriptCompilation(); // 编译view,ctl代码
@@ -131,6 +132,7 @@ namespace ZLCEditor.WindowSystem
             AssetDatabase.Refresh();
             CompilationPipeline.RequestScriptCompilation(); // 编译view,ctl代码
 
+            this.viewCode = AssetDatabase.LoadAssetAtPath<MonoScript>(viewPath);
             Debug.Log($"{prefab.name}生成代码完成");
             return true;
         }

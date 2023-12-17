@@ -31,7 +31,10 @@ namespace ZLCEditor.Inspector
             // 添加默认的ui
             SerializedProperty iterator = serializedObject.GetIterator();
             for (bool enterChildren = true; iterator.NextVisible(enterChildren); enterChildren = false) {
-                using (new EditorGUI.DisabledScope("m_Script" == iterator.propertyPath)) {
+                if (iterator.propertyPath == "m_Script") {
+                    continue;
+                }
+                using (new EditorGUI.DisabledScope(false)) {
                     customInspector.Add(new ZLCPropertyField(iterator));
                 }
             }

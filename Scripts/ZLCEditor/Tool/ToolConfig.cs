@@ -18,14 +18,14 @@ namespace ZLCEditor.Tool
     ///     用于保存所有工具的类型信息，减少重新查找的次数。
     ///     为此需要知道是否需要重新查找。
     /// </summary>
-    [ZLCEngine.ConfigSystem.FilePath(FilePathAttribute.PathType.XWEditor, true)]
+    [FilePath(FilePathAttribute.PathType.XWEditor, true)]
     [Serializable]
     internal class ToolConfig : SOSingleton<ToolConfig>
     {
         private static List<Type> _typesPool;
 
         [ReadOnly]
-        public SDictionary<string, STypeArray> toolTypes;
+        public SDictionary<string, SType[]> toolTypes;
 
         /// <summary>
         ///     开始监控是否又程序集发生变动，如果有，将这个程序集的相关类型清空并且重新保存。
@@ -46,7 +46,7 @@ namespace ZLCEditor.Tool
         private static void OnAssemblyCompilationFinished(string url, CompilerMessage[] messages)
         {
             if (Instance == null) return;
-            SDictionary<string, STypeArray> toolTypes = Instance.toolTypes == null ? new SDictionary<string, STypeArray>() : Instance.toolTypes;
+            SDictionary<string, SType[]> toolTypes = Instance.toolTypes == null ? new SDictionary<string, SType[]>() : Instance.toolTypes;
 
             Assembly assembly = Assembly.Load(Path.GetFileNameWithoutExtension(url));
             Instance.RefreshAssembly(assembly);
@@ -75,15 +75,9 @@ namespace ZLCEditor.Tool
                     resultList.Add(typePool);
                 }
                 if (toolTypes.ContainsKey(assembly.FullName)) {
-                    toolTypes[assembly.FullName] = new STypeArray
-                    {
-                        types = resultList.ToArray()
-                    };
+                    toolTypes[assembly.FullName] = resultList.ToArray();
                 } else {
-                    toolTypes.Add(assembly.FullName, new STypeArray
-                    {
-                        types = resultList.ToArray()
-                    });
+                    toolTypes.Add(assembly.FullName, resultList.ToArray());
                 }
 
                 _typesPool.Clear();

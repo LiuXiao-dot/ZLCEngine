@@ -12,20 +12,28 @@ namespace ZLCEngine.SerializeTypes
     [Serializable]
     public class SDictionary<K, V> : Dictionary<K, V>, ISerializationCallbackReceiver
     {
-        [SerializeField] private K[] keysCache;
-        [SerializeField] private V[] valuesCache;
+        [Serializable]
+        public struct KV
+        {
+            public K key;
+            public V value;
+        }
+        
+        [SerializeField] private KV[] _cache;
 
         /// <inheritdoc />
         public void OnBeforeSerialize()
         {
             if (Count == 0) return;
 
-            keysCache = new K[Count];
-            valuesCache = new V[Count];
+            _cache = new KV[Count];
             int index = 0;
             foreach (KeyValuePair<K, V> kv in this) {
-                keysCache[index] = kv.Key;
-                valuesCache[index] = kv.Value;
+                _cache[index] = new KV()
+                {
+                    key = kv.Key,
+                    value = kv.Value
+                };
                 index++;
             }
         }
@@ -34,14 +42,12 @@ namespace ZLCEngine.SerializeTypes
         public void OnAfterDeserialize()
         {
             Clear();
-            if (keysCache.IsEmptyOrNull() || valuesCache.IsEmptyOrNull()) return;
-            int count = keysCache.Length;
+            if (_cache.IsEmptyOrNull()) return;
+            int count = _cache.Length;
             for (int i = 0; i < count; i++) {
-                Add(keysCache[i], valuesCache[i]);
+                Add(_cache[i].key, _cache[i].value);
             }
-
-            keysCache = null;
-            valuesCache = null;
+            _cache = null;
         }
     }
 }

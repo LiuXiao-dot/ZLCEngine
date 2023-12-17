@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 namespace ZLCEngine.Interfaces
 {
 
@@ -12,12 +13,13 @@ namespace ZLCEngine.Interfaces
         /// </summary>
         /// <param name="id">窗口ID</param>
         /// <param name="windowModel">窗口的数据</param>
-        void Open(int id, IWindowModel windowModel = null);
+        /// <returns>窗口实例的id</returns>
+        int Open(int id, IWindowModel windowModel = null);
         /// <summary>
         ///     关闭窗口
         /// </summary>
-        /// <param name="ID">窗口ID</param>
-        void Close(int ID);
+        /// <param name="instanceID">窗口ID</param>
+        void Close(int instanceID);
     }
 
     /// <summary>
@@ -25,8 +27,9 @@ namespace ZLCEngine.Interfaces
     /// </summary>
     public interface IWindowCtl
     {
+        void SetInstanceID(int instanceID);
         void SetModel(IWindowModel model);
-        IWindowModel GetWindowModel();
+        IWindowModel GetModel();
         void SetView(IWindowView view);
         IWindowView GetView();
         void Open();
@@ -34,6 +37,7 @@ namespace ZLCEngine.Interfaces
         void Resume();
         void Close();
         int GetID();
+        int GetInstanceID();
     }
 
     /// <summary>
@@ -57,26 +61,49 @@ namespace ZLCEngine.Interfaces
     /// </summary>
     public class LoadingWindowModel : IWindowModel
     {
-
-        /// <summary>
-        ///     加载失败的回调
-        /// </summary>
-        public Action loadFailed;
-
         /// <summary>
         ///     加载完成的回调
         /// </summary>
         public Action loadFinished;
         /// <summary>
-        ///     当前加载的进度
+        ///     当前加载的进度(默认100倍)
         /// </summary>
-        public float progress;
+        public int progress;
+        
+        /// <summary>
+        /// 加载进度变化时调用
+        /// </summary>
+        public Action<int> onValueChanged;
 
-        public LoadingWindowModel(int progress, Action loadFinished, Action loadFailed = null)
+        /// <summary>
+        /// progress的倍率
+        /// </summary>
+        public int ratio;
+
+        public LoadingWindowModel(int progress, Action loadFinished, int ratio = 100)
         {
             this.progress = progress;
             this.loadFinished = loadFinished;
-            this.loadFailed = loadFailed;
+            this.ratio = ratio;
+        }
+
+        public void AddValueChangedEvent(Action<int> onValueChanged)
+        {
+            this.onValueChanged += onValueChanged;
+        }
+        
+        public void AddLoadFinishedEvent(Action onLoadFinished)
+        {
+            this.loadFinished += onLoadFinished;
+        }
+        
+        public void SetValue(int progress)
+        {
+            this.progress = progress;
+            onValueChanged?.Invoke(progress);
+            if (progress > ratio) {
+                Debug.LogError($"加载进度异常 progress:{progress} ratio:{ratio}");
+            }
         }
     }
 }

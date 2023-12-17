@@ -15,7 +15,7 @@ namespace ZLCEditor.ResSystem
         /// <summary>
         ///     资源目录路径
         /// </summary>
-        [Header("目录路径")]
+        [BoxGroup("目录路径")]
         [FolderPath]
         public string[] dirs;
 

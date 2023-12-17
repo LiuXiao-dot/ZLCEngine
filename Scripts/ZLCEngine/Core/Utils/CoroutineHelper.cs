@@ -149,7 +149,7 @@ namespace ZLCEngine.Utils
         /// <param name="action"></param>
         /// <param name="loopTime"></param>
         /// <param name="delayFrame"></param>
-        public static void AddCoroutineEndFrame(Action action, int loopTime, int delayFrame = 0)
+        public static void AddCoroutineWaitFrame(Action action, int loopTime, int delayFrame = 0)
         {
             IEnumerator routine = ActionCoroutineEndFrame(action, loopTime, delayFrame);
             int hashCode = action.GetHashCode();

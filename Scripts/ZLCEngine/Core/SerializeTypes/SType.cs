@@ -1,7 +1,6 @@
 using System;
 using System.Reflection;
 using UnityEngine;
-using ZLCEngine.Inspector;
 namespace ZLCEngine.SerializeTypes
 {
     /// <summary>
@@ -10,24 +9,16 @@ namespace ZLCEngine.SerializeTypes
     [Serializable]
     public class SType : ISerializationCallbackReceiver
     {
-        [HideInInspector]
-        [SerializeField]
-        private string typeName;
-        /// <summary>
-        ///     类型的完整名称
-        /// </summary>
-        [HideInInspector]
-        [SerializeField]
-        private string assemblyName;
-        [ShowInInspector]
         public Type realType;
+        public string typeName;
+        public string assemblyName;
 
         /// <summary>
         ///     无参构造
         /// </summary>
         public SType()
         {
-            assemblyName = "";
+            realType = null;
         }
 
         /// <summary>
@@ -37,20 +28,17 @@ namespace ZLCEngine.SerializeTypes
         public SType(Type type)
         {
             realType = type;
+            typeName = realType.FullName;
+            assemblyName = realType.Assembly.FullName;
         }
 
         public void OnBeforeSerialize()
         {
-            if (realType == null) return;
-            typeName = realType.FullName;
-            assemblyName = realType.Assembly.FullName;
         }
         public void OnAfterDeserialize()
         {
-            if (assemblyName == string.Empty || typeName == string.Empty) return;
+            if (string.IsNullOrEmpty(typeName)) return;
             realType = Assembly.Load(assemblyName).GetType(typeName);
-            assemblyName = string.Empty;
-            typeName = string.Empty;
         }
 
         /// <summary>
@@ -72,11 +60,10 @@ namespace ZLCEngine.SerializeTypes
         {
             return type.realType;
         }
-    }
 
-    [Serializable]
-    public class STypeArray
-    {
-        public SType[] types;
+        public override string ToString()
+        {
+            return typeName;
+        }
     }
 }

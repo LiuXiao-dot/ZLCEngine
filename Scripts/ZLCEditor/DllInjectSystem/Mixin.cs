@@ -1,4 +1,6 @@
 using System;
+using Mono.Cecil;
+using Mono.Collections.Generic;
 namespace ZLCEditor.DllInjectSystem
 {
     public static class Mixin
@@ -43,6 +45,19 @@ namespace ZLCEditor.DllInjectSystem
         {
             if (parameters == null)
                 throw new ArgumentNullException(Argument.parameters.ToString());
+        }
+        
+        
+        public static bool IsSameParameters(Collection<ParameterDefinition> a, Collection<ParameterDefinition> b)
+        {
+            if (a == null && b == null) return true;
+            if (a == null || b == null) return false;
+            if (a.Count != b.Count) return false;
+            var length = a.Count;
+            for (int i = 0; i < length; i++) {
+                if (a[i].ParameterType.FullName != b[i].ParameterType.FullName) return false;
+            }
+            return true;
         }
     }
 }

@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using ZLCEngine.ConfigSystem;
 using ZLCEngine.Inspector;
@@ -10,6 +12,7 @@ namespace ZLCEditor.WindowSystem
     /// </summary>
     [CreateAssetMenu]
     [Tool("窗口")]
+    [Serializable]
     public class WindowLayerTool : ScriptableObject
     {
         [ReadOnly]

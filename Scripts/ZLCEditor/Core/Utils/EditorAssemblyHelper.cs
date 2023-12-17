@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using UnityEditor;
 using UnityEditorInternal;
@@ -106,6 +107,34 @@ namespace ZLCEditor.Utils
         public static void GetAttributedTypes<T>(DefaultAsset[] assemblies, List<Type> temp) where T : Attribute
         {
             GetAttributedTypes(assemblies, temp, typeof(T));
+        }
+        
+        public static void GetInterfaces(IList<AssemblyDefinitionAsset> assemblies, List<Type> temp)
+        {
+            if (assemblies == null) return;
+            foreach (AssemblyDefinitionAsset assembly in assemblies) {
+                if (assembly == null) continue;
+                if (temp == null) temp = new List<Type>();
+                EditorAssemblyHelper.GetInterfaces(Assembly.Load(assembly.name), temp);
+            }
+        }
+        
+        public static void GetInterfaces(IList<DefaultAsset> assemblies, List<Type> temp)
+        {
+            if (assemblies == null) return;
+            foreach (DefaultAsset assembly in assemblies) {
+                if (assembly == null) continue;
+                if (temp == null) temp = new List<Type>();
+                EditorAssemblyHelper.GetInterfaces(Assembly.Load(assembly.name), temp);
+            }
+        }
+
+        public static void GetInterfaces(Assembly assembly, List<Type> temp)
+        {
+            temp ??= new List<Type>();
+            foreach (var t in assembly.GetTypes().Where(t => t.IsInterface)) {
+                temp.Add(t);
+            }
         }
     }
 }

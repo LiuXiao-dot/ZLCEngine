@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using ZLCEngine.Interfaces;
 using ZLCEngine.SerializeTypes;
+using ZLCEngine.Utils;
 namespace ZLCEngine.ApplicationSystem
 {
     /// <summary>
@@ -140,7 +141,7 @@ namespace ZLCEngine.ApplicationSystem
                     Debug.LogError("加载UI场景失败");
                     return;
                 }
-                ShowMainWindow();
+                CoroutineHelper.AddCoroutineWaitFrame(ShowMainWindow,1,1);
             });
         }
 

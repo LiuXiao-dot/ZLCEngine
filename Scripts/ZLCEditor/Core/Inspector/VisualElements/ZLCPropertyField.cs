@@ -4,6 +4,7 @@ using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
+using ZLCEngine.Inspector;
 namespace ZLCEditor.Inspector.VisualElements
 {
     /// <summary>
@@ -150,7 +151,18 @@ namespace ZLCEditor.Inspector.VisualElements
                     m_DecoratorDrawersContainer.Clear();
                 foreach (DecoratorDrawer decoratorDrawer in decoratorDrawers) {
                     DecoratorDrawer decorator = decoratorDrawer;
-                    VisualElement ve = decorator.CreatePropertyGUI();
+                    VisualElement ve = null;
+                    switch (decorator) {
+                        case BoxGroupDrawer boxGroupDrawer:
+                            var groupName = ((BoxGroupAttribute)boxGroupDrawer.attribute).groupName;
+                            var groupBox = hierarchy.parent.Q<GroupBox>( groupName, "zlc-group-box");
+                            if (groupBox != null) {
+                                ve = groupBox;
+                            }
+                            break;
+                    }
+                    
+                    ve ??= decorator.CreatePropertyGUI();
                     if (ve == null) {
                         ve = new IMGUIContainer(() =>
                         {
@@ -163,11 +175,7 @@ namespace ZLCEditor.Inspector.VisualElements
                         ve.style.height = decorator.GetHeight();
                     }
                     m_DecoratorDrawersContainer.Add(ve);
-                    switch (decorator) {
-                        case BoxGroupDrawer:
-                            _childContainer = ve;
-                            break;
-                    }
+                    _childContainer = ve;
                 }
             }
         }

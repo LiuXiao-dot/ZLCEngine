@@ -15,14 +15,13 @@ using FilePathAttribute = ZLCEngine.ConfigSystem.FilePathAttribute;
 namespace ZLCEditor.Tool
 {
     [Tool("动态代码运行")]
-    [ZLCEngine.ConfigSystem.FilePath(FilePathAttribute.PathType.XWEditor, true)]
+    [FilePath(FilePathAttribute.PathType.XWEditor, true)]
     public class DynamicTool : SOSingleton<DynamicTool>
     {
         public AssemblyDefinitionAsset[] AssemblyDefinitionAssets;
         [AssetList(CustomFilterMethod = "CheckName")]
         public DefaultAsset[] AssemblyReferences;
 
-        [Header("代码")]
         [TextArea(10, 50)]
         public string code;
 

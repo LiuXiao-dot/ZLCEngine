@@ -49,7 +49,7 @@ namespace ZLCEngine.ConfigSystem
             }
 
             _instance = (T)this;
-            if (_instance.name != typeof(T).Name) {
+            if (FilePathAttribute.GetPath(typeof(T)) != null && _instance.name != typeof(T).Name) {
                 Debug.LogWarning($"单例{_instance.name}名称建议是:{typeof(T).Name},可以自动加载，如果是自定义名称,需要手动提前加载才能正常使用.");
             }
         }

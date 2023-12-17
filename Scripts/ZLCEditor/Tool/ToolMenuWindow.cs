@@ -32,11 +32,11 @@ namespace ZLCEditor.Tool
 
         protected override MenuTree BuildMenuTree()
         {
-            SDictionary<string, STypeArray> tools = ToolConfig.Instance.toolTypes;
+            SDictionary<string, SType[]> tools = ToolConfig.Instance.toolTypes;
 
             MenuTree tree = new MenuTree();
-            foreach (KeyValuePair<string, STypeArray> toolList in tools) {
-                foreach (SType tool in toolList.Value.types) {
+            foreach (KeyValuePair<string, SType[]> toolList in tools) {
+                foreach (SType tool in toolList.Value) {
                     if (tool.realType == null) continue;
                     Type realType = tool.realType;
                     string typeName = tool.realType.FullName.Replace(".", "/");
@@ -54,11 +54,19 @@ namespace ZLCEditor.Tool
                             // 如果是ScriptableObject，会加载所有实例，并按名字添加多个菜单项
                             List<ScriptableObject> sos = EditorHelper.FindAssets<ScriptableObject>(realType.FullName);
                             foreach (ScriptableObject so in sos) {
-                                tree.Add($"{typeName}/{so.name}", so);
-                                // 添加子工具
-                                Object[] subAssets = AssetDatabase.LoadAllAssetRepresentationsAtPath(AssetDatabase.GetAssetPath(so));
-                                foreach (Object subAsset in subAssets) {
-                                    tree.Add($"{typeName}/{so.name}/{subAsset.name}", subAsset);
+                                if (realType != so.GetType()) {
+                                    // 说明查找的是子资产，此时不添加该父资产
+                                    Object[] subAssets = AssetDatabase.LoadAllAssetRepresentationsAtPath(AssetDatabase.GetAssetPath(so));
+                                    foreach (Object subAsset in subAssets) {
+                                        tree.Add($"{typeName}/{subAsset.name}", subAsset);
+                                    }
+                                } else {
+                                    tree.Add($"{typeName}/{so.name}", so);
+                                    // 添加子工具
+                                    Object[] subAssets = AssetDatabase.LoadAllAssetRepresentationsAtPath(AssetDatabase.GetAssetPath(so));
+                                    foreach (Object subAsset in subAssets) {
+                                        tree.Add($"{typeName}/{so.name}/{subAsset.name}", subAsset);
+                                    }
                                 }
                             }
                         }

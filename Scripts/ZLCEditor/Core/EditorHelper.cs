@@ -259,5 +259,36 @@ namespace ZLCEditor
             };
             EnumHelper.ForEachFlag(filterType, getAllChildType);
         }
+
+
+        public static void GetAllInterfaces(List<Type> temp, AssemblyFilterType filterType)
+        {
+            Action<AssemblyFilterType> getAllInrtfaces = singleType =>
+            {
+                var assmblysConfigSO = AssemblysConfigSO.Instance;
+                switch (singleType) {
+                    case AssemblyFilterType.Custom:
+                        EditorAssemblyHelper.GetInterfaces(assmblysConfigSO.selfDlls, temp);
+                        EditorAssemblyHelper.GetInterfaces(assmblysConfigSO.selfAssemblies, temp);
+                        break;
+                    case AssemblyFilterType.Unity:
+                        EditorAssemblyHelper.GetInterfaces(assmblysConfigSO.unityDlls, temp);
+                        EditorAssemblyHelper.GetInterfaces(assmblysConfigSO.unityAssemblies, temp);
+                        break;
+                    case AssemblyFilterType.Other:
+                        EditorAssemblyHelper.GetInterfaces(assmblysConfigSO.otherDlls, temp);
+                        EditorAssemblyHelper.GetInterfaces(assmblysConfigSO.otherAssemblies, temp);
+                        break;
+                    case AssemblyFilterType.Internal:
+                        EditorAssemblyHelper.GetInterfaces(assmblysConfigSO.defaultDlls, temp);
+                        EditorAssemblyHelper.GetInterfaces(assmblysConfigSO.defaultAssemblies, temp);
+                        break;
+                    default:
+                        Debug.LogError($"filterType数据分割错误.source:{filterType} single:{singleType}");
+                        break;
+                }
+            };
+            EnumHelper.ForEachFlag(filterType, getAllInrtfaces);
+        }
     }
 }

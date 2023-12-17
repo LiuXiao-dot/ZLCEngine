@@ -4,15 +4,21 @@ namespace ZLCEngine.WindowSystem
 {
     public abstract class AWindowCtl : IWindowCtl
     {
+        
         private int _id;
+        private int _instanceID;
         private IWindowModel _model;
         private IWindowView _view;
 
+        public void SetInstanceID(int instanceID)
+        {
+            this._instanceID = instanceID;
+        }
         public void SetModel(IWindowModel model)
         {
             _model = model;
         }
-        public IWindowModel GetWindowModel()
+        public IWindowModel GetModel()
         {
             return _model;
         }
@@ -58,6 +64,10 @@ namespace ZLCEngine.WindowSystem
         public int GetID()
         {
             return _id;
+        }
+        public int GetInstanceID()
+        {
+            return _instanceID;
         }
 
         protected virtual void DoOpen()

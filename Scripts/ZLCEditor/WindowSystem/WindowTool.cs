@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using UnityEditor;
+using UnityEditor.Compilation;
 using UnityEditor.Presets;
 using UnityEditorInternal;
 using UnityEngine;
+using ZLCEditor.FormatSystem;
 using ZLCEngine.ConfigSystem;
 using ZLCEngine.Inspector;
 using ZLCEngine.Utils;
@@ -17,7 +19,7 @@ namespace ZLCEditor.WindowSystem
     ///     窗口工具
     /// </summary>
     [Tool("窗口", true)]
-    [ZLCEngine.ConfigSystem.FilePath(FilePathAttribute.PathType.XWEditor, true)]
+    [FilePath(FilePathAttribute.PathType.XWEditor, true)]
     public class WindowTool : SOSingleton<WindowTool>
     {
         [ReadOnly] public AssemblyDefinitionAsset assembly;
@@ -38,7 +40,7 @@ namespace ZLCEditor.WindowSystem
             layers = AssetDatabase.LoadAllAssetRepresentationsAtPath(FilePathAttribute.GetPath(typeof(WindowTool))).Select(t => (WindowLayerTool)t).ToArray();
 
             CheckViews(true);
-            RefreshCode(true);
+            RefreshWindowCode(true);
         }
 
         /*[Button("刷新代码")]
@@ -52,7 +54,7 @@ namespace ZLCEditor.WindowSystem
         /// </summary>
         /// <param name="isAuto"></param>
         /// <returns>false:未更新代码 true:已更新代码</returns>
-        private bool RefreshCode(bool isAuto)
+        private bool RefreshWindowCode(bool isAuto)
         {
             if (layers == null) return false;
             bool refreshed = false;
@@ -222,11 +224,34 @@ namespace ZLCEditor.WindowSystem
         }
 
         /// <summary>
+        /// 刷新窗口的id代码和Config代码
+        /// </summary>
+        private void RefreshWindowConfigCode()
+        {
+            WindowIDCode idCode = FormatManager.Convert<WindowLayerTool[], WindowIDCode>(layers);
+            string idCodePath = Path.Combine(ZLCEditor.Constant.ZLCGenerateURL, Constant.WindwoIDURL);                     
+            string absoluteIdPath = Path.Combine(ZLCEditor.Constant.BasePath, idCodePath);
+            FileHelper.SaveFile(idCode.code, absoluteIdPath);
+            
+            WindowConfigCode configCode = FormatManager.Convert<WindowLayerTool[], WindowConfigCode>(layers);
+            string configCodePath = Path.Combine(ZLCEditor.Constant.ZLCGenerateURL, Constant.WindwoConfigURL);                     
+            string absoluteConfigCodePath = Path.Combine(ZLCEditor.Constant.BasePath, configCodePath);
+            FileHelper.SaveFile(configCode.code, absoluteConfigCodePath);
+            
+            AssetDatabase.Refresh();
+            CompilationPipeline.RequestScriptCompilation(); // 编译view,ctl代码
+        }
+
+        /// <summary>
         ///     一键更新
         /// </summary>
         [Button("一键刷新")]
         private void Update()
         {
+            EditorUtility.SetDirty(this);
+            foreach (var windowLayerTool in layers) {
+                EditorUtility.SetDirty(windowLayerTool);
+            }
             if (EditorApplication.isCompiling) {
                 EditorUtility.DisplayDialog("窗口同步", "请等待编译结束", "确认");
                 return;
@@ -235,7 +260,8 @@ namespace ZLCEditor.WindowSystem
             SyncWindows();
 
             // 检测数据中的窗口是否都有对应的代码，如果没有则生成，有则检测是否要更新代码
-            if (RefreshCode(false)) {
+            if (RefreshWindowCode(false)) {
+                RefreshWindowConfigCode();
                 return;
             }
 

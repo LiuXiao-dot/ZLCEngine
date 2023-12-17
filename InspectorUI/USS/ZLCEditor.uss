@@ -65,21 +65,40 @@ SplitterView{
     flex-grow: 1;
     -unity-text-align: middle-left;
 }
+
 * {
     /*-unity-font-definition:resource("uipackageresources/fonts/inter/inter-regular sdf.asset");这是unity的内置字体*/
-    -unity-font-definition: url("/Packages/com.zlc.zlcengine/Font/Bitmap.ttf");
+    /*-unity-font-definition: url("/Packages/com.zlc.zlcengine/Font/Bitmap.ttf");*/
     font-size: 15px;
 }
 
 /* GroupBox */
-GroupBox{
+.zlc-group-box > #title{
+    font-size: 20px;
+    -unity-font-style: bold;
+}
+
+/* flex */
+.zlc-horizontal{
+    flex: 1 0 0;
+    flex-direction: row;
+}
+.zlc-vertical{
+    flex: 1 0 0;
+    flex-direction: column;
+}
+.zlc-flex{
+    flex: 1 0 0;
+}
+.zlc-group-box{
     background-color: dimgray;
     padding: 15px 15px 15px 15px;
     border-color: black;
     border-radius: 5px;
     border-width: 1px;
 }
-GroupBox > #title{
-    font-size: 20px;
-    -unity-font-style: bold;
+
+/* ListView */
+.zlc-list-view{
+    
 }

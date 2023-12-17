@@ -130,13 +130,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 429645539}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9188668884933605617}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &429645539
 GameObject:
@@ -284,13 +284,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 566780932}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &566780934
 MonoBehaviour:
@@ -305,10 +305,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _componentTypes:
-    keysCache:
-    - typeName: 
-      assemblyName: 
-    valuesCache: []
+    _cache:
+    - key:
+        typeName: ZLCEngine.Interfaces.IResLoader
+        assemblyName: ZLCEngine.Core, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      value:
+        typeName: ZLCEngine.ResSystem.ResManager
+        assemblyName: ZLCEngine.ResSystem, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    - key:
+        typeName: ZLCEngine.Interfaces.IWindowManager
+        assemblyName: ZLCEngine.Core, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      value:
+        typeName: ZLCEngine.WindowSystem.WindowManager
+        assemblyName: ZLCEngine.WindowSystem, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
 --- !u!114 &82327023616683576
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -400,7 +409,6 @@ RectTransform:
   - {fileID: 8039350766210375781}
   - {fileID: 8582095240396765366}
   m_Father: {fileID: 9188668884933605617}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -512,7 +520,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4194123865007731202}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -556,7 +563,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4194123865007731202}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -570,6 +576,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8452226623028324359}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -578,5 +585,10 @@ Transform:
   - {fileID: 4194123865007731202}
   - {fileID: 429645538}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1660057539 &9223372036854775807
+SceneRoots:
+  m_ObjectHideFlags: 0
+  m_Roots:
+  - {fileID: 9188668884933605617}
+  - {fileID: 566780933}
