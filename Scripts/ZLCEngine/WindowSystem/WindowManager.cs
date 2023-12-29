@@ -17,7 +17,7 @@ namespace ZLCEngine.WindowSystem
     /// 每个窗口都有独特的id，与窗口id，独特的id用于区分实例，窗口id用来区分窗口类别
     /// 实例id=窗口id+从1开始往上加，选取一个当未使用的数字
     /// </summary>
-    public class WindowManager : IWindowManager, ISubscriber<int>
+    public class WindowManager : IWindowManager, ISubscriber
     {
         /// <summary>
         ///     窗口栈
@@ -80,6 +80,7 @@ namespace ZLCEngine.WindowSystem
                     }
                     break;
             }
+            subEvent.Callback();
         }
 
         /// <inheritdoc />

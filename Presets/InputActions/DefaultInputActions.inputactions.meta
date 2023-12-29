@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 4806acb7379ecb0479c7c4467b9cddac
+guid: f3e859b97f1db184ea6d7c4ffe0aff9b
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -9,6 +9,6 @@ ScriptedImporter:
   assetBundleVariant: 
   script: {fileID: 11500000, guid: 8404be70184654265930450def6a9037, type: 3}
   generateWrapperCode: 0
-  wrapperCodePath: 
+  wrapperCodePath: Assets/ZLCGenerate/InputAction.cs
   wrapperClassName: 
   wrapperCodeNamespace: UnityEngine.InputSystem

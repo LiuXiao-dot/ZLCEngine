@@ -24,7 +24,7 @@ namespace ZLCEditor.EventSystem
         }
 
         [Button]
-        private void GenerateCodes()
+        public void GenerateCodes()
         {
             IOrderedEnumerable<MQConfig> mqs = mqConfigSo.internalMQS.Concat(mqConfigSo.MainMQS).Concat(mqConfigSo.ChildMQS).OrderBy(t => t.id);
             GenerateMQEnums(mqs);

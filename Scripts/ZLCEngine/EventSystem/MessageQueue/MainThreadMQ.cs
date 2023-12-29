@@ -5,9 +5,16 @@ namespace ZLCEngine.EventSystem.MessageQueue
     /// </summary>
     public class MainThreadMQ : AMQ
     {
+        public override void SendEvent(int operate, object args)
+        {
+            base.SendEvent(operate, args);
+            enabled = true;
+        }
+
         private void Update()
         {
             if ((eventCount | taskCount) == 0) {
+                enabled = false;
                 return;
             }
             Act();

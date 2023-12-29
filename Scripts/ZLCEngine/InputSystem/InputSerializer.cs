@@ -10,8 +10,9 @@ namespace ZLCEngine.InputSystem
     public class InputSerializer : IManager, ILoader
     {
         public InputActionAsset actions;
+        private InputListener _listener;
 
-        public void Dispose()
+        public void Dispose() 
         {
             var rebinds = actions.SaveBindingOverridesAsJson();
             PlayerPrefs.SetString("rebinds", rebinds);
@@ -29,6 +30,7 @@ namespace ZLCEngine.InputSystem
             {
                 actions = result;
                 onProgress?.Invoke(1, 1);
+                _listener = new InputListener(actions);
             });
         }
     }

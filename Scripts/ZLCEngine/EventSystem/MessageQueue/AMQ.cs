@@ -17,7 +17,7 @@ namespace ZLCEngine.EventSystem.MessageQueue
         /// <summary>
         ///     消息订阅者
         /// </summary>
-        protected Dictionary<int, List<ISubscriber<int>>> listeners = new Dictionary<int, List<ISubscriber<int>>>();
+        protected Dictionary<int, List<ISubscriber>> listeners = new Dictionary<int, List<ISubscriber>>();
         /// <summary>
         ///     消息数量
         /// </summary>
@@ -30,6 +30,7 @@ namespace ZLCEngine.EventSystem.MessageQueue
         ///     当前执行中的消息
         /// </summary>
         private Event currentEvent;
+        
 
         /// <summary>
         ///     消息队列的唯一ID
@@ -41,13 +42,13 @@ namespace ZLCEngine.EventSystem.MessageQueue
         }
 
         /// <inheritdoc cref="ISubscribee{int}" />
-        public void Subscribe(ISubscriber<int> subscriber, int operate)
+        public void Subscribe(ISubscriber subscriber, int operate)
         {
             if (!listeners.ContainsKey(operate)) {
-                listeners.Add(operate, new List<ISubscriber<int>>());
+                listeners.Add(operate, new List<ISubscriber>());
             }
 
-            if (listeners.TryGetValue(operate, out List<ISubscriber<int>> operateListeners) &&
+            if (listeners.TryGetValue(operate, out List<ISubscriber> operateListeners) &&
                 !operateListeners.Contains(subscriber)) {
                 operateListeners.Add(subscriber);
             } else {
@@ -56,7 +57,7 @@ namespace ZLCEngine.EventSystem.MessageQueue
         }
 
         /// <inheritdoc cref="ISubscribee{int}" />
-        public void Subscribe(ISubscriber<int> subscriber, IEnumerable<int> operates)
+        public void Subscribe(ISubscriber subscriber, IEnumerable<int> operates)
         {
             foreach (int operate in operates) {
                 Subscribe(subscriber, operate);
@@ -64,16 +65,16 @@ namespace ZLCEngine.EventSystem.MessageQueue
         }
 
         /// <inheritdoc cref="ISubscribee{int}" />
-        public void Unsubscribe(ISubscriber<int> subscriber, int operate)
+        public void Unsubscribe(ISubscriber subscriber, int operate)
         {
-            if (listeners.TryGetValue(operate, out List<ISubscriber<int>> operateListeners) &&
+            if (listeners.TryGetValue(operate, out List<ISubscriber> operateListeners) &&
                 operateListeners.Contains(subscriber)) {
                 operateListeners.Remove(subscriber);
             }
         }
 
         /// <inheritdoc cref="ISubscribee{int}" />
-        public void Unsubscribe(ISubscriber<int> subscriber, IEnumerable<int> operates)
+        public void Unsubscribe(ISubscriber subscriber, IEnumerable<int> operates)
         {
             foreach (int operate in operates) {
                 Unsubscribe(subscriber, operate);
@@ -83,8 +84,10 @@ namespace ZLCEngine.EventSystem.MessageQueue
         public virtual void SendEvent(int operate, object args)
         {
             try {
-                queue.Enqueue(new Event(this, operate, args));
-                eventCount++;
+                if (listeners.TryGetValue(operate,out var subscribers) && subscribers.Count > 0) {
+                    queue.Enqueue(new Event(this, operate, args, Callback));
+                    eventCount++;
+                }
             }
             catch (InvalidCastException e) {
                 Debug.LogError(e);
@@ -98,7 +101,7 @@ namespace ZLCEngine.EventSystem.MessageQueue
         {
             if (taskCount > 0 || queue.Count == 0 || !queue.TryDequeue(out currentEvent)) return;
             try {
-                if (listeners.TryGetValue(UnsafeUtility.As<int, int>(ref currentEvent.operate), out List<ISubscriber<int>> currentListeners)) {
+                if (listeners.TryGetValue( currentEvent.operate, out List<ISubscriber> currentListeners)) {
                     int length = currentListeners.Count;
                     taskCount = length;
 

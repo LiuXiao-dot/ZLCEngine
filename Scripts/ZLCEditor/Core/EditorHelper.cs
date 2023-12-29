@@ -124,16 +124,17 @@ namespace ZLCEditor
         /// <param name="path"></param>
         /// <typeparam name="T"></typeparam>
         /// <returns>true:创建成功 false:已有文件</returns>
-        public static bool CreateAssetIfNotExit<T>(T t, string path) where T : Object
+        public static T CreateAssetIfNotExit<T>(string path) where T : ScriptableObject
         {
             CreateDir(path);
             var result = AssetDatabase.FindAssets(path);
             if (result == null || result.Length == 0) {
                 // 新建
+                var t = ScriptableObject.CreateInstance<T>();
                 AssetDatabase.CreateAsset(t, path);
-                return true;
+                return t;
             }
-            return false;
+            return AssetDatabase.LoadAssetAtPath<T>(AssetDatabase.GUIDToAssetPath(result[0]));
         }
 
         /// <summary>

@@ -104,18 +104,25 @@ namespace ZLCEngine.EventSystem.MessageQueue
                 Instance._mqs[id].SendEvent(Convert.ToInt32(operate), args);
             }
         }
+        
+        public static void SendEvent(int id, int operate, object args)
+        {
+            if (Check(id)) {
+                Instance._mqs[id].SendEvent(operate, args);
+            }
+        }
 
         /// <summary>
         ///     订阅
         /// </summary>
-        public static void Subscribe<T>(int id, ISubscriber<int> subscriber, params T[] operates) where T : Enum
+        public static void Subscribe<T>(int id, ISubscriber subscriber, params T[] operates) where T : Enum
         {
             if (Check(id)) {
                 Instance._mqs[id].Subscribe(subscriber, operates.Select(t => Convert.ToInt32(t)));
             }
         }
 
-        public static void Subscribe(int id, ISubscriber<int> subscriber, params int[] operates)
+        public static void Subscribe(int id, ISubscriber subscriber, params int[] operates)
         {
             if (Check(id)) {
                 Instance._mqs[id].Subscribe(subscriber, operates);
@@ -125,14 +132,14 @@ namespace ZLCEngine.EventSystem.MessageQueue
         /// <summary>
         ///     取消订阅
         /// </summary>
-        public static void Unsubscribe<T>(int id, ISubscriber<int> subscriber, params T[] operates) where T : Enum
+        public static void Unsubscribe<T>(int id, ISubscriber subscriber, params T[] operates) where T : Enum
         {
             if (Check(id)) {
                 Instance._mqs[id].Unsubscribe(subscriber, operates.Select(t => Convert.ToInt32(t)));
             }
         }
 
-        public static void Unsubscribe(int id, ISubscriber<int> subscriber, params int[] operates)
+        public static void Unsubscribe(int id, ISubscriber subscriber, params int[] operates)
         {
             if (Check(id)) {
                 Instance._mqs[id].Unsubscribe(subscriber, operates);

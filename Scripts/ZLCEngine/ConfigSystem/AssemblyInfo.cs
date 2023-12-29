@@ -7,3 +7,4 @@ using System.Runtime.CompilerServices;
 [assembly: InternalsVisibleTo("ZLCEditor.Tool")]
 [assembly: InternalsVisibleTo("ZLCEditor.EventSystem")]
 [assembly: InternalsVisibleTo("ZLCEditor.WindowSystem")]
+[assembly: InternalsVisibleTo("ZLCEditor.InputSystem")]

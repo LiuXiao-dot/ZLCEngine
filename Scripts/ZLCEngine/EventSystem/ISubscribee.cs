@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 namespace ZLCEngine.EventSystem
 {
@@ -23,16 +24,28 @@ namespace ZLCEngine.EventSystem
         public object data;
 
         /// <summary>
+        /// 事件执行完毕后调用
+        /// </summary>
+        public Action<Event> callback;
+
+        /// <summary>
         ///     事件基类的构造函数
         /// </summary>
         /// <param name="sender">发送者</param>
         /// <param name="operate">事件</param>
         /// <param name="data">事件的参数</param>
-        public Event(object sender, int operate, object data)
+        /// <param name="callback">有些是异步执行完，所以需要自行调用</param>
+        public Event(object sender, int operate, object data, Action<Event> callback)
         {
             this.sender = sender;
             this.operate = operate;
             this.data = data;
+            this.callback = callback;
+        }
+
+        public void Callback()
+        {
+            this.callback.Invoke(this);
         }
     }
 
@@ -47,25 +60,25 @@ namespace ZLCEngine.EventSystem
         /// </summary>
         /// <param name="subscriber">订阅者</param>
         /// <param name="operate">要订阅的事件ID</param>
-        void Subscribe(ISubscriber<T> subscriber, T operate);
+        void Subscribe(ISubscriber subscriber, T operate);
         /// <summary>
         ///     订阅事件
         /// </summary>
         /// <param name="subscriber">订阅者</param>
         /// <param name="operates">要订阅的事件ID</param>
-        void Subscribe(ISubscriber<T> subscriber, IEnumerable<T> operates);
+        void Subscribe(ISubscriber subscriber, IEnumerable<T> operates);
         /// <summary>
         ///     取消订阅
         /// </summary>
         /// <param name="subscriber">订阅者</param>
         /// <param name="operate">要订阅的事件</param>
-        void Unsubscribe(ISubscriber<T> subscriber, T operate);
+        void Unsubscribe(ISubscriber subscriber, T operate);
         /// <summary>
         ///     取消订阅
         /// </summary>
         /// <param name="subscriber">订阅者</param>
         /// <param name="operates">要取消订阅的事件ID</param>
-        void Unsubscribe(ISubscriber<T> subscriber, IEnumerable<T> operates);
+        void Unsubscribe(ISubscriber subscriber, IEnumerable<T> operates);
         /// <summary>
         ///     发送事件
         /// </summary>
@@ -77,7 +90,7 @@ namespace ZLCEngine.EventSystem
     /// <summary>
     ///     订阅者
     /// </summary>
-    public interface ISubscriber<T>
+    public interface ISubscriber
     {
         /// <summary>
         ///     接受到消息
