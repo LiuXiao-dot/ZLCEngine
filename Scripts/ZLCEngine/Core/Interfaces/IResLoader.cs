@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Object = UnityEngine.Object;
@@ -87,6 +88,22 @@ namespace ZLCEngine.Interfaces
         /// <typeparam name="T">资源类型</typeparam>
         /// <returns></returns>
         bool LoadAssetSync<T>(string path, out T result) where T : Object;
+
+        /// <summary>
+        /// 加载同一个组的资源
+        /// </summary>
+        /// <param name="groupName"></param>
+        /// <param name="callback"></param>
+        /// <typeparam name="T"></typeparam>
+        void LoadAssets<T>(string groupName, Action<bool, IList<T>> callback = null) where T : Object;
+        
+        /// <summary>
+        /// 同步加载同一个组的资源
+        /// </summary>
+        /// <param name="groupName"></param>
+        /// <param name="callback"></param>
+        /// <typeparam name="T"></typeparam>
+        bool LoadAssetsSync<T>(string groupName, out IList<T> result) where T : Object;
 
         /// <summary>
         ///     加载GameObject并创建池

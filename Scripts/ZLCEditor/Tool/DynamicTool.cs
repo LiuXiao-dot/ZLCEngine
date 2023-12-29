@@ -14,7 +14,7 @@ using ZLCEngine.Inspector;
 using FilePathAttribute = ZLCEngine.ConfigSystem.FilePathAttribute;
 namespace ZLCEditor.Tool
 {
-    [Tool("动态代码运行")]
+    [Tool("工具/动态代码运行")]
     [FilePath(FilePathAttribute.PathType.XWEditor, true)]
     public class DynamicTool : SOSingleton<DynamicTool>
     {

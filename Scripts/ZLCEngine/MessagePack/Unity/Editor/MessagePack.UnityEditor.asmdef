@@ -1,0 +1,20 @@
+{
+    "name": "MessagePack.UnityEditor",
+    "rootNamespace": "",
+    "references": [
+        "MessagePack",
+        "ZLCEngine.ConfigSystem",
+        "ZLCEditor.Tool"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

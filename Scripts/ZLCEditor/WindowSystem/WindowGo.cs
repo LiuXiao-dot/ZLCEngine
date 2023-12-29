@@ -23,6 +23,12 @@ namespace ZLCEditor.WindowSystem
         /// </summary>
         [HideInInspector]
         public long modifiedTime;
+        
+        /// <summary>
+        /// 用于判断是否绑定了最新的组件
+        /// </summary>
+        [HideInInspector]
+        public long combineTime;
 
         /// <summary>
         ///     窗口的Prefab
@@ -123,7 +129,7 @@ namespace ZLCEditor.WindowSystem
         {
             if (prefab == null) return false;
             long tempTime = File.GetLastWriteTime(AssetDatabase.GetAssetPath(prefab)).Ticks;
-            if (tempTime == modifiedTime) return false;
+            if (tempTime == combineTime || modifiedTime == tempTime) return false; // 判断是否已绑定最新的数据，绑定了就返回
             modifiedTime = tempTime;
             WindowViewCode viewCode = FormatManager.Convert<GameObject, WindowViewCode>(prefab);
             string viewPath = Path.Combine(ZLCEditor.Constant.ZLCGenerateURL, Constant.ViewCodeURL, $"{prefab.name}View.cs");
@@ -143,7 +149,7 @@ namespace ZLCEditor.WindowSystem
         public bool SyncComponent()
         {
             if (EditorApplication.isCompiling) {
-                EditorUtility.DisplayDialog("窗口", "编译中，请稍等", "确定");
+                //EditorUtility.DisplayDialog("窗口", "编译中，请稍等", "确定");
                 return false;
             }
             ;
@@ -163,7 +169,7 @@ namespace ZLCEditor.WindowSystem
                 }
             }
             PrefabUtility.SavePrefabAsset(prefab);
-            modifiedTime = File.GetLastWriteTime(AssetDatabase.GetAssetPath(prefab)).Ticks;
+            combineTime = File.GetLastWriteTime(AssetDatabase.GetAssetPath(prefab)).Ticks;
             return true;
         }
     }

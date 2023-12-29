@@ -30,7 +30,8 @@ namespace ZLCEngine.Interfaces
         /// </summary>
         public static M Get<M>() where M : IManager
         {
-            return Instance.GetManager<M>();
+            if (_instance == null) return default;
+            return _instance.GetManager<M>();
         }
 
         /// <summary>

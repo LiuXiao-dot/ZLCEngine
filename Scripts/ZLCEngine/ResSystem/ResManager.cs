@@ -231,6 +231,54 @@ namespace ZLCEngine.ResSystem
             result = (T)handle.Result;
             return true;
         }
+        /// <summary>
+        /// 加载同一个标签的资源
+        /// </summary>
+        /// <param name="groupName"></param>
+        /// <param name="callback"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <exception cref="NotImplementedException"></exception>
+        public void LoadAssets<T>(string groupName, Action<bool,IList<T>> callback = null) where T : Object
+        {
+            if (_cache.TryGetHandle(groupName, out AsyncOperationHandle cacheHandle) && cacheHandle.IsDone) {
+                callback?.Invoke(true, (IList<T>)cacheHandle.Result);
+                return;
+            }
+
+            AddTotal();
+            if (!cacheHandle.IsValid()) {
+                cacheHandle = ResLoader.LoadAssetsAsync<T>(groupName, null);
+                _cache.AddHandle(groupName, cacheHandle);
+            }
+            cacheHandle.Completed += temp =>
+            {
+                if (cacheHandle.Status == AsyncOperationStatus.Succeeded) {
+                    AddFinished();
+                    callback?.Invoke(true, (IList<T>)temp.Result);
+                    return;
+                }
+                _cache.RemoveHandle(groupName);
+                callback?.Invoke(false, default(IList<T>));
+            };
+        }
+        
+        /// <inheritdoc />
+        public bool LoadAssetsSync<T>(string groupName, out IList<T> result) where T : Object
+        {
+            if (!_cache.TryGetHandle(groupName, out AsyncOperationHandle handle)) {
+                handle = ResLoader.LoadAssetsAsync<T>(groupName, null);
+                _cache.AddHandle(groupName, handle);
+            }
+            if (!handle.IsDone)
+                handle.WaitForCompletion();
+            if (handle.Status == AsyncOperationStatus.Failed) {
+                result = default(IList<T>);
+                return false;
+            }
+            result = (IList<T>)handle.Result;
+            return true;
+        }
+        
         /// <inheritdoc />
         public void LoadPoolableGameObject(string path, Action<bool, GameObject> callback = null, int defaultCapacity = 10, int maxSize = -1)
         {

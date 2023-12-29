@@ -17,7 +17,15 @@ namespace ZLCEditor.ResSystem
         /// </summary>
         [BoxGroup("目录路径")]
         [FolderPath]
-        public string[] dirs;
+        public string[] dirs = new []
+        {
+            "Assets/Arts",
+            "Assets/ZLC_Configs_Internal/Configs",
+            "Packages/com.zlc.zlcengine/Scenes",
+            "Packages/com.zlc.zlcengine/Assets",
+            "Packages/com.zlc.zlcengine/Font",
+            "Packages/com.zlc.zlcengine/Shaders"
+        };
 
         /// <summary>
         ///     资源同步

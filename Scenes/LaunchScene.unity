@@ -318,6 +318,18 @@ MonoBehaviour:
       value:
         typeName: ZLCEngine.WindowSystem.WindowManager
         assemblyName: ZLCEngine.WindowSystem, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    - key:
+        typeName: ZLCEngine.Interfaces.ISaver
+        assemblyName: ZLCEngine.Core, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      value:
+        typeName: ZLCEngine.SaveSystem.Saver
+        assemblyName: ZLCEngine.SaveSystem, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    - key:
+        typeName: ZLCEngine.InputSystem.InputSerializer
+        assemblyName: ZLCEngine.InputSystem, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      value:
+        typeName: ZLCEngine.InputSystem.InputSerializer
+        assemblyName: ZLCEngine.InputSystem, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
 --- !u!114 &82327023616683576
 MonoBehaviour:
   m_ObjectHideFlags: 0

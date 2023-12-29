@@ -1,6 +1,6 @@
-using Unity.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using ZLCEngine.Inspector;
 using ZLCEngine.Interfaces;
 namespace ZLCEngine.WindowSystem
 {
@@ -19,6 +19,7 @@ namespace ZLCEngine.WindowSystem
         /// <summary>
         ///     窗口层级
         /// </summary>
+        [ReadOnly]
         public WindowLayer windowLayer;
 
         /// <inheritdoc />
@@ -30,6 +31,10 @@ namespace ZLCEngine.WindowSystem
         public int GetID()
         {
             return ID;
+        }
+        public int GetWindowLayer()
+        {
+            return (int)windowLayer;
         }
     }
 }

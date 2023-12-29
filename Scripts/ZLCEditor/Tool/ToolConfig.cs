@@ -20,6 +20,7 @@ namespace ZLCEditor.Tool
     /// </summary>
     [FilePath(FilePathAttribute.PathType.XWEditor, true)]
     [Serializable]
+    [Tool("配置/工具")]
     internal class ToolConfig : SOSingleton<ToolConfig>
     {
         private static List<Type> _typesPool;
@@ -47,7 +48,7 @@ namespace ZLCEditor.Tool
         {
             if (Instance == null) return;
             SDictionary<string, SType[]> toolTypes = Instance.toolTypes == null ? new SDictionary<string, SType[]>() : Instance.toolTypes;
-
+            
             Assembly assembly = Assembly.Load(Path.GetFileNameWithoutExtension(url));
             Instance.RefreshAssembly(assembly);
         }
@@ -104,6 +105,7 @@ namespace ZLCEditor.Tool
                 foreach (Assembly assembly in assemblys) {
                     RefreshAssembly(assembly);
                 }
+                EditorUtility.SetDirty(this);
             }
         }
     }

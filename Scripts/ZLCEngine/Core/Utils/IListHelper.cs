@@ -29,5 +29,30 @@ namespace ZLCEngine.Utils
                 throw;
             }
         }
+
+        public static void ReverseForeach<T>(IList<T> source, Action<T> action)
+        {
+            var length = source.Count;
+            for (int i = length - 1; i >= 0; i--) {
+                action?.Invoke(source[i]);
+            }
+        }
+        
+        /// <summary>
+        /// false:退出
+        /// true:继续执行
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="action"></param>
+        /// <typeparam name="T"></typeparam>
+        public static void ReverseForeach<T>(IList<T> source, Func<T,bool> action)
+        {
+            var length = source.Count;
+            for (int i = length - 1; i >= 0; i--) {
+                if (!action.Invoke(source[i])) {
+                    break;
+                }
+            }
+        }
     }
 }

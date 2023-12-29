@@ -1,4 +1,4 @@
-using ZLCEngine.ConfigSystem;
+/*using ZLCEngine.ConfigSystem;
 namespace ZLCEditor.EventSystem
 {
     /// <summary>
@@ -8,4 +8,4 @@ namespace ZLCEditor.EventSystem
     public class EventSystemTool : SOSingleton<EventSystemTool>
     {
     }
-}
+}*/

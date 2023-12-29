@@ -7,13 +7,16 @@ namespace ZLCEngine.ThreadSystem
     /// </summary>
     public sealed class ThreadWrapper
     {
+        private const int MainThreadID = 1;
+        
         private Action action;
         private ManualResetEvent resetEvent;
 
         /// <inheritdoc cref="object" />
-        public ThreadWrapper()
+        public ThreadWrapper(Action action = null)
         {
             resetEvent = new ManualResetEvent(false);
+            this.action = action;
         }
 
         /// <summary>
@@ -47,6 +50,7 @@ namespace ZLCEngine.ThreadSystem
         /// </summary>
         public void Pause()
         {
+            if(Thread.CurrentThread.ManagedThreadId == MainThreadID) return;
             resetEvent.Reset();
             resetEvent.WaitOne();
         }
@@ -57,6 +61,14 @@ namespace ZLCEngine.ThreadSystem
         public void Resume()
         {
             resetEvent.Set();
+        }
+
+        /// <summary>
+        /// 停止
+        /// </summary>
+        public void Stop()
+        {
+            
         }
     }
 }

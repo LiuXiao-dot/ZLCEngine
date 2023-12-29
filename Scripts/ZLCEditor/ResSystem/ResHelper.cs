@@ -29,7 +29,8 @@ namespace ZLCEditor.ResSystem
             ".shader",
             ".wav",
             ".mixer",
-            ".inputactions"
+            ".inputactions",
+            ".spriteatlasv2"
         };
 
         /// <summary>

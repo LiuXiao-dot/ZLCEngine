@@ -7,7 +7,7 @@ namespace ZLCEngine.EventSystem.MessageQueue
     ///     MQ的配置信息
     ///     需要根据MQ生成具体的事件的枚举类代码
     /// </summary>
-    [Tool("配置/消息队列")]
+    [Tool("消息队列/配置")]
     [FilePath(FilePathAttribute.PathType.XWEditor, true)]
     public class MQConfigSO : SOSingleton<MQConfigSO>
     {

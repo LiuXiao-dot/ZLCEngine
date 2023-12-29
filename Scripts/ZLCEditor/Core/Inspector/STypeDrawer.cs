@@ -120,8 +120,7 @@ namespace ZLCEditor.Inspector
                 _window = ZLCPopupWindow.Show(position, _windowContent);
             }
         }
-
-
+        
         public override VisualElement CreatePropertyGUI(SerializedProperty property)
         {
             var choices = GetTypes();
@@ -133,8 +132,7 @@ namespace ZLCEditor.Inspector
             dropdown.createMenuCallback = () =>
             {
                 var osMenu = new SearchMenu();
-
-                for (int i = 0; i < choices.Count; i++) {
+                /*for (int i = 0; i < choices.Count; i++) {
                     var option = choices[i];
                     var isValueSelected = i == dropdown.index;
 
@@ -142,7 +140,7 @@ namespace ZLCEditor.Inspector
                     {
                         dropdown.value = option;
                     });
-                }
+                }*/
 
                 return osMenu;
             };
@@ -164,10 +162,9 @@ namespace ZLCEditor.Inspector
             realTypes = ts;
             EditorApplication.LockReloadAssemblies();
             try {
-                EditorHelper.GetAllChildType<object>(ts, EditorHelper.AssemblyFilterType.Internal);
-                EditorHelper.GetAllInterfaces(ts, EditorHelper.AssemblyFilterType.Internal);
-                ts.Sort((a, b) => string.Compare(a.FullName, b.FullName, StringComparison.Ordinal));
-                types = ts.Select(t => t.FullName).ToList();
+                EditorHelper.GetAllChildType<object>(ts, EditorHelper.AssemblyFilterType.Internal | EditorHelper.AssemblyFilterType.Custom);
+                EditorHelper.GetAllInterfaces(ts, EditorHelper.AssemblyFilterType.Internal | EditorHelper.AssemblyFilterType.Custom);
+                types = ts.Distinct().Select(t => t.FullName).ToList();
             }
             catch (Exception e) {
                 Debug.LogError(e);

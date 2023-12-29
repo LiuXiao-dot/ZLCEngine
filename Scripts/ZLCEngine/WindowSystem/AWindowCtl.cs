@@ -61,10 +61,19 @@ namespace ZLCEngine.WindowSystem
             ((WindowManager)IAppLauncher.Get<IWindowManager>()).ClearWindow(this);
         }
 
+        /// <summary>
+        /// 同一类窗口id相同
+        /// </summary>
+        /// <returns></returns>
         public int GetID()
         {
             return _id;
         }
+        
+        /// <summary>
+        /// 实际的id，关闭窗口需要使用instanceID
+        /// </summary>
+        /// <returns></returns>
         public int GetInstanceID()
         {
             return _instanceID;

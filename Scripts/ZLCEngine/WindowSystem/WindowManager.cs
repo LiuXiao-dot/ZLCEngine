@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using ZLCEngine.ApplicationSystem;
@@ -20,8 +21,13 @@ namespace ZLCEngine.WindowSystem
     {
         /// <summary>
         ///     窗口栈
+        /// 按窗口层级分不同的栈
         /// </summary>
-        private Stack<IWindowCtl> _coreCtlStack = new Stack<IWindowCtl>();
+        //private Stack<IWindowCtl>[] _coreCtlStack = new Stack<IWindowCtl>[3];
+        /// <summary>
+        /// 所有Core窗口的顺序列表
+        /// </summary>
+        private List<IWindowCtl> _coreCtlList = new List<IWindowCtl>();
 
         private List<IWindowCtl> _extraCtlList = new List<IWindowCtl>();
 
@@ -124,7 +130,7 @@ namespace ZLCEngine.WindowSystem
                 case WindowLayer.CHILD:
                 case WindowLayer.SMALL:
                     OnOpenCoreWindow(layer);
-                    _coreCtlStack.Push(ctl);
+                    _coreCtlList.Add(ctl);
                     break;
                 case WindowLayer.POPUP:
                 case WindowLayer.PANEL:
@@ -166,12 +172,7 @@ namespace ZLCEngine.WindowSystem
                 case WindowLayer.MAIN:
                 case WindowLayer.CHILD:
                 case WindowLayer.SMALL:
-                    foreach (var windowCtl in _coreCtlStack) {
-                        if (windowCtl.GetInstanceID() == instanceID) {
-                            CloseCoreWindow(instanceID, layer);
-                            windowCtl.Close();
-                        }
-                    }
+                    CloseCoreWindow(instanceID, layer);
                     break;
                 case WindowLayer.POPUP:
                 case WindowLayer.PANEL:
@@ -224,7 +225,7 @@ namespace ZLCEngine.WindowSystem
                 case WindowLayer.MAIN:
                 case WindowLayer.CHILD:
                 case WindowLayer.SMALL:
-                    foreach (var windowCtl in _coreCtlStack) {
+                    foreach (var windowCtl in _coreCtlList) {
                         if (windowCtl.GetID() == windowID)
                             index++;
                     }
@@ -268,7 +269,7 @@ namespace ZLCEngine.WindowSystem
                 case WindowLayer.PANEL:
                     // 需要与核心窗口同层级
                     canvas.overrideSorting = true;
-                    AWindowView curView = _coreCtlStack.Peek().GetView() as AWindowView;
+                    AWindowView curView = _coreCtlList.Last().GetView() as AWindowView;
                     canvas.sortingOrder = curView.GetComponent<Canvas>().sortingOrder;
                     break;
                 case WindowLayer.LOADING:
@@ -294,16 +295,33 @@ namespace ZLCEngine.WindowSystem
             int length = _extraCtlList.Count;
             for (int i = length - 1; i >= 0; i--) {
                 // 倒序依次关闭
-                CloseExtraWindow(_extraCtlList[i].GetID());
+                CloseExtraWindow(_extraCtlList[i].GetInstanceID());
             }
 
-            foreach (IWindowCtl ctl in _coreCtlStack) {
-                if (((AWindowView)ctl.GetView()).windowLayer > layer) {
-                    return;
+            IListHelper.ReverseForeach(_coreCtlList, ctl =>
+            {
+                var ctlLayer = ((AWindowView)ctl.GetView()).windowLayer;
+                if (ctlLayer < layer) {
+                    return false;
                 }
-                ctl.Pause();
-                return;
-            }
+                switch (ctlLayer) {
+
+                    case WindowLayer.MAIN:
+                    case WindowLayer.CHILD:
+                        ctl.Pause();
+                        (ctl.GetView() as AWindowView).gameObject.SetActive(false);
+                        break;
+                    case WindowLayer.SMALL:
+                        ctl.Close();
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException(nameof(layer), layer, null);
+                }
+                if (ctlLayer == layer) {
+                    return false;
+                }
+                return true;
+            });
         }
 
         private void OnOpenExtraWindow()
@@ -317,7 +335,7 @@ namespace ZLCEngine.WindowSystem
         }
 
         /// <summary>
-        ///     返回true表示可以正常退出，否则无法退出
+        /// 关闭相关窗口，并恢复底层窗口
         /// </summary>
         /// <param name="id"></param>
         /// <param name="layer"></param>
@@ -325,27 +343,32 @@ namespace ZLCEngine.WindowSystem
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         private void CloseCoreWindow(int id, WindowLayer layer)
         {
+            if (_coreCtlList.All(t => t.GetInstanceID() != id)) {
+                // 如果没有目标窗口，则什么也不做
+                return;
+            }
             // 关闭全部extra窗口
-            foreach (var ctl in _extraCtlList) {
+            IListHelper.ReverseForeach(_extraCtlList, ctl => ctl.Close());
+            
+            // 一直关闭到目标窗口
+            IListHelper.ReverseForeach(_coreCtlList, ctl =>
+            {
                 ctl.Close();
-            }
-
-            // 关闭全部层级比layer小的Core窗口
-            foreach (var ctl in _coreCtlStack) {
-                var windowLayer = ((AWindowView)ctl.GetView()).windowLayer;
-                switch (windowLayer) {
-                    case WindowLayer.MAIN:
-                    case WindowLayer.CHILD:
-                    case WindowLayer.SMALL:
-                        if (windowLayer <= layer) {
-                            ctl.Close();
-                        }
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
+                // 碰到要关闭的窗口后退出不再关闭其他窗口
+                return id != ctl.GetInstanceID();
+            });
+            // 恢复上层界面
+            IListHelper.ReverseForeach(_coreCtlList, ctl =>
+            {
+                var tempLayer = (WindowLayer)ctl.GetView().GetWindowLayer();
+                // 大于等于自己layer的需要调用一次恢复，碰到小于等于自己layer的就停止
+                if (tempLayer >= layer) {
+                    (ctl.GetView() as AWindowView).gameObject.SetActive(true);
+                    ctl.Resume();
                 }
-            }
 
+                return tempLayer > layer;
+            });
 
             // 忽略ignore窗口
         }
@@ -353,9 +376,9 @@ namespace ZLCEngine.WindowSystem
         /// <summary>
         ///     随时关闭，不影响其他窗口
         /// </summary>
-        private void CloseExtraWindow(int id)
+        private void CloseExtraWindow(int instanceID)
         {
-            int index = _extraCtlList.FindIndex(t => t.GetID() == id);
+            int index = _extraCtlList.FindIndex(t => t.GetInstanceID() == instanceID);
             if (index != -1) {
                 _extraCtlList[index].Close();
             }
@@ -364,9 +387,9 @@ namespace ZLCEngine.WindowSystem
         /// <summary>
         ///     随时关闭，不影响其他窗口
         /// </summary>
-        private void CloseIgnoreWindow(int id)
+        private void CloseIgnoreWindow(int instanceID)
         {
-            int index = _ignoreCtlList.FindIndex(t => t.GetID() == id);
+            int index = _ignoreCtlList.FindIndex(t => t.GetInstanceID() == instanceID);
             if (index != -1) {
                 _ignoreCtlList[index].Close();
             }
@@ -383,9 +406,9 @@ namespace ZLCEngine.WindowSystem
                 case WindowLayer.MAIN:
                 case WindowLayer.CHILD:
                 case WindowLayer.SMALL:
-                    IWindowCtl curCtl = _coreCtlStack.Peek();
+                    IWindowCtl curCtl = _coreCtlList.Last();
                     if (curCtl == ctl) {
-                        _coreCtlStack.Pop();
+                        _coreCtlList.Remove(curCtl);
                     } else {
                         Debug.LogError("逻辑错误,要清除的窗口不在栈顶");
                     }
