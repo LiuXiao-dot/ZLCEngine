@@ -21,7 +21,7 @@ namespace ZLCEditor.Inspector
         {
             // 基本UI元素不变，添加一个选择按钮，点击后可以选择创建的实例
             var root = new VisualElement();
-            var baseElement = ZLCDrawerHelper.CreateDrawer(property);
+            var baseElement = ZLCDrawerHelper.CreateDrawer(property, out _);
             baseElement.name = "base-element";
             if (icon == null) {
                 icon = AssetDatabase.LoadAssetAtPath<VectorImage>(iconUrl);

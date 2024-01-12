@@ -1,6 +1,13 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using UnityEditor;
 using UnityEditor.UIElements;
+using UnityEditor.UIElements.Bindings;
+using UnityEngine;
+using UnityEngine.Pool;
 using UnityEngine.UIElements;
 using ZLCEditor.Inspector.VisualElements;
 using ZLCEngine.SerializeTypes;
@@ -19,7 +26,7 @@ namespace ZLCEditor.Inspector
         
         VisualElement ConfigureListView(ListView listView, SerializedProperty property, Func<ListView> factory)
         {
-            var realValue = property.FindPropertyRelative("_cache");
+            var realProperty = property.FindPropertyRelative("_cache");
             if (listView == null)
             {
                 listView = factory();
@@ -32,15 +39,12 @@ namespace ZLCEditor.Inspector
                 listView.showAlternatingRowBackgrounds = AlternatingRowBackground.None;
                 listView.itemsSourceSizeChanged += ()=> DispatchPropertyChangedEvent(property, listView);
             }
-            var kvType = fieldInfo.FieldType;
-            var kvRealTypes = kvType.GetGenericArguments();
-            listView.SetViewController(new SDictionartController(kvRealTypes[0], kvRealTypes[1]));
-
-            var propertyCopy = realValue.Copy();
-            var listViewName = $"{listViewNamePrefix}{realValue.propertyPath}";
+            
+            var propertyCopy = realProperty.Copy();
+            var listViewName = $"{listViewNamePrefix}{realProperty.propertyPath}";
             //listView.headerTitle = string.IsNullOrEmpty(label) ? propertyCopy.localizedDisplayName : label;
             listView.userData = propertyCopy;
-            listView.bindingPath = realValue.propertyPath;
+            listView.bindingPath = realProperty.propertyPath;
             listView.viewDataKey = listViewName;
             listView.name = listViewName;
             listView.SetProperty(listViewBoundFieldProperty, this);
@@ -50,6 +54,12 @@ namespace ZLCEditor.Inspector
             if (toggle != null)
                 toggle.m_Clickable.acceptClicksIfDisabled = true;
 
+            var kvType = fieldInfo.FieldType;
+            var kvRealTypes = kvType.GetGenericArguments();
+            var targetObject = property.serializedObject.targetObject;
+            var realObj = fieldInfo.GetValue(targetObject);
+            
+            listView.SetViewController(new SDictionartController(kvRealTypes[0], kvRealTypes[1], fieldInfo, realObj));
             return listView;
         }
         
@@ -63,68 +73,86 @@ namespace ZLCEditor.Inspector
         }
     }
 
-    public class SDictionartController : BaseListViewController
+    internal class SDictionartController : EditorListViewController
     {
         protected ListView listView => view as ListView;
         private Type _key;
         private Type _value;
+        private FieldInfo _fieldInfo;// SDictionary
+        private object _obj;// SDictionary
 
-        public SDictionartController(Type key, Type value)
+        public SDictionartController(Type key, Type value, FieldInfo fieldInfo, object realObj)
         {
             this._key = key;
             this._value = value;
+            this._fieldInfo = fieldInfo;
+            this._obj = realObj;
         }
-        
-        protected override VisualElement MakeItem()
-        {
-            if (listView.makeItem == null)
-            {
-                if (listView.bindItem != null)
-                    throw new NotImplementedException("You must specify makeItem if bindItem is specified.");
-                return new Label();
-            }
-            return listView.makeItem.Invoke();
-        }
-        protected override void BindItem(VisualElement element, int index)
-        {
-            if (listView.bindItem == null)
-            {
-                if (listView.makeItem != null)
-                    throw new NotImplementedException("You must specify bindItem if makeItem is specified.");
-
-                var label = (Label)element;
-                var item = listView.itemsSource[index];
-                label.text = item?.ToString() ?? "null";
-                return;
-            }
-
-            listView.bindItem.Invoke(element, index);
-        }
-        protected override void UnbindItem(VisualElement element, int index)
-        {
-            listView.unbindItem?.Invoke(element, index);
-        }
-        protected override void DestroyItem(VisualElement element)
-        {
-            listView.destroyItem?.Invoke(element);
-        }
-
 
         public override void AddItems(int itemCount)
         {
             if (itemCount > 1) itemCount = 1;
-            ZLCPopupWindow.Show(listView.worldBound, new TempDicAddValuePanel(_key, _value));
+            ZLCPopupWindow.Show(listView.worldBound, new TempDicAddValuePanel(_key, _value, this));
+        }
+
+        /// <summary>
+        /// 实际的添加Item操作
+        /// </summary>
+        private void AddItemBase(object tempKey, object tempValue)
+        {
+            var itemCount = 1;
+            var previousCount = GetItemsCount();
+
+            var kvType = typeof(SDictionary<,>.KV).MakeGenericType(_key, _value);
+            var kv = Activator.CreateInstance(kvType);
+            var keyFiled = kvType.GetField("key");
+            var valueFiled = kvType.GetField("value");
+            
+            keyFiled.SetValue(kv,tempKey);
+            valueFiled.SetValue(kv,tempValue);
+            
+            var index = serializedObjectList.ArrayProperty.arraySize;
+            var type = _fieldInfo.FieldType;
+            var cacheField = type.GetField("_cache", BindingFlags.Instance | BindingFlags.NonPublic);
+            var currentValue = cacheField.GetValue(_obj) as Array;
+            var newArray = Array.CreateInstance(cacheField.FieldType.GetElementType(), currentValue.Length + 1);
+            Array.Copy(currentValue, newArray, currentValue.Length);
+            newArray.SetValue(kv,index);
+            cacheField.SetValue(_obj, newArray);
+            ((ISerializationCallbackReceiver)_obj).OnAfterDeserialize();
+
+            EditorUtility.SetDirty(serializedObjectList.ArrayProperty.serializedObject.targetObject);
+            serializedObjectList.ArrayProperty.serializedObject.ApplyModifiedProperties();
+
+            var indices = ListPool<int>.Get();
+            try
+            {
+                for (var i = 0; i < itemCount; i++)
+                {
+                    indices.Add(previousCount + i);
+                }
+
+                RaiseItemsAdded(indices);
+            }
+            finally
+            {
+                ListPool<int>.Release(indices);
+            }
+
+            RaiseOnSizeChanged();
         }
         
         private class TempDicAddValuePanel : ZLCPopupWindowContent
         {
             private Type _key;
             private Type _value;
+            private SDictionartController _controller;
             
-            public TempDicAddValuePanel(Type key, Type value)
+            public TempDicAddValuePanel(Type key, Type value, SDictionartController controller)
             {
                 this._key = key;
                 this._value = value;
+                this._controller = controller;
             }
             
             public override VisualElement CreateUI()
@@ -133,21 +161,31 @@ namespace ZLCEditor.Inspector
 
                 var tempKey = Activator.CreateInstance(_key);
                 var tempValue = Activator.CreateInstance(_value);
-                root.Add(ZLCDrawerHelper.CreateDrawer(tempKey));
-                root.Add(ZLCDrawerHelper.CreateDrawer(tempValue));
+                var keyVE = ZLCDrawerHelper.CreateDrawer(tempKey, out var keySO);
+                var valueVE = ZLCDrawerHelper.CreateDrawer(tempValue, out var valueSO);
+                
+                root.Add(keyVE);
+                root.Add(valueVE);
                 var btn = new Button();
                 btn.text = "添加";
                 root.Add(btn);
+                btn.RegisterCallback<ClickEvent>(e =>
+                {
+                    if (CheckAddItem()) {
+                        _controller.AddItemBase(ZLCTempManager.GetTempValue(keySO.targetObject), ZLCTempManager.GetTempValue(valueSO.targetObject));;
+                    }
+                    ((ZLCPopupWindow)editorWindow).Close();
+                });
                 
                 return root;
             }
+
+
+            private bool CheckAddItem()
+            {
+                return true;
+            }
         }
         
-        private VisualElement CreateAddItemPanel()
-        {
-            
-            
-            return null;
-        }
     }
 }

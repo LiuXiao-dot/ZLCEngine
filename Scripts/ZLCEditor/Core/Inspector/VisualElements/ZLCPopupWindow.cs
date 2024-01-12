@@ -97,7 +97,7 @@ namespace ZLCEditor.Inspector.VisualElements
             ShowAsDropDown(_activatorRect, _windowContent.GetWindowSize(), locationPriorityOrder);
         }
         
-        void CloseWindow()
+        protected void CloseWindow()
         {
             Close();
         }
