@@ -8,7 +8,7 @@ namespace ZLCEngine.EventSystem.MessageQueue
     ///     需要根据MQ生成具体的事件的枚举类代码
     /// </summary>
     [Tool("消息队列/配置")]
-    [FilePath(FilePathAttribute.PathType.XWEditor, true)]
+    [FilePath(FilePathAttribute.PathType.XW, true)]
     public class MQConfigSO : SOSingleton<MQConfigSO>
     {
         public const int SceneMessageID = 1;

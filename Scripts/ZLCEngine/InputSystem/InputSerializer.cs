@@ -14,6 +14,7 @@ namespace ZLCEngine.InputSystem
 
         public void Dispose() 
         {
+            if(actions == null) return;
             var rebinds = actions.SaveBindingOverridesAsJson();
             PlayerPrefs.SetString("rebinds", rebinds);
         }

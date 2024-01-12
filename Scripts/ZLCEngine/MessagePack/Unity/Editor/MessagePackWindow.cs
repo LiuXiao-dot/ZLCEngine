@@ -13,20 +13,19 @@ namespace MessagePack.Unity.Editor
 {
     [Tool("存档/配置")]
     [FilePath(FilePathAttribute.PathType.XWEditor, true)]
+    [Serializable]
     internal class MessagePackWindow : SOSingleton<MessagePackWindow>
     {
         static MessagePackWindow window;
 
-        public bool processInitialized;
+        [SerializeField]public bool processInitialized;
+        [SerializeField]public bool isDotnetInstalled;
+        [SerializeField]public string dotnetVersion;
+        [SerializeField]public bool isInstalledMpc;
+        [SerializeField]public bool installingMpc;
+        [SerializeField]public bool invokingMpc;
 
-        public bool isDotnetInstalled;
-        public string dotnetVersion;
-
-        public bool isInstalledMpc;
-        public bool installingMpc;
-        public bool invokingMpc;
-
-        public MpcArgument mpcArgument;
+        [SerializeField]public MpcArgument mpcArgument;
 
         protected override async void OnEnable()
         {
@@ -54,13 +53,13 @@ namespace MessagePack.Unity.Editor
     [Serializable]
     internal class MpcArgument
     {
-        public string Input;
-        public string Output;
-        public string ConditionalSymbol;
-        public string ResolverName;
-        public string Namespace;
-        public bool UseMapMode;
-        public string MultipleIfDirectiveOutputSymbols;
+        [SerializeField]public string Input;
+        [SerializeField]public string Output;
+        [SerializeField]public string ConditionalSymbol;
+        [SerializeField]public string ResolverName;
+        [SerializeField]public string Namespace;
+        [SerializeField]public bool UseMapMode;
+        [SerializeField]public string MultipleIfDirectiveOutputSymbols;
 
         static string Key => "MessagePackCodeGen." + Application.productName;
 

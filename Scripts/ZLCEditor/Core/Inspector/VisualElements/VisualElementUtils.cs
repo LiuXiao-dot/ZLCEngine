@@ -7,7 +7,7 @@ namespace ZLCEditor.Inspector.VisualElements
     {
         private static readonly HashSet<string> s_usedNames = new HashSet<string>();
         private static readonly Type s_FoldoutType = typeof(Foldout);
-        private static readonly string s_InspectorElementUssClassName = "unity-inspector-element";
+        //private static readonly string s_InspectorElementUssClassName = "unity-inspector-element";
 
 
         internal static int GetFoldoutDepth(this VisualElement element)

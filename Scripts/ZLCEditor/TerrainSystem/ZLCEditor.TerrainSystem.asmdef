@@ -1,0 +1,16 @@
+{
+    "name": "ZLCEditor.TerrainSystem",
+    "rootNamespace": "ZLCEditor.TerrainSystem",
+    "references": ["GUID:e11e499ca5e04f8458a6ca32fbb045af","GUID:9175e4e93df812a43924d5a239c74714","GUID:af1babb7ce6c43c489573e67c70069be","ZLCEditor.Core"],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

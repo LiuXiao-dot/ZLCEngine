@@ -27,7 +27,7 @@ namespace ZLCEngine.Utils
 
             Directory.CreateDirectory(url);
 #if ZLC_DEBUG
-        Debug.Log($"创建文件夹:{url}");
+            UnityEngine.Debug.Log($"创建文件夹:{url}");
 #endif
         }
 
@@ -51,7 +51,7 @@ namespace ZLCEngine.Utils
         {
             if (!Directory.Exists(url)) {
             #if ZLC_DEBUG
-            Debug.LogError($"待删除路径{url}不存在");
+            UnityEngine.Debug.LogError($"待删除路径{url}不存在");
             #endif
                 return;
             }

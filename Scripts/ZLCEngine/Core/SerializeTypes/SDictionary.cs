@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using ZLCEngine.Extensions;
 namespace ZLCEngine.SerializeTypes
@@ -45,7 +46,11 @@ namespace ZLCEngine.SerializeTypes
             if (_cache.IsEmptyOrNull()) return;
             int count = _cache.Length;
             for (int i = 0; i < count; i++) {
-                Add(_cache[i].key, _cache[i].value);
+                if (this.ContainsKey(_cache[i].key)) {
+                    Add(default, _cache[i].value);
+                } else {
+                    Add(_cache[i].key, _cache[i].value);
+                }
             }
             _cache = null;
         }

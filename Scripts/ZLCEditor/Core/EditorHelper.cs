@@ -2,10 +2,15 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using UnityEditor;
 using UnityEditor.Search;
 using UnityEngine;
+using UnityEngine.UIElements;
+using ZLCEditor.Inspector;
+using ZLCEditor.Inspector.VisualElements;
 using ZLCEditor.Utils;
+using ZLCEngine.Inspector;
 using ZLCEngine.Utils;
 using Object = UnityEngine.Object;
 using SearchUtils = UnityEditor.Search.SearchUtils;
@@ -290,6 +295,11 @@ namespace ZLCEditor
                 }
             };
             EnumHelper.ForEachFlag(filterType, getAllInrtfaces);
+        }
+
+        public static IEnumerable<MemberInfo> SortByMetadataTokenOrder(Type type)
+        {
+            return type.GetMembers(BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic).OrderBy(m => m.MetadataToken);
         }
     }
 }

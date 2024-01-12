@@ -3,5 +3,6 @@
         <ui:Label tabindex="-1" text="Label" display-tooltip-when-elided="true" />
         <ui:Button text="Button" display-tooltip-when-elided="true" />
     </ui:GroupBox>
-    <ui:DropdownField label="dad" index="-1" choices="System.Collections.Generic.List`1[System.String]" />
+    <ui:DropdownField label="dad" index="-1" choices="System.Collections.Generic.List`1[System.String]" style="background-image: none;" />
+    <ui:VisualElement style="flex-grow: 1; background-image: url(&apos;project://database/Packages/com.zlc.zlcengine/Assets/svgs/board_circle.svg?fileID=7388822144124034973&amp;guid=285f97a6a4958cd489ceba9a49613f9e&amp;type=3#board_circle&apos;); -unity-background-image-tint-color: rgb(226, 226, 226);" />
 </ui:UXML>

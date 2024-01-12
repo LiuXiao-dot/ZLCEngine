@@ -84,11 +84,14 @@ SplitterView{
     flex-direction: row;
 }
 .zlc-vertical{
-    flex: 1 0 0;
+    flex: 1 0 auto;
     flex-direction: column;
 }
 .zlc-flex{
     flex: 1 0 0;
+}
+.zlc-flex-height{
+    flex:1 0 auto;
 }
 .zlc-group-box{
     background-color: dimgray;
@@ -102,3 +105,21 @@ SplitterView{
 .zlc-list-view{
     
 }
+
+/* TextField */
+.zlc-text-field-label {
+    /*TextField.labelElement*/
+    flex: 0 1 0;
+}
+
+/* Sprite */
+.zlc-sprite {
+}
+
+/* Button */
+.zlc-button-icon{
+    width: 16px;
+    height: 16px;
+}
+
+/* IntegerField */

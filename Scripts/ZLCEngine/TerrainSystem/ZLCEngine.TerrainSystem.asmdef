@@ -1,0 +1,14 @@
+{
+    "name": "ZLCEngine.TerrainSystem",
+    "rootNamespace": "ZLCEngine.TerrainSystem",
+    "references": ["GUID:9175e4e93df812a43924d5a239c74714","ZLCEngine.Core"],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

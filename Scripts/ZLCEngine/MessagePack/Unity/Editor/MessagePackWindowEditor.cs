@@ -92,7 +92,7 @@ namespace MessagePack.Unity.Editor
             generateBtn.text = "生成";
             async void Callback(ClickEvent e)
             {
-                var commnadLineArguments = mpcArgument.ToString();
+                var commnadLineArguments = mpcArgument.boxedValue.ToString();
                 UnityEngine.Debug.Log("Generate MessagePack Files, command:" + commnadLineArguments);
 
                 invokingMpc.boolValue = true;

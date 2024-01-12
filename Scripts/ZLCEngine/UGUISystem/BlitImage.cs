@@ -26,8 +26,8 @@ namespace ZLCEngine.UGUISystem
         public override void SetMaterialDirty()
         {
             base.SetMaterialDirty();
-            SetSpriteAtlasUV(sprite, material, "Main");
             RefreshBlitTexture();
+            SetSpriteAtlasUV(sprite, material, "Main");
         }
 
         public void RefreshBlitTexture()
@@ -79,6 +79,7 @@ namespace ZLCEngine.UGUISystem
             }
         }
 
+        #endif
         private static void SetSpriteAtlasUV(Sprite sprite, Material material, string name)
         {
             Vector4 UVRect = UnityEngine.Sprites.DataUtility.GetOuterUV(sprite);
@@ -89,7 +90,6 @@ namespace ZLCEngine.UGUISystem
             material.SetVector($"_{name}UVRect", UVRect);
             material.SetVector($"_{name}UVScale", new Vector4(scaleX, scaleY, 0, 0));
         }
-        #endif
     }
 
 }

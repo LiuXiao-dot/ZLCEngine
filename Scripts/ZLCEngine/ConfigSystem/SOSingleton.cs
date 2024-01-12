@@ -20,6 +20,7 @@ namespace ZLCEngine.ConfigSystem
         {
             get {
                 if (_instance != null) return _instance;
+                isPlaying = Application.isPlaying;
                 if (isPlaying) {
                     // 运行中，使用加载器加载资源
                     IAppLauncher.Get<IResLoader>().LoadAssetSync($"{typeof(T).Name}.asset", out _instance);

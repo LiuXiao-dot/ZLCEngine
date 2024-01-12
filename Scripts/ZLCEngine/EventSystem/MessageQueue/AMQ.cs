@@ -2,6 +2,9 @@ using System;
 using System.Collections.Generic;
 using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
+using ZLCEngine.Interfaces;
+using ZLCGenerate.Window.Models;
+using Object = System.Object;
 namespace ZLCEngine.EventSystem.MessageQueue
 {
 
@@ -119,6 +122,10 @@ namespace ZLCEngine.EventSystem.MessageQueue
             }
             catch (Exception e) {
                 Debug.LogError(e);
+                IAppLauncher.Get<IWindowManager>().Open(300100, new TipWindowModel()
+                {
+                    value = e.StackTrace
+                });
             }
         }
 #if ZLC_DEBUG
@@ -137,6 +144,12 @@ namespace ZLCEngine.EventSystem.MessageQueue
             taskCount--;
             if (taskCount != 0) return;
             eventCount--;
+            if (eventCount < 0) {
+                IAppLauncher.Get<IWindowManager>().Open(300100, new TipWindowModel()
+                {
+                    value = $"MQ:{id}的eventCount={eventCount} {currentEvent.ToString()}"
+                });
+            }
 #if ZLC_DEBUG
         currentEventName = _empty;
 #endif

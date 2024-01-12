@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using ZLCEngine.CacheSystem;
 using ZLCEngine.Interfaces;
 using Object = UnityEngine.Object;
 namespace ZLCEngine.EventSystem.MessageQueue
@@ -104,7 +105,17 @@ namespace ZLCEngine.EventSystem.MessageQueue
                 Instance._mqs[id].SendEvent(Convert.ToInt32(operate), args);
             }
         }
-        
+
+        public static void SendEvent<T>(int id, T operate, int args) where T : Enum
+        {
+            SendEvent<T>(id, operate, (IntCache)args);
+        }
+
+        public static void SendEvent<T>(int id, T operate, float args) where T : Enum
+        {
+            SendEvent<T>(id, operate, (FloatCache)args);
+        }
+
         public static void SendEvent(int id, int operate, object args)
         {
             if (Check(id)) {

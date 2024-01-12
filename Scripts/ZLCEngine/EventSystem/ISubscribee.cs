@@ -26,7 +26,7 @@ namespace ZLCEngine.EventSystem
         /// <summary>
         /// 事件执行完毕后调用
         /// </summary>
-        public Action<Event> callback;
+        private Action<Event> callback;
 
         /// <summary>
         ///     事件基类的构造函数
@@ -46,6 +46,11 @@ namespace ZLCEngine.EventSystem
         public void Callback()
         {
             this.callback.Invoke(this);
+        }
+
+        public override string ToString()
+        {
+            return $"sender:{sender.ToString()} operate:{operate} data:{data.ToString()}";
         }
     }
 

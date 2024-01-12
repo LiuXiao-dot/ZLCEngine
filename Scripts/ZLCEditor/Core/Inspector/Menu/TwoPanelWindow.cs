@@ -50,14 +50,7 @@ namespace ZLCEditor.Inspector.Menu
             //if (obj == null || ((ZLCMenuItem)obj).target is not Object) return;
             if (obj == null) return;
             object target = ((ZLCMenuItem)obj).target;
-            if (target is Object targetObj) {
-                currentContent = new InspectorElement(targetObj);
-            } else {
-                ZLCObject instance = CreateInstance<ZLCObject>();
-                instance.t = target;
-                currentContent = new InspectorElement(instance);
-            }
-
+            currentContent = ZLCDrawerHelper.CreateEditorGUI(target);
             rightView.Add(currentContent);
         }
 

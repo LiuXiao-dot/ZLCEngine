@@ -62,6 +62,14 @@ namespace ZLCEngine.WindowSystem
         }
 
         /// <summary>
+        /// 关闭窗口
+        /// </summary>
+        protected void CloseSelf()
+        {
+            ((WindowManager)IAppLauncher.Get<IWindowManager>()).Close(_instanceID);
+        }
+
+        /// <summary>
         /// 同一类窗口id相同
         /// </summary>
         /// <returns></returns>

@@ -8,13 +8,13 @@ namespace ZLCEngine.EventSystem.MessageQueue
         public override void SendEvent(int operate, object args)
         {
             base.SendEvent(operate, args);
-            enabled = true;
+            //enabled = true;
         }
 
         private void Update()
         {
             if ((eventCount | taskCount) == 0) {
-                enabled = false;
+                //enabled = false;
                 return;
             }
             Act();

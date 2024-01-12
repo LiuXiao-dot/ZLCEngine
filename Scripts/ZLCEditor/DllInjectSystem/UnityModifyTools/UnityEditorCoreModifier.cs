@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using Mono.Cecil;
 using Mono.Collections.Generic;
@@ -8,6 +9,7 @@ using ZLCEngine.Inspector;
 namespace ZLCEditor.DllInjectSystem.UnityModifyTools
 {
     [Tool("Unity修改器/UnityEditor.CoreModule")]
+    [Serializable]
     public class UnityEditorCoreModifier
     {
         private const string source = "C:\\Users\\安然\\Desktop\\UnityDllModify\\UnityEditor.CoreModule.dll"; // 源地址

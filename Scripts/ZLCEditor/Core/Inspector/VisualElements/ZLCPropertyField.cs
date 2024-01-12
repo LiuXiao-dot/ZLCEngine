@@ -51,7 +51,18 @@ namespace ZLCEditor.Inspector.VisualElements
         /// BoxGroup这种包含很多个元素的元素
         /// </summary>
         private VisualElement _childContainer;
-        
+
+        public override VisualElement CreateOrUpdateFieldFromProperty(SerializedProperty property, object originalField = null)
+        {
+            var ve = base.CreateOrUpdateFieldFromProperty(property, originalField);
+            switch (ve) {
+                case TextField tf:
+                    tf.labelElement.AddToClassList("zlc-text-field-label");
+                    break;
+            }
+            return ve;
+        }
+
         [EventInterest(new System.Type[] {typeof (SerializedPropertyBindEvent)})]
         protected override void ExecuteDefaultActionAtTarget(EventBase evt)
         {

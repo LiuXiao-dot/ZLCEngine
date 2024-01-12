@@ -1,24 +1,24 @@
 {
-  "name": "ZLCEditor.EventSystem",
-  "rootNamespace": "ZLCEditor.EventSystem",
-  "references": [
-    "GUID:6214f42df9be57c49b5239ae1aefa16c",
-    "GUID:9175e4e93df812a43924d5a239c74714",
-    "GUID:b45dd64f9df5f784e80c8ba651d4c645",
-    "GUID:2f3f2339cda4b0046a1470e4ee66988a",
-    "GUID:af1babb7ce6c43c489573e67c70069be",
-    "GUID:ccff9b0473c7209449b178e918baaeaa",
-    "GUID:7577bb57da55d0b42b9d63c69f10a83b"
-  ],
-  "includePlatforms": [
-    "Editor"
-  ],
-  "excludePlatforms": [],
-  "allowUnsafeCode": false,
-  "overrideReferences": false,
-  "precompiledReferences": [],
-  "autoReferenced": true,
-  "defineConstraints": [],
-  "versionDefines": [],
-  "noEngineReferences": false
+    "name": "ZLCEditor.EventSystem",
+    "rootNamespace": "ZLCEditor.EventSystem",
+    "references": [
+        "GUID:6214f42df9be57c49b5239ae1aefa16c",
+        "GUID:9175e4e93df812a43924d5a239c74714",
+        "GUID:b45dd64f9df5f784e80c8ba651d4c645",
+        "GUID:2f3f2339cda4b0046a1470e4ee66988a",
+        "GUID:af1babb7ce6c43c489573e67c70069be",
+        "GUID:ccff9b0473c7209449b178e918baaeaa",
+        "GUID:7577bb57da55d0b42b9d63c69f10a83b"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }

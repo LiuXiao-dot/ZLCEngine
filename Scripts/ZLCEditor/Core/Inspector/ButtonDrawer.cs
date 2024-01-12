@@ -23,7 +23,7 @@ namespace ZLCEditor.Inspector
                     Foldout foldoutUI = new Foldout();
                     VisualElement[] parameterUis = new VisualElement[parameters.Length];
                     for (int i = 0; i < parameters.Length; i++) {
-                        parameterUis[i] = PropertyFieldWrap.CreateFieldFromType(parameters[i].ParameterType);
+                        parameterUis[i] = ZLCDrawerHelper.CreateDrawer(Activator.CreateInstance(parameters[i].ParameterType));
                         foldoutUI.Add(parameterUis[i]);
                     }
 

@@ -1,8 +1,15 @@
 {
     "name": "ZLCEditor.UGUISystem",
     "rootNamespace": "ZLCEditor.UGUISystem",
-    "references": ["GUID:3ba2843505751eb41844ed0167e6ba6c"],
-    "includePlatforms": [],
+    "references": [
+        "GUID:3ba2843505751eb41844ed0167e6ba6c",
+        "GUID:9175e4e93df812a43924d5a239c74714",
+        "GUID:af1babb7ce6c43c489573e67c70069be",
+        "GUID:ccff9b0473c7209449b178e918baaeaa"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,

@@ -11,7 +11,7 @@ using FilePathAttribute = ZLCEngine.ConfigSystem.FilePathAttribute;
 namespace ZLCEditor
 {
     [Tool("配置/程序集")]
-    [ZLCEngine.ConfigSystem.FilePath(FilePathAttribute.PathType.XWEditor, true)]
+    [FilePath(FilePathAttribute.PathType.XWEditor, true)]
     public sealed class AssemblysConfigSO : SOSingleton<AssemblysConfigSO>
     {
         [BoxGroup("ZLC框架提供的程序集")]
@@ -118,6 +118,7 @@ namespace ZLCEditor
             });
             IListHelper.RemoveNulls(otherAssemblies);
             IListHelper.RemoveNulls(otherDlls);
+            EditorUtility.SetDirty(this);
         }
     }
 }
