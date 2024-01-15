@@ -75,7 +75,6 @@ namespace ZLCEditor.Inspector
 
     internal class SDictionartController : EditorListViewController
     {
-        protected ListView listView => view as ListView;
         private Type _key;
         private Type _value;
         private FieldInfo _fieldInfo;// SDictionary

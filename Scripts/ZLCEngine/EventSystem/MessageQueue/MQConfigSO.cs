@@ -1,6 +1,8 @@
+using UnityEditor;
 using UnityEngine;
 using ZLCEngine.ConfigSystem;
 using ZLCEngine.Inspector;
+using FilePathAttribute = ZLCEngine.ConfigSystem.FilePathAttribute;
 namespace ZLCEngine.EventSystem.MessageQueue
 {
     /// <summary>
@@ -8,7 +10,7 @@ namespace ZLCEngine.EventSystem.MessageQueue
     ///     需要根据MQ生成具体的事件的枚举类代码
     /// </summary>
     [Tool("消息队列/配置")]
-    [FilePath(FilePathAttribute.PathType.XW, true)]
+    [ConfigSystem.FilePath(FilePathAttribute.PathType.XW, true)]
     public class MQConfigSO : SOSingleton<MQConfigSO>
     {
         public const int SceneMessageID = 1;
@@ -81,6 +83,7 @@ namespace ZLCEngine.EventSystem.MessageQueue
                     isInternal = true
                 }
             };
+            EditorUtility.SetDirty(this);
         }
         #endif
     }

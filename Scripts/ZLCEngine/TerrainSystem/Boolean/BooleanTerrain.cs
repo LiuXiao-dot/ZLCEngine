@@ -1,4 +1,3 @@
-#if UNITY_EDITOR
 using System;
 using UnityEngine;
 using ZLCEngine.Inspector;
@@ -28,4 +27,3 @@ namespace ZLCEngine.TerrainSystem.Boolean
         #endif
     }
 }
-#endif

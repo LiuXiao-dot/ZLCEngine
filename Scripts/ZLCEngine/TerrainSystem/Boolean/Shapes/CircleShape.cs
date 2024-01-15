@@ -21,7 +21,7 @@ namespace ZLCEngine.TerrainSystem.Boolean.Shapes
         /// </summary>
         public int segments;
 
-        public Mesh CreateMesh()
+        public override Mesh CreateMesh()
         {
             var centerCircle = Vector2.zero;
             //顶点

@@ -1,3 +1,4 @@
+using UnityEngine;
 namespace ZLCEngine.TerrainSystem.Boolean
 {
     /// <summary>
@@ -6,7 +7,7 @@ namespace ZLCEngine.TerrainSystem.Boolean
     /// </summary>
     public interface IShape
     {
-        
+        Mesh CreateMesh();
     }
 
     /// <summary>
@@ -18,5 +19,7 @@ namespace ZLCEngine.TerrainSystem.Boolean
         /// 层级，按照层级关系对形状进行混合
         /// </summary>
         public int layer;
+        
+        public abstract Mesh CreateMesh();
     }
 }

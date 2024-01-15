@@ -4,6 +4,7 @@ using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
 using ZLCEditor.Inspector;
+using ZLCEditor.Inspector.VisualElements;
 using ZLCEngine.ConfigSystem;
 using ZLCEngine.Inspector;
 using FilePathAttribute = ZLCEngine.ConfigSystem.FilePathAttribute;
@@ -101,18 +102,18 @@ namespace ZLCEditor.UGUISystem
     [CustomEditor(typeof(BlitImageCombiner))]
     public class BlitIamgeCombinerEditor : BaseZLCEditor
     {
-        public override VisualElement CreateInspectorGUI()
+        protected override VisualElement CreateGUI()
         {
             var root = new VisualElement();
             var source1 = serializedObject.FindProperty("source1");
             var source2 = serializedObject.FindProperty("source2");
             var result = serializedObject.FindProperty("result");
             var targetPath = serializedObject.FindProperty("targetPath");
-            root.Add(new PropertyField(targetPath));
+            root.Add(new ZLCPropertyField(targetPath));
             AddSprite(root,source1);
             AddSprite(root,source2);
             AddSprite(root,result);
-            root.Add(base.CreateInspectorGUI());
+            root.Add(base.CreateGUI());
             return root;
         }
 

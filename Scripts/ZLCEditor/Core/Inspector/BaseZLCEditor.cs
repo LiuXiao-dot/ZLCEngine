@@ -9,12 +9,21 @@ namespace ZLCEditor.Inspector
     [CanEditMultipleObjects]
     public class BaseZLCEditor : Editor
     {
-        public override VisualElement CreateInspectorGUI()
+        public override sealed VisualElement CreateInspectorGUI()
         {
-            if (GetType() != typeof(BaseZLCEditor)) return null;
-            var root = ZLCDrawerHelper.CreateEditorGUI(serializedObject);
+            var root = CreateGUI();
             root.styleSheets.Add(AssetDatabase.LoadAssetAtPath<StyleSheet>(Constant.ZLC_EDITOR_USS));
             // -- header end --
+            return root;
+        }
+
+        /// <summary>
+        /// 注意：不能继承CreateInspectorGUI
+        /// </summary>
+        /// <returns></returns>
+        protected virtual VisualElement CreateGUI()
+        {
+            var root = ZLCDrawerHelper.CreateEditorGUI(serializedObject);
             return root;
         }
 
